@@ -35,11 +35,6 @@ Encourages healthier eating habits, helps users achieve health goals, and reduce
 
 ---
 
-### Live Demo
-Demonstrate the user interface, input a sample meal, show AI-generated calorie tracking and dietary recommendations, and display progress tracking features.
-
----
-
 ### Potential Blockers
 1. **Data Accuracy:** Ensuring the calorie tracking and recommendations are accurate.
 2. **User Compliance:** Encouraging users to consistently log their meals and follow recommendations.
