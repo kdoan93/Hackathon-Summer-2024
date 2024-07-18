@@ -1,5 +1,7 @@
 # Hackathon-Summer-2024
 ## App Academy Hackathon for Summer 2024 "AI for Social Good"
+![sustain1](https://github.com/user-attachments/assets/07624be7-62dc-4374-aacb-6a1a785f4898)
+![sustain2](https://github.com/user-attachments/assets/8d0e4768-7ec7-4308-9083-3f6a75409f60)
 
 ### AI-Powered Calorie Tracker for Health
 **Manage Your Diet, Achieve Your Health Goals**
