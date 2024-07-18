@@ -35,18 +35,5 @@ Encourages healthier eating habits, helps users achieve health goals, and reduce
 
 ---
 
-### Potential Blockers
-1. **Data Accuracy:** Ensuring the calorie tracking and recommendations are accurate.
-2. **User Compliance:** Encouraging users to consistently log their meals and follow recommendations.
-3. **Integration with Other Apps:** Difficulty in integrating with other health and fitness apps for a comprehensive view.
-
----
-
-### Legal Concerns
-1. **Privacy Laws:** Compliance with data protection regulations regarding health information.
-2. **Liability:** Potential legal issues if users follow the dietary advice and experience negative health effects.
-
----
-
 ### Conclusion
 The AI-powered calorie tracker promotes healthier eating habits and helps users achieve their health goals by providing accurate calorie tracking and personalized dietary recommendations.
