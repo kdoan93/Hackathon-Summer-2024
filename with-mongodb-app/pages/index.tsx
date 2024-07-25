@@ -1,8 +1,9 @@
-import { GetServerSideProps } from 'next';
-import client from '../lib/mongodb';
+import { GetServerSideProps } from "next";
+import client from "../lib/mongodb";
+import "./global.css";
 
-const DB_NAME = 'sample_mflix';
-const COLLECTION_NAME = 'users';
+const DB_NAME = "sample_mflix";
+const COLLECTION_NAME = "users";
 
 export const getServerSideProps: GetServerSideProps = async () => {
   await client.connect();
@@ -18,7 +19,7 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
 const Home = ({ data }: { data: any[] }) => {
   return (
-    <div>
+    <div data-theme="night">
       <h1>Hello World</h1>
       <h2>Data from MongoDB Atlas</h2>
       <h3>Database name: {DB_NAME}</h3>
