@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { isNumberObject } from "util/types";
 
 const GeminiForm = () => {
   const [prompt, setPrompt] = useState("");
@@ -40,7 +41,7 @@ const GeminiForm = () => {
       </form>
       {response && (
         <div>
-          <h3>Calories found in {prompt}</h3>
+          {!isNaN(Number(response)) && <h3>Calories found in {prompt}</h3>}
           <p>{response}</p>
         </div>
       )}
