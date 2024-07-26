@@ -19,17 +19,19 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
 const Home = ({ data }: { data: any[] }) => {
   return (
-    <div data-theme="night">
-      <h1>Hello World</h1>
-      <h2>Data from MongoDB Atlas</h2>
-      <h3>Database name: {DB_NAME}</h3>
-      <h4>Collection name: {COLLECTION_NAME}</h4>
-      <ul>
-        {data.map((item) => (
-          <li key={item._id}>{item.name}</li>
-        ))}
-      </ul>
-    </div>
+    <main>
+      <div data-theme="corporate">
+        <h1>Hello World</h1>
+        <h2>Data from MongoDB Atlas</h2>
+        <h3>Database name: {DB_NAME}</h3>
+        <h4>Collection name: {COLLECTION_NAME}</h4>
+        <ul>
+          {data.map((item) => (
+            <li key={item._id}>{item.name}</li>
+          ))}
+        </ul>
+      </div>
+    </main>
   );
 };
 
