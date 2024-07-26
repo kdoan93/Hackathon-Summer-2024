@@ -1,6 +1,7 @@
 import Image from 'next/image'
 import Link from 'next/link'
 import ProductCard from './components/ProductCard'
+import FoodForm from "./components/FoodForm/FoodForm";
 
 export default function Home() {
   return (
@@ -9,6 +10,7 @@ export default function Home() {
       <h2>Nourish. Embrace. Overcome.</h2>
       <Link href="/users">Users</Link>
       <Link href="/gemini">Gemini Test</Link>
+
       <ProductCard />
     </main>
   );

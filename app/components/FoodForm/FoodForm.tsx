@@ -16,6 +16,7 @@ const FoodForm: React.FC<FoodFormProps> = ({ onSubmit }) => {
 
   return (
     <>
+      <h1>What did you eat? Please be as specific as possible</h1>
       <form onSubmit={handleSubmit} className="join">
         <input
           className="input input-bordered join-item"
@@ -23,7 +24,7 @@ const FoodForm: React.FC<FoodFormProps> = ({ onSubmit }) => {
           id="foodInput"
           value={food}
           onChange={(e) => setFood(e.target.value)}
-          placeholder="What did you eat? Please be as specific as possible"
+          placeholder="ex. One Honeycrisp Apple"
         />
         <button className="btn join-item rounded-r-full" type="submit">
           Submit
