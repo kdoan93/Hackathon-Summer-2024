@@ -39,20 +39,14 @@ const Home = () => {
   return (
     <div className="container">
       <Head>
-        <title>Next.js with Gemini API</title>
+        <title>Sustain | Nourish. Embrace. Overcome. </title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
       <main>
-        <h1 className="title">
-          Welcome to <a href="https://nextjs.org">Next.js with Gemini API!</a>
-        </h1>
-
+        <h1 className="title">Welcome to Sustain!</h1>
+        <p className="description">What did you eat? Please be as specific as possible.</p>
         <GeminiForm />
-
-        <p className="description">
-          Get started by entering a prompt and seeing the response from Gemini.
-        </p>
       </main>
 
       <footer>
@@ -61,8 +55,7 @@ const Home = () => {
           target="_blank"
           rel="noopener noreferrer"
         >
-          Powered by{' '}
-          <img src="/vercel.svg" alt="Vercel Logo" className="logo" />
+          Powered by <img src="/vercel.svg" alt="Vercel Logo" className="logo" />
         </a>
       </footer>
 
@@ -141,7 +134,8 @@ const Home = () => {
           border-radius: 5px;
           padding: 0.75rem;
           font-size: 1.1rem;
-          font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+          font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono,
+            Courier New, monospace;
         }
       `}</style>
     </div>
