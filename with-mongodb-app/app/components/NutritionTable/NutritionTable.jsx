@@ -1,5 +1,6 @@
 "use client";
 import React from "react";
+import "./NutritionTable.css";
 
 function NutritionTable() {
   // Define variables for each nutritional value
@@ -23,23 +24,25 @@ function NutritionTable() {
   ];
 
   return (
-    <div>
-      <table>
-        <thead>
-          <tr>
-            <th scope="col">Nutrient</th>
-            <th scope="col">Amount</th>
-          </tr>
-        </thead>
-        <tbody>
-          {data.map((item, index) => (
-            <tr key={index}>
-              <td>{item.label}</td>
-              <td>{item.value}</td>
+    <div className="table-main-cont">
+      <div className="table-cont">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col">Nutrient</th>
+              <th scope="col">Amount</th>
             </tr>
-          ))}
-        </tbody>
-      </table>
+          </thead>
+          <tbody>
+            {data.map((item, index) => (
+              <tr key={index}>
+                <td className="nutri-labels">{item.label}</td>
+                <td>{item.value}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

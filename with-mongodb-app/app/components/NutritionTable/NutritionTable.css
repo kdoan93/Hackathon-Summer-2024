@@ -1,0 +1,5 @@
+.table-main-cont {
+  display: flex;
+  gap: 20px;
+  justify-content: center;
+}
