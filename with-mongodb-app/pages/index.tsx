@@ -1,5 +1,7 @@
 import { GetServerSideProps } from "next";
 import client from "../lib/mongodb";
+import InputForm from "../app/components/InputForm/InputForm";
+import NutritionTable from "../app/components/NutritionTable/NutritionTable";
 import "./global.css";
 
 const DB_NAME = "sample_mflix";
@@ -19,19 +21,23 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
 const Home = ({ data }: { data: any[] }) => {
   return (
-    <main>
-      <div data-theme="corporate">
+    <div className="main-page">
+      <main>
+        <NutritionTable />
+        <InputForm />
+        {/* <div data-theme="corporate">
         <h1>Hello World</h1>
         <h2>Data from MongoDB Atlas</h2>
         <h3>Database name: {DB_NAME}</h3>
         <h4>Collection name: {COLLECTION_NAME}</h4>
         <ul>
-          {data.map((item) => (
-            <li key={item._id}>{item.name}</li>
+        {data.map((item) => (
+          <li key={item._id}>{item.name}</li>
           ))}
-        </ul>
-      </div>
-    </main>
+          </ul>
+          </div> */}
+      </main>
+    </div>
   );
 };
 

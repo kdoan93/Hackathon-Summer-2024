@@ -6,3 +6,7 @@ body {
   /* color: rgb(var(--foreground-rgb)); */
   padding: 2rem;
 }
+
+.main-page {
+  height: 100vh;
+}
