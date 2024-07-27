@@ -26,7 +26,8 @@ function NutritionTable() {
   return (
     <div className="table-main-cont">
       <div className="table-cont">
-        <table>
+        <h1 id="nutrition-heading">Nutrition Facts</h1>
+        <table className="nutrition-table">
           <thead>
             <tr>
               <th scope="col">Nutrient</th>

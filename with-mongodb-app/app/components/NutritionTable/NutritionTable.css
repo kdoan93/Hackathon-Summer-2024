@@ -3,3 +3,49 @@
   gap: 20px;
   justify-content: center;
 }
+
+.table-cont {
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  padding: 1.5em;
+  display: flex;
+  flex-direction: column;
+}
+
+.table-cont table {
+  gap: 100px;
+}
+
+.table-main-cont {
+  padding: 15px;
+}
+
+.nutrition-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.nutrition-table th,
+.nutrition-table td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: left;
+}
+
+.nutrition-table th {
+  background-color: #f8f8f8;
+  font-weight: bold;
+}
+
+.nutrition-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+#nutrition-heading {
+  align-self: center;
+  font-weight: bold;
+  padding: 10px;
+}
+
+/* .redBox {
+  background-color: red;
+} */

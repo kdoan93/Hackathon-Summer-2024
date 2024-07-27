@@ -14,7 +14,7 @@ const InputForm = () => {
             width="1.5em"
             height="1.5em"
             viewBox="0 0 24 24"
-            className="end"
+            className="end mr-4"
           >
             <path
               fill="currentColor"
@@ -23,7 +23,11 @@ const InputForm = () => {
           </svg>
         </div>
         <label className="input input-bordered flex items-center gap-2">
-          <input type="text" className="grow" placeholder="Enter meal..." />
+          <input
+            type="text"
+            className="grow w-2/4"
+            placeholder="Enter meal..."
+          />
           <svg
             xmlns="http://www.w3.org/2000/svg"
             viewBox="0 0 16 16"
