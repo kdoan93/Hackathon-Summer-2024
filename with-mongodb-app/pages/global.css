@@ -1,0 +1,12 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+body {
+  /* color: rgb(var(--foreground-rgb)); */
+  padding: 2rem;
+}
+
+.main-page {
+  height: 100vh;
+}
