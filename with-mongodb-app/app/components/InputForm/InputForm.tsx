@@ -1,7 +1,23 @@
 "use client";
-import React from "react";
+import React, { useState } from "react";
 
 const InputForm = () => {
+  const [prompt, setPrompt] = useState("");
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const response = await fetch("/api/gemini", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ prompt }),
+    });
+
+    const data = await response.json();
+    console.log(data);
+  };
   return (
     <div>
       <div>
@@ -27,6 +43,8 @@ const InputForm = () => {
             type="text"
             className="grow w-2/4"
             placeholder="Enter meal..."
+            value={prompt}
+            onChange={(e) => setPrompt(e.target.value)}
           />
           <svg
             xmlns="http://www.w3.org/2000/svg"
