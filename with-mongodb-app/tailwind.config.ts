@@ -13,6 +13,14 @@ const config: Config = {
         "gradient-conic":
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
+      colors: {
+        // Define custom colors here
+        "logo-orange": "#EB836B",
+        "comp-black": "#040404",
+        "light-brown": "#7B4434",
+        "comp-mauve": "#6C5C55",
+        "dark-brown": "#743C2C",
+      },
     },
   },
   plugins: [require("daisyui")],

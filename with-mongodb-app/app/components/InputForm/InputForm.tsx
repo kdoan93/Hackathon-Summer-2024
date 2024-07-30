@@ -1,8 +1,9 @@
 "use client";
 import React, { useState } from "react";
-import NutritionTable from "../NutritionTable/NutritionTable";
+import Badge from "../Badge/Badge";
 
-const InputForm = () => {
+const InputForm: React.FC = () => {
+  // const InputForm = () => {
   const [prompt, setPrompt] = useState("");
   const [response, setResponse] = useState("");
 
@@ -11,9 +12,8 @@ const InputForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     // console.log("trainer: ", trainer);
-
+    console.log("response", response, "I am prompt", prompt);
     try {
       const response = await fetch("/api/gemini", {
         method: "POST",
@@ -31,7 +31,7 @@ const InputForm = () => {
 
   return (
     <div>
-      <NutritionTable response={response} />
+      <Badge response={response} prompt={prompt} />
       <div>
         {/* Tooltip */}
         <div

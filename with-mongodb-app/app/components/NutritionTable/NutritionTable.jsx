@@ -3,7 +3,7 @@ import React from "react";
 import "./NutritionTable.css";
 
 // TODO: Convert to TS
-function NutritionTable(response) {
+function NutritionTable(response, prompt) {
   // Define variables for each nutritional value
   const servingSize = "1 cup (240ml)";
   const calories = 200;
@@ -28,7 +28,7 @@ function NutritionTable(response) {
   return (
     <div className="table-main-cont">
       <div className="table-cont">
-        <h1 id="nutrition-heading">Nutrition Facts</h1>
+        <h1 id="nutrition-heading">Calories</h1>
         <table className="nutrition-table">
           <thead>
             <tr>
