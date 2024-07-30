@@ -3,27 +3,38 @@ import React, { useState } from "react";
 
 const InputForm = () => {
   const [prompt, setPrompt] = useState("");
+  const [response, setResponse] = useState("");
 
-  const handleSubmit = async (e) => {
+  // TODO: What exactly is the purpose of this trainer string?
+  const trainer = `Your only purpose is to respond with a value representing the amount of calories from given prompt. If the prompt is too vague to calculate a good response then respond with 'Not enough information given to give a good calculation.' Do not answer any other questions or prompts.  Here is the prompt: ${prompt}`;
+
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    const response = await fetch("/api/gemini", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ prompt }),
-    });
+    // console.log("trainer: ", trainer);
 
-    const data = await response.json();
-    console.log(data);
+    try {
+      const response = await fetch("/api/gemini", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ trainer }),
+      });
+      const data = await response.json();
+      setResponse(data.result); // Adjust based on actual response structure
+    } catch (error) {
+      console.error("Error calling Gemini API", error);
+    }
   };
+
   return (
     <div>
       <div>
+        {/* Tooltip */}
         <div
           className="tooltip flex justify-end mb-3"
-          data-tip="Enter or speak meal to get nutrition facts"
+          data-tip="Type in your meal or use the voice-to-text feature to get nutrition facts!"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -38,26 +49,37 @@ const InputForm = () => {
             />
           </svg>
         </div>
+
+        {/* Input Form */}
         <label className="input input-bordered flex items-center gap-2">
-          <input
-            type="text"
-            className="grow w-2/4"
-            placeholder="Enter meal..."
-            value={prompt}
-            onChange={(e) => setPrompt(e.target.value)}
-          />
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 16 16"
-            fill="currentColor"
-            className="h-4 w-4 opacity-80"
-          >
-            <path
-              fillRule="evenodd"
-              d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-              clipRule="evenodd"
+          <form onSubmit={handleSubmit}>
+            <input
+              className="grow w-2/4"
+              type="text"
+              value={prompt}
+              onChange={(e) => setPrompt(e.target.value)}
+              placeholder="Enter your meal..."
             />
-          </svg>
+            {/* <button type="submit">Submit</button> */}
+          </form>
+
+          {/* Magnifying glass icon  */}
+          <button type="submit">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 16 16"
+              fill="currentColor"
+              className="h-4 w-4 opacity-80"
+            >
+              <path
+                fillRule="evenodd"
+                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                clipRule="evenodd"
+              />
+            </svg>
+          </button>
+
+          {/* Microphone icon */}
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="1em"
@@ -71,6 +93,15 @@ const InputForm = () => {
             />
           </svg>
         </label>
+
+        {/* Gemini API Response */}
+        {response && (
+          <div>
+            {!isNaN(Number(response)) && (
+              <h3>Calories found in {prompt}: {response}</h3>
+            )}
+          </div>
+        )}
       </div>
     </div>
   );
