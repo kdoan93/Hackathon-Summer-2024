@@ -36,7 +36,7 @@ const Home = () => {
         {/* Main content */}
         <main>
           <h1 className="title">Welcome to Sustain!</h1>
-          <NutritionTable />
+          {/* <NutritionTable /> */}
           <p className="description">
             Enter your meal and get nutrition facts!
           </p>
