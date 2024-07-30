@@ -2,6 +2,7 @@
 import React from "react";
 import "./NutritionTable.css";
 
+// TODO: Convert to TS
 function NutritionTable() {
   // Define variables for each nutritional value
   const servingSize = "1 cup (240ml)";
