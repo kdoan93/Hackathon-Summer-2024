@@ -7,9 +7,6 @@ interface BadgeProps {
 }
 // This component renders the calories and prompt  or an error tag if info is not good
 const Badge: React.FC<BadgeProps> = ({ response, prompt }) => {
-  console.log("res", response);
-  const isError =
-    response === "Not enough information given to give a good calculation.";
   return (
     <div className="flex items-center justify-center">
       {/* {This renders the prompt and response if response is not requesting more data} */}
