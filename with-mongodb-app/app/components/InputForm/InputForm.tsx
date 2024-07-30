@@ -36,7 +36,7 @@ const InputForm = () => {
         {/* Tooltip */}
         <div
           className="tooltip flex justify-end mb-1.5"
-          data-tip="Type in your meal or use the voice-to-text feature to get calorie count!"
+          data-tip="Type in your meal or use the voice-to-text feature to get a calorie count! Remember, the more specific you are, the better the count. Please provide serving size, ingredients, and preparation method (e.g., fried or boiled)!"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
