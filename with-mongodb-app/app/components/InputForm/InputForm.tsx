@@ -1,7 +1,9 @@
 "use client";
 import React, { useState } from "react";
+import Badge from "../Badge/Badge";
 
-const InputForm = () => {
+const InputForm: React.FC = () => {
+  // const InputForm = () => {
   const [prompt, setPrompt] = useState("");
   const [response, setResponse] = useState("");
 
@@ -10,9 +12,8 @@ const InputForm = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
     // console.log("trainer: ", trainer);
-
+    console.log("response", response, "I am prompt", prompt);
     try {
       const response = await fetch("/api/gemini", {
         method: "POST",
@@ -30,18 +31,19 @@ const InputForm = () => {
 
   return (
     <div>
+      <Badge response={response} prompt={prompt} />
       <div>
         {/* Tooltip */}
         <div
-          className="tooltip flex justify-end mb-3"
-          data-tip="Type in your meal or use the voice-to-text feature to get nutrition facts!"
+          className="tooltip flex justify-end mb-1.5"
+          data-tip="Type in your meal or use the voice-to-text feature to get a calorie count! Remember, the more specific you are, the better the count. Please provide serving size, ingredients, and preparation method (e.g., fried or boiled)!"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="1.5em"
-            height="1.5em"
+            width="1.3em"
+            height="1.3em"
             viewBox="0 0 24 24"
-            className="end mr-4"
+            className="end mr-3"
           >
             <path
               fill="currentColor"
@@ -51,10 +53,10 @@ const InputForm = () => {
         </div>
 
         {/* Input Form */}
-        <label className="input input-bordered flex items-center gap-2">
+        <label className="input input-bordered flex items-center justify-between gap-2">
           <form onSubmit={handleSubmit}>
             <input
-              className="grow w-2/4"
+              className="w-64"
               type="text"
               value={prompt}
               onChange={(e) => setPrompt(e.target.value)}
@@ -64,41 +66,45 @@ const InputForm = () => {
           </form>
 
           {/* Magnifying glass icon  */}
-          <button type="submit">
+          <div className="flex row">
+            <button type="submit">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                viewBox="0 0 16 16"
+                fill="currentColor"
+                className="h-4 w-4 opacity-80"
+              >
+                <path
+                  fillRule="evenodd"
+                  d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
+                  clipRule="evenodd"
+                />
+              </svg>
+            </button>
+
+            {/* Microphone icon */}
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 16 16"
-              fill="currentColor"
-              className="h-4 w-4 opacity-80"
+              width="1em"
+              height="1em"
+              viewBox="0 0 24 24"
+              onClick={() => console.log("I Clicked")}
             >
               <path
-                fillRule="evenodd"
-                d="M9.965 11.026a5 5 0 1 1 1.06-1.06l2.755 2.754a.75.75 0 1 1-1.06 1.06l-2.755-2.754ZM10.5 7a3.5 3.5 0 1 1-7 0 3.5 3.5 0 0 1 7 0Z"
-                clipRule="evenodd"
+                fill="currentColor"
+                d="M12 2a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3a3 3 0 0 1-3-3V5a3 3 0 0 1 3-3m7 9c0 3.53-2.61 6.44-6 6.93V21h-2v-3.07c-3.39-.49-6-3.4-6-6.93h2a5 5 0 0 0 5 5a5 5 0 0 0 5-5z"
               />
             </svg>
-          </button>
-
-          {/* Microphone icon */}
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="1em"
-            height="1em"
-            viewBox="0 0 24 24"
-            onClick={() => console.log("I Clicked")}
-          >
-            <path
-              fill="currentColor"
-              d="M12 2a3 3 0 0 1 3 3v6a3 3 0 0 1-3 3a3 3 0 0 1-3-3V5a3 3 0 0 1 3-3m7 9c0 3.53-2.61 6.44-6 6.93V21h-2v-3.07c-3.39-.49-6-3.4-6-6.93h2a5 5 0 0 0 5 5a5 5 0 0 0 5-5z"
-            />
-          </svg>
+          </div>
         </label>
 
         {/* Gemini API Response */}
         {response && (
           <div>
             {!isNaN(Number(response)) && (
-              <h3>Calories found in {prompt}: {response}</h3>
+              <h3>
+                Calories found in {prompt}: {response}
+              </h3>
             )}
           </div>
         )}
