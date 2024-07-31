@@ -19,12 +19,14 @@ const Badge: React.FC<BadgeProps> = ({ response, prompt }) => {
             </div>
           </>
         ) : (
-          <div>
-            {/* {This renders the ErrorTag if api did not return calories} */}
+          response && (
             <div>
-              <ErrorTag />
+              {/* {This renders the ErrorTag if api did not return calories} */}
+              <div>
+                <ErrorTag />
+              </div>
             </div>
-          </div>
+          )
         )}
       </div>
     </div>
