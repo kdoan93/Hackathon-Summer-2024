@@ -4,12 +4,14 @@ import { GoogleGenerativeAI } from '@google/generative-ai';
 // Initialize the GoogleGenerativeAI client with the API key
 const genAI = new GoogleGenerativeAI(process.env.NEXT_PUBLIC_API_KEY as string);
 
+const geminiModel = "gemini-1.5-flash";
+
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === "POST") {
     const { trainer } = req.body;
 
     try {
-      const model = genAI.getGenerativeModel({ model: "gemini-1.5-flash" });
+      const model = genAI.getGenerativeModel({ model: geminiModel });
 
       const result = await model.generateContent(trainer);
       const responseText = result.response.text();
