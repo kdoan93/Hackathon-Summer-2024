@@ -2,6 +2,7 @@ import { GetServerSideProps } from "next";
 import Head from "next/head";
 import client from "../lib/mongodb";
 import InputForm from "../app/components/InputForm/InputForm";
+import NavBar from "../app/components/NavBar/NavBar";
 import "./global.css";
 
 // Constants for MongoDB
@@ -25,11 +26,12 @@ export const getServerSideProps: GetServerSideProps = async () => {
 const Home = () => {
   return (
     <div className="main-page">
+      <NavBar />
       <div className="container">
         {/* Metadata */}
         <Head>
           <title>Sustain | Nourish. Embrace. Overcome. </title>
-          <link rel="icon" href="/favicon.ico" />
+          <link rel="icon" href="/images/sustainlogo-peach.png" />
         </Head>
 
         {/* Main content */}

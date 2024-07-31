@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Badge from "../Badge/Badge";
+import "./InputForm.css";
 
 const InputForm: React.FC = () => {
   const [prompt, setPrompt] = useState("");
@@ -8,7 +9,8 @@ const InputForm: React.FC = () => {
 
   const trainer = `Your only purpose is to respond with a value representing the amount of calories from given prompt. If the prompt is too vague to calculate a good response then respond with 'Not enough information given to give a good calculation.' Do not answer any other questions or prompts.  Here is the prompt: ${prompt}`;
 
-  const dataToolTip = "Enter your meal or use voice-to-text for a calorie count! For accuracy, include serving size, ingredients, and preparation method (e.g., fried or boiled)."
+  const dataToolTip =
+    "Enter your meal or use voice-to-text for a calorie count! For accuracy, include serving size, ingredients, and preparation method (e.g., fried or boiled).";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -36,10 +38,7 @@ const InputForm: React.FC = () => {
     <div>
       <div>
         {/* Tooltip */}
-        <div
-          className="tooltip flex justify-end mb-1.5"
-          data-tip={dataToolTip}
-        >
+        <div className="tooltip flex justify-end mb-1.5" data-tip={dataToolTip}>
           <svg
             xmlns="http://www.w3.org/2000/svg"
             width="1.3em"
@@ -56,7 +55,7 @@ const InputForm: React.FC = () => {
 
         {/* Input Form */}
         <label className="input input-bordered flex items-center justify-between gap-2">
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit} className="input-form">
             <input
               className="w-64"
               type="text"
