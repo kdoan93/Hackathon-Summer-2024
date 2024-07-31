@@ -2,7 +2,6 @@ import { GetServerSideProps } from "next";
 import Head from "next/head";
 import client from "../lib/mongodb";
 import InputForm from "../app/components/InputForm/InputForm";
-import NutritionTable from "../app/components/NutritionTable/NutritionTable";
 import "./global.css";
 
 // Constants for MongoDB
@@ -36,7 +35,6 @@ const Home = () => {
         {/* Main content */}
         <main>
           <h1 className="title">Welcome to Sustain!</h1>
-          {/* <NutritionTable /> */}
           <p className="description">
             Enter your meal and get nutrition facts!
           </p>

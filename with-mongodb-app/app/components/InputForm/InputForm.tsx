@@ -3,17 +3,20 @@ import React, { useState } from "react";
 import Badge from "../Badge/Badge";
 
 const InputForm: React.FC = () => {
-  // const InputForm = () => {
   const [prompt, setPrompt] = useState("");
   const [response, setResponse] = useState("");
 
-  // TODO: What exactly is the purpose of this trainer string?
   const trainer = `Your only purpose is to respond with a value representing the amount of calories from given prompt. If the prompt is too vague to calculate a good response then respond with 'Not enough information given to give a good calculation.' Do not answer any other questions or prompts.  Here is the prompt: ${prompt}`;
+
+  const dataToolTip = "Enter your meal or use voice-to-text for a calorie count! For accuracy, include serving size, ingredients, and preparation method (e.g., fried or boiled)."
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // console.log("trainer: ", trainer);
+
+    // Log the trainer and prompt
+    console.log("trainer: ", trainer);
     console.log("response", response, "I am prompt", prompt);
+
     try {
       const response = await fetch("/api/gemini", {
         method: "POST",
@@ -23,7 +26,7 @@ const InputForm: React.FC = () => {
         body: JSON.stringify({ trainer }),
       });
       const data = await response.json();
-      setResponse(data.result); // Adjust based on actual response structure
+      setResponse(data.result);
     } catch (error) {
       console.error("Error calling Gemini API", error);
     }
@@ -31,12 +34,11 @@ const InputForm: React.FC = () => {
 
   return (
     <div>
-      <Badge response={response} prompt={prompt} />
       <div>
         {/* Tooltip */}
         <div
           className="tooltip flex justify-end mb-1.5"
-          data-tip="Type in your meal or use the voice-to-text feature to get a calorie count! Remember, the more specific you are, the better the count. Please provide serving size, ingredients, and preparation method (e.g., fried or boiled)!"
+          data-tip={dataToolTip}
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -62,7 +64,6 @@ const InputForm: React.FC = () => {
               onChange={(e) => setPrompt(e.target.value)}
               placeholder="Enter your meal..."
             />
-            {/* <button type="submit">Submit</button> */}
           </form>
 
           {/* Magnifying glass icon  */}
@@ -99,15 +100,7 @@ const InputForm: React.FC = () => {
         </label>
 
         {/* Gemini API Response */}
-        {response && (
-          <div>
-            {!isNaN(Number(response)) && (
-              <h3>
-                Calories found in {prompt}: {response}
-              </h3>
-            )}
-          </div>
-        )}
+        <Badge response={response} prompt={prompt} />
       </div>
     </div>
   );

@@ -1,5 +1,7 @@
 import React from "react";
 
+const errorMessage = "Error! Not enough information provided for a reliable calculation. Please include the amount and ingredients of your meal.";
+
 function ErrorTag() {
   return (
     <div>
@@ -18,8 +20,7 @@ function ErrorTag() {
           />
         </svg>
         <span>
-          Error! Not enough information provided for a reliable calculation.
-          Please include the amount and ingredients of your meal.
+          { errorMessage }
         </span>
       </div>
     </div>
