@@ -1,6 +1,7 @@
 import { GetServerSideProps } from "next";
 import Head from "next/head";
 import client from "../lib/mongodb";
+import { useState, useEffect } from "react";
 import InputForm from "../app/components/InputForm/InputForm";
 import NavBar from "../app/components/NavBar/NavBar";
 import "./global.css";
@@ -24,6 +25,20 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
 // Home component
 const Home = () => {
+  const logoWord = "Sustain";
+  const [typeWriterText, setTypeWriterText] = useState<string>("");
+  const [index, setIndex] = useState<number>(0);
+
+  useEffect(() => {
+    // This initiates the type writer effect for the Sustain <h1> tag
+    if (index < logoWord.length) {
+      let timer = setTimeout(() => {
+        setTypeWriterText((prev) => prev + logoWord[index]);
+        setIndex((prev) => (prev += 1));
+      }, 100);
+    }
+  }, [index]);
+
   return (
     <div className="main-page">
       <NavBar />
@@ -36,7 +51,12 @@ const Home = () => {
 
         {/* Main content */}
         <main>
-          <h1 className="title">Welcome to Sustain!</h1>
+          <div className=" flex flex-row gap-2">
+            <h1 className="title">Welcome to </h1>
+            <h1 className="title-effect title text-logo-orange">
+              {typeWriterText}
+            </h1>
+          </div>
           <p className="description">
             Enter your meal and get nutrition facts!
           </p>
