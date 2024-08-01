@@ -7,7 +7,7 @@ function NavBar() {
         <div className="flex-1">
           <img
             src="/images/sustainlogo-peach.png"
-            className="h-20 w-20"
+            className="h-24 w-24"
             alt="Sustain Logo"
           />
           <a className="btn btn-ghost text-xl text-dark-brown">Sustain</a>
@@ -38,10 +38,10 @@ function NavBar() {
               <a>Profile</a>
             </li>
             <li>
-              <a>Portfolio</a>
+              <button className="text-logo-orange">Login</button>
             </li>
             <li>
-              <a>About</a>
+              <button className="text-logo-orange">SignUp</button>
             </li>
           </ul>
           {/* ***** */}
