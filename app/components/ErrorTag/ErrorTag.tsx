@@ -1,8 +1,9 @@
 import React from "react";
 
-const errorMessage = "Error! Not enough information provided for a reliable calculation. Please include the amount and ingredients of your meal.";
+const errorMessage =
+  "Error! Not enough information provided for a reliable calculation. Please include the amount and ingredients of your meal.";
 
-function ErrorTag() {
+const ErrorTag: React.FC = () => {
   return (
     <div>
       <div role="alert" className="alert alert-error bg-logo-orange text-white">
@@ -19,12 +20,10 @@ function ErrorTag() {
             d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z"
           />
         </svg>
-        <span>
-          { errorMessage }
-        </span>
+        <span>{errorMessage}</span>
       </div>
     </div>
   );
-}
+};
 
 export default ErrorTag;

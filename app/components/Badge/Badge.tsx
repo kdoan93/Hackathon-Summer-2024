@@ -13,7 +13,9 @@ const Badge: React.FC<BadgeProps> = ({ response, prompt }) => {
       <div className="stat flex flex-col items-center justify-center h-24">
         {response && prompt && !isNaN(Number(response)) ? (
           <>
-            <div className="stat-title text-center">Calories found in {prompt}:</div>
+            <div className="stat-title text-center">
+              Calories found in {prompt}:
+            </div>
             <div className="stat-value text-logo-orange text-center">
               {response}
             </div>
