@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import Badge from "../Badge/Badge";
+import "./InputForm.css";
 import VoiceToText from "../VoiceToText/VoiceToText"; // Import the VoiceToText component
 
 const InputForm: React.FC = () => {
@@ -15,6 +16,7 @@ const InputForm: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    // Log the trainer and prompt
     console.log("trainer: ", trainer);
     console.log("response", response, "I am prompt", prompt);
 

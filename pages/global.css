@@ -6,7 +6,8 @@ body {
   /* color: rgb(var(--foreground-rgb)); */
   padding: 2rem;
 }
-
 .main-page {
   height: 100vh;
+  /* background: url("/images/background.png") no-repeat center center; Not sure about this one
+  background-size: cover; */
 }
