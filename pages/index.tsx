@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useSession } from "next-auth/react";
 import Head from "next/head";
 import client from "../lib/mongodb";
 import InputForm from "../app/components/InputForm/InputForm";
@@ -28,6 +29,7 @@ export const getServerSideProps = async () => {
 const Home = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isSignupOpen, setIsSignupOpen] = useState(false);
+  const { data: session } = useSession();
   const logoWord = "Sustain";
   const [typeWriterText, setTypeWriterText] = useState<string>("");
   const [index, setIndex] = useState<number>(0);
@@ -56,6 +58,13 @@ const Home = () => {
         </Head>
 
         {/* Main content */}
+        <div>
+          {session ? (
+            <p>Welcome, {session.user.name}</p>
+          ) : (
+            <p>Please log in to access your account.</p>
+          )}
+        </div>
         <main>
           <div className=" flex flex-row gap-2">
             <h1 className="title">Welcome to </h1>

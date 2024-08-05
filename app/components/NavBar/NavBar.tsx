@@ -1,4 +1,5 @@
 import React from "react";
+import { signIn, signOut, useSession } from "next-auth/react";
 
 interface NavBarProps {
   onLoginOpen: () => void;
@@ -6,6 +7,8 @@ interface NavBarProps {
 }
 
 const NavBar: React.FC<NavBarProps> = ({ onLoginOpen, onSignupOpen }) => {
+  const { data: session } = useSession();
+
   return (
     <div>
       <div className="navbar bg-base-100">
@@ -39,15 +42,31 @@ const NavBar: React.FC<NavBarProps> = ({ onLoginOpen, onSignupOpen }) => {
             tabIndex={0}
             className="menu menu-lg dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow"
           >
-            <li>
-              <a className="text-logo-orange">Profile</a>
-            </li>
-            <li>
-              <button className="text-logo-orange" onClick={onLoginOpen}>Login</button>
-            </li>
-            <li>
-              <button className="text-logo-orange" onClick={onSignupOpen}>Sign Up</button>
-            </li>
+            {session ? (
+              <>
+                <li>
+                  <a className="text-logo-orange">Profile</a>
+                </li>
+                <li>
+                  <button className="text-logo-orange" onClick={() => signOut()}>Logout</button>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <button className="text-logo-orange" onClick={() => signIn("google")}>Login with Google</button>
+                </li>
+                <li>
+                  <button className="text-logo-orange" onClick={() => signIn("google")}>Sign Up with Google</button>
+                </li>
+                <li>
+                  <button className="text-logo-orange" onClick={onLoginOpen}>Login</button>
+                </li>
+                <li>
+                  <button className="text-logo-orange" onClick={onSignupOpen}>Sign Up</button>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>
