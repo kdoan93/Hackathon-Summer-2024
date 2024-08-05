@@ -1,8 +1,9 @@
-import { GetServerSideProps } from "next";
+import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import client from "../lib/mongodb";
-import { useState, useEffect } from "react";
 import InputForm from "../app/components/InputForm/InputForm";
+import LoginModal from "../app/components/Modals/LoginModal";
+import SignupModal from "../app/components/Modals/SignupModal";
 import NavBar from "../app/components/NavBar/NavBar";
 import "./global.css";
 
@@ -11,7 +12,7 @@ const DB_NAME = "sample_mflix";
 const COLLECTION_NAME = "users";
 
 // Get data from MongoDB
-export const getServerSideProps: GetServerSideProps = async () => {
+export const getServerSideProps = async () => {
   await client.connect();
   const db = client.db(DB_NAME);
   const data = await db.collection(COLLECTION_NAME).find({}).toArray();
@@ -25,6 +26,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
 
 // Home component
 const Home = () => {
+  const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isSignupOpen, setIsSignupOpen] = useState(false);
   const logoWord = "Sustain";
   const [typeWriterText, setTypeWriterText] = useState<string>("");
   const [index, setIndex] = useState<number>(0);
@@ -41,7 +44,10 @@ const Home = () => {
 
   return (
     <div className="main-page">
-      <NavBar />
+      <NavBar
+        onLoginOpen={() => setIsLoginOpen(true)}
+        onSignupOpen={() => setIsSignupOpen(true)}
+      />
       <div className="container">
         {/* Metadata */}
         <Head>
@@ -61,6 +67,10 @@ const Home = () => {
             Enter your meal and get nutrition facts!
           </p>
           <InputForm />
+          {/* <div className="auth-buttons">
+            <button onClick={() => setIsLoginOpen(true)}>Login</button>
+            <button onClick={() => setIsSignupOpen(true)}>Sign Up</button>
+          </div> */}
         </main>
 
         {/* Footer */}
@@ -68,7 +78,9 @@ const Home = () => {
           <p className="copyright">© 2024 Sustain</p>
         </footer>
 
-        {/* TODO: Should we move this to a separate CSS file? */}
+        <LoginModal isOpen={isLoginOpen} onRequestClose={() => setIsLoginOpen(false)} />
+        <SignupModal isOpen={isSignupOpen} onRequestClose={() => setIsSignupOpen(false)} />
+
         <style jsx>{`
           .container {
             min-height: 100vh;
@@ -144,8 +156,28 @@ const Home = () => {
             border-radius: 5px;
             padding: 0.75rem;
             font-size: 1.1rem;
-            font-family: Menlo, Monaco, Lucida Console, Liberation Mono,
-              DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+            font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
+          }
+
+          .auth-buttons {
+            margin-top: 2rem;
+            display: flex;
+            gap: 1rem;
+          }
+
+          .auth-buttons button {
+            padding: 0.5rem 1rem;
+            font-size: 1rem;
+            color: #fff;
+            background-color: #0070f3;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+          }
+
+          .auth-buttons button:hover {
+            background-color: #005bb5;
           }
         `}</style>
       </div>
