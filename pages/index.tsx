@@ -67,10 +67,6 @@ const Home = () => {
             Enter your meal and get nutrition facts!
           </p>
           <InputForm />
-          {/* <div className="auth-buttons">
-            <button onClick={() => setIsLoginOpen(true)}>Login</button>
-            <button onClick={() => setIsSignupOpen(true)}>Sign Up</button>
-          </div> */}
         </main>
 
         {/* Footer */}
@@ -157,27 +153,6 @@ const Home = () => {
             padding: 0.75rem;
             font-size: 1.1rem;
             font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-          }
-
-          .auth-buttons {
-            margin-top: 2rem;
-            display: flex;
-            gap: 1rem;
-          }
-
-          .auth-buttons button {
-            padding: 0.5rem 1rem;
-            font-size: 1rem;
-            color: #fff;
-            background-color: #0070f3;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: background-color 0.3s ease;
-          }
-
-          .auth-buttons button:hover {
-            background-color: #005bb5;
           }
         `}</style>
       </div>
