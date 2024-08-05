@@ -44,7 +44,10 @@ const Home = () => {
 
   return (
     <div className="main-page">
-      <NavBar />
+      <NavBar
+        onLoginOpen={() => setIsLoginOpen(true)}
+        onSignupOpen={() => setIsSignupOpen(true)}
+      />
       <div className="container">
         {/* Metadata */}
         <Head>
@@ -64,10 +67,10 @@ const Home = () => {
             Enter your meal and get nutrition facts!
           </p>
           <InputForm />
-          <div className="auth-buttons">
+          {/* <div className="auth-buttons">
             <button onClick={() => setIsLoginOpen(true)}>Login</button>
             <button onClick={() => setIsSignupOpen(true)}>Sign Up</button>
-          </div>
+          </div> */}
         </main>
 
         {/* Footer */}

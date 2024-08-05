@@ -1,6 +1,11 @@
 import React from "react";
 
-function NavBar() {
+interface NavBarProps {
+  onLoginOpen: () => void;
+  onSignupOpen: () => void;
+}
+
+const NavBar: React.FC<NavBarProps> = ({ onLoginOpen, onSignupOpen }) => {
   return (
     <div>
       <div className="navbar bg-base-100">
@@ -12,7 +17,7 @@ function NavBar() {
           />
           <a className="btn btn-ghost text-xl text-dark-brown">Sustain</a>
         </div>
-        <div className="dropdown dropdown-end">
+        <div className="dropdown dropdown-end text-logo-orange">
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -35,16 +40,15 @@ function NavBar() {
             className="menu menu-lg dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow"
           >
             <li>
-              <a>Profile</a>
+              <a className="text-logo-orange">Profile</a>
             </li>
             <li>
-              <button className="text-logo-orange">Login</button>
+              <button className="text-logo-orange" onClick={onLoginOpen}>Login</button>
             </li>
             <li>
-              <button className="text-logo-orange">SignUp</button>
+              <button className="text-logo-orange" onClick={onSignupOpen}>Sign Up</button>
             </li>
           </ul>
-          {/* ***** */}
         </div>
       </div>
     </div>
