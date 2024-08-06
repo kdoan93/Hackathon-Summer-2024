@@ -58,13 +58,6 @@ const Home = () => {
         </Head>
 
         {/* Main content */}
-        <div>
-          {session ? (
-            <p>Welcome, {session.user.name}</p>
-          ) : (
-            <p>Please log in to access your account.</p>
-          )}
-        </div>
         <main>
           <div className=" flex flex-row gap-2">
             <h1 className="title">Welcome to </h1>

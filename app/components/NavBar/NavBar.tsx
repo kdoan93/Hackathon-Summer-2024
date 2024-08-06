@@ -7,7 +7,12 @@ interface NavBarProps {
 }
 
 const NavBar: React.FC<NavBarProps> = ({ onLoginOpen, onSignupOpen }) => {
-  const { data: session } = useSession();
+  // const { data: session } = useSession();
+  const { data: session, status } = useSession();
+
+  if (status === "loading") {
+    return <div>Loading...</div>;
+  }
 
   return (
     <div>
@@ -44,6 +49,10 @@ const NavBar: React.FC<NavBarProps> = ({ onLoginOpen, onSignupOpen }) => {
           >
             {session ? (
               <>
+                <div>
+                  <p>Welcome, {session.user?.name}</p>
+                  <button onClick={() => signOut()}>Logout</button>
+              </div>
                 <li>
                   <a className="text-logo-orange">Profile</a>
                 </li>
@@ -53,12 +62,12 @@ const NavBar: React.FC<NavBarProps> = ({ onLoginOpen, onSignupOpen }) => {
               </>
             ) : (
               <>
-                <li>
+                {/* <li>
                   <button className="text-logo-orange" onClick={() => signIn("google")}>Login with Google</button>
                 </li>
                 <li>
                   <button className="text-logo-orange" onClick={() => signIn("google")}>Sign Up with Google</button>
-                </li>
+                </li> */}
                 <li>
                   <button className="text-logo-orange" onClick={onLoginOpen}>Login</button>
                 </li>
