@@ -11,9 +11,6 @@ interface SignupFormValues {
 }
 
 const SignupForm: React.FC = () => {
-  // const [username, setUsername] = useState('');
-  // const [email, setEmail] = useState('');
-  // const [password, setPassword] = useState('');
   const [message, setMessage] = useState<string | null>(null)
 
   const {
@@ -28,7 +25,8 @@ const SignupForm: React.FC = () => {
       alert("Passwords do not match!");
       return;
     }
-    console.log(newUser);
+    
+    // console.log(newUser);
 
     try {
       const response = await fetch('/api/createUser', {
@@ -59,7 +57,6 @@ const SignupForm: React.FC = () => {
     <form onSubmit={handleSubmit(onSubmit)} className={styles.form}>
       <h2 className={styles.header}>Sign Up</h2>
       <div className={styles.field}>
-
         <label htmlFor="username">Username</label>
         <input
           id="username"
@@ -79,7 +76,6 @@ const SignupForm: React.FC = () => {
         )}
       </div>
       <div className={styles.field}>
-
         <label htmlFor="email">Email</label>
         <input
           id="email"
