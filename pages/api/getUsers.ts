@@ -1,5 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { Document, IntegerType, WithId } from 'mongodb';
+import { Document, WithId } from 'mongodb';
 import clientPromise from '../../lib/mongodb';
 
 interface MongoData extends Document {
