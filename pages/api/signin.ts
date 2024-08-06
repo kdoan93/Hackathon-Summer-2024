@@ -52,7 +52,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
             // console.log("signin.ts token value: ", token)
 
-            res.status(200).json({ message: 'Signed in successfully', token });
+            res.status(200).json({ message: 'Signed in successfully' });
             // res.status(200).json({ message: 'Signed in successfully' });
 
         } catch (error) {
