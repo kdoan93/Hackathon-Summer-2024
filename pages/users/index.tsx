@@ -1,37 +1,31 @@
 import { GetServerSideProps } from 'next';
+import { useState, useEffect } from 'react';
 
-interface User {
-  _id?: string;
+type Data = {
   name: string;
-  // Add other user properties here
-}
+  email: string;
+};
 
-interface Props {
-  users: User[];
-}
+const Users = () => {
+  const [data, setData] = useState<Data[]>([]);
 
-const HomePage: React.FC<Props> = ({ users }) => {
+  useEffect(() => {
+    fetch('/api/getData')
+      .then(response => response.json())
+      .then(data => setData(data))
+      .catch(error => console.error('Error fetching data:', error));
+  }, []);
+
   return (
     <div>
-      <h1>Users</h1>
+      <h1>Users collection from sample_mflix db</h1>
       <ul>
-        {users.map(user => (
-          <li key={user._id}>{user.name}</li>
+        {data.map((item, index) => (
+          <li key={index}>{item.name} - {item.email}</li>
         ))}
       </ul>
     </div>
   );
 };
 
-export const getServerSideProps: GetServerSideProps<Props> = async () => {
-  const res = await fetch(`localhost:3000/api/users`);
-  const users: User[] = await res.json();
-
-  return {
-    props: {
-      users,
-    },
-  };
-};
-
-export default HomePage;
+export default Users;
