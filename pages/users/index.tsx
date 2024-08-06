@@ -44,11 +44,11 @@ const Users = () => {
             <h2>No users yet!</h2>
             :
             data.map((user, userId) => (
-                <div key={userId}>
+                <h3 key={userId}>
                     <div>Username: {user.username}</div>
-                    <ul>Name: {user.name}</ul>
-                    <ul>Email: {user.email}</ul>
-                </div>
+                    {/* <div>Name: {user.name}</div> */}
+                    <div>Email: {user.email}</div>
+                </h3>
             ))
         }
         </ul>

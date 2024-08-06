@@ -11,9 +11,10 @@ interface SignupFormValues {
 }
 
 const SignupForm: React.FC = () => {
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  // const [username, setUsername] = useState('');
+  // const [email, setEmail] = useState('');
+  // const [password, setPassword] = useState('');
+  const [message, setMessage] = useState<string | null>(null)
 
   const {
     register,
@@ -22,28 +23,36 @@ const SignupForm: React.FC = () => {
     watch,
   } = useForm<SignupFormValues>();
 
-  const onSubmit: SubmitHandler<SignupFormValues> = (newUser) => {
+  const onSubmit: SubmitHandler<SignupFormValues> = async (newUser) => {
     if (newUser.password !== newUser.confirmPassword) {
       alert("Passwords do not match!");
       return;
     }
     console.log(newUser);
 
-    const createNewUser = async (e: React.FormEvent) => {
-      e.preventDefault();
-
-      const res = await fetch('/api/createUsers', {
+    try {
+      const response = await fetch('/api/createUser', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ username, email, password })
-      })
+        body: JSON.stringify({
+          username: newUser.username,
+          email: newUser.email,
+          password: newUser.password,
+        }),
+      });
 
-      const data = await res.json()
-      console.log("SignupForm data: ", data)
+      const data = await response.json();
+
+      if (response.ok) {
+        setMessage('User created successfully!');
+      } else {
+        setMessage(data.message);
+      }
+    } catch (error) {
+      setMessage('An error occurred. Please try again.');
     }
-
   };
 
   return (
@@ -81,6 +90,10 @@ const SignupForm: React.FC = () => {
               value: 3,
               message: "Email must be at least 3 characters",
             },
+            pattern: {
+              value: /^\S+@\S+$/i,
+              message: "Email must be a valid email address",
+            }
           })}
           className={`${styles.input} ${errors.email ? styles.errorInput : ""}`}
           placeholder="Enter your email"
@@ -125,6 +138,7 @@ const SignupForm: React.FC = () => {
       <button type="submit" className={styles.submitButton}>
         Sign Up
       </button>
+      {message && <p>{message}</p>}
     </form>
   );
 };
