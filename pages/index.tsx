@@ -41,9 +41,7 @@ const Home = () => {
 
   return (
     <div className="main-page">
-      <NavBar
-        onLoginOpen={() => setIsLoginOpen(true)}
-      />
+      <NavBar/>
       <div className="container">
         {/* Metadata */}
         <Head>
