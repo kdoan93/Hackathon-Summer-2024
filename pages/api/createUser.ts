@@ -26,8 +26,9 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
       const db = client.db('mydatabase');
 
       // Check if the user already exists
-      const existingUser = await db.collection('users').findOne({ email });
-      if (existingUser) {
+      const existingEmail = await db.collection('users').findOne({ email });
+      const existingUsername = await db.collection('users').findOne({ username });
+      if (existingUsername || existingEmail) {
         res.status(400).json({ message: 'User already exists' });
         return;
       }

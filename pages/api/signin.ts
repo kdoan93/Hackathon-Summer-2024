@@ -20,8 +20,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
     if (req.method === 'POST') {
         const { username, password } = req.body;
 
-        console.log("req.body from signin.ts :", username, password)
-
         if (!username || !password) {
             res.status(400).json({ message: "Missing password" })
             return;
@@ -32,13 +30,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
             const db = client.db('mydatabase')
 
             const user = await db.collection<MongoData>('users').findOne({ username })
-            if (user) console.log(user)
             if (!user) {
                 res.status(401).json({ message: "Invalid username or password" })
                 return
             }
-
-            console.log("signin.ts user :", user)
 
             const isMatch = await bcrypt.compare(password, user.password)
             if (!isMatch) {
@@ -50,10 +45,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
                 expiresIn: '24h',
             });
 
-            // console.log("signin.ts token value: ", token)
-
-            res.status(200).json({ message: 'Signed in successfully' });
-            // res.status(200).json({ message: 'Signed in successfully' });
+            res.status(200).json({ message: 'Signed in successfully', token });
 
         } catch (error) {
             res.status(500).json({ message: (error as Error).message })

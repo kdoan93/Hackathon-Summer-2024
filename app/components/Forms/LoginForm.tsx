@@ -19,7 +19,7 @@ const LoginForm: React.FC = () => {
 
   const onSubmit: SubmitHandler<LoginFormValues> = async (credentials) => {
 
-    console.log(credentials);
+    // console.log(credentials);
 
     try {
       const response = await fetch('/api/signin', {
