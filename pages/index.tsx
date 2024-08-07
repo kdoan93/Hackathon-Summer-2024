@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import { useSession } from "next-auth/react";
 import Head from "next/head";
 import client from "../lib/mongodb";
 import InputForm from "../app/components/InputForm/InputForm";
@@ -29,7 +28,6 @@ export const getServerSideProps = async () => {
 const Home = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const [isSignupOpen, setIsSignupOpen] = useState(false);
-  const { data: session } = useSession();
   const logoWord = "Sustain";
   const [typeWriterText, setTypeWriterText] = useState<string>("");
   const [index, setIndex] = useState<number>(0);
