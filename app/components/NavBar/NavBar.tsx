@@ -1,16 +1,8 @@
 import React from "react";
 import { useUser } from '@auth0/nextjs-auth0/client';
 
-interface NavBarProps {
-  onLoginOpen: () => void;
-  onSignupOpen: () => void;
-}
-
-const NavBar: React.FC<NavBarProps> = ({ onLoginOpen, onSignupOpen }) => {
-  const { user, error, isLoading } = useUser();
-
-  if (isLoading) return <div>Loading...</div>;
-  if (error) return <div>{error.message}</div>;
+const NavBar = () => {
+  const { user } = useUser();
 
   return (
     <div>
@@ -40,16 +32,12 @@ const NavBar: React.FC<NavBarProps> = ({ onLoginOpen, onSignupOpen }) => {
               />
             </svg>
           </div>
-          {/* THIS SECTION IS THE DROPDOWN NOT SURE IF WE ARE USING DEPENDS IF BACKEND IS DONE */}
           <ul
             tabIndex={0}
             className="menu menu-lg dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow"
           >
             {user ? (
               <>
-                <li>
-                  <a href="/profile">Profile</a>
-                </li>
                 <li>
                   <a href="/api/auth/logout" className="text-logo-orange">Logout</a>
                 </li>
@@ -59,9 +47,6 @@ const NavBar: React.FC<NavBarProps> = ({ onLoginOpen, onSignupOpen }) => {
                 <li>
                   <a href="/api/auth/login" className="text-logo-orange">Login</a>
                 </li>
-                <li>
-                  <a href="/api/auth/signup" className="text-logo-orange">Sign Up</a>
-                </li>
               </>
             )}
           </ul>
@@ -69,6 +54,6 @@ const NavBar: React.FC<NavBarProps> = ({ onLoginOpen, onSignupOpen }) => {
       </div>
     </div>
   );
-}
+};
 
 export default NavBar;
