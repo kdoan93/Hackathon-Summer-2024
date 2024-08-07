@@ -9,7 +9,7 @@ export default initAuth0({
   idTokenSigningAlg: 'RS256',
   session: {
     rollingDuration: 60 * 60 * 8, // 8 hours
-    cookieSecret: process.env.SESSION_COOKIE_SECRET,
+    cookieSecret: process.env.SESSION_COOKIE_SECRET as string,
   },
   routes: {
     callback: '/api/auth/callback',
