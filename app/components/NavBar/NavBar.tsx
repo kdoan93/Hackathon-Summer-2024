@@ -1,4 +1,5 @@
 import React from "react";
+import { useUser } from '@auth0/nextjs-auth0/client';
 
 interface NavBarProps {
   onLoginOpen: () => void;
@@ -6,6 +7,11 @@ interface NavBarProps {
 }
 
 const NavBar: React.FC<NavBarProps> = ({ onLoginOpen, onSignupOpen }) => {
+  const { user, error, isLoading } = useUser();
+
+  if (isLoading) return <div>Loading...</div>;
+  if (error) return <div>{error.message}</div>;
+
   return (
     <div>
       <div className="navbar bg-base-100">
@@ -39,15 +45,25 @@ const NavBar: React.FC<NavBarProps> = ({ onLoginOpen, onSignupOpen }) => {
             tabIndex={0}
             className="menu menu-lg dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow"
           >
-            <li>
-              <a className="text-logo-orange">Profile</a>
-            </li>
-            <li>
-              <button className="text-logo-orange" onClick={onLoginOpen}>Login</button>
-            </li>
-            <li>
-              <button className="text-logo-orange" onClick={onSignupOpen}>Sign Up</button>
-            </li>
+            {user ? (
+              <>
+                <li>
+                  <a href="/profile">Profile</a>
+                </li>
+                <li>
+                  <a href="/api/auth/logout" className="text-logo-orange">Logout</a>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <a href="/api/auth/login" className="text-logo-orange">Login</a>
+                </li>
+                <li>
+                  <a href="/api/auth/signup" className="text-logo-orange">Sign Up</a>
+                </li>
+              </>
+            )}
           </ul>
         </div>
       </div>
