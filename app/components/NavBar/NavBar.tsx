@@ -1,5 +1,6 @@
 import React from "react";
 import { useUser } from '@auth0/nextjs-auth0/client';
+import { auth, currentUser } from "@clerk/nextjs/server";
 
 interface NavBarProps {
   onLoginOpen: () => void;
@@ -7,7 +8,10 @@ interface NavBarProps {
 }
 
 const NavBar: React.FC<NavBarProps> = ({ onLoginOpen, onSignupOpen }) => {
-  const { user } = useUser();
+  const { userId } = auth()
+  // const { user } = useUser();
+
+  // console.log("NavBar user: ", user)
 
   return (
     <div>
@@ -41,7 +45,7 @@ const NavBar: React.FC<NavBarProps> = ({ onLoginOpen, onSignupOpen }) => {
             tabIndex={0}
             className="menu menu-lg dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow"
           >
-            {user ? (
+            {1 ? (
               <>
                 <li>
                   <a href="/api/auth/logout" className="text-logo-orange">Logout</a>
