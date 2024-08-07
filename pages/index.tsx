@@ -2,8 +2,6 @@ import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import client from "../lib/mongodb";
 import InputForm from "../app/components/InputForm/InputForm";
-import LoginModal from "../app/components/Modals/LoginModal";
-import SignupModal from "../app/components/Modals/SignupModal";
 import NavBar from "../app/components/NavBar/NavBar";
 import "./global.css";
 
@@ -27,7 +25,6 @@ export const getServerSideProps = async () => {
 // Home component
 const Home = () => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
-  const [isSignupOpen, setIsSignupOpen] = useState(false);
   const logoWord = "Sustain";
   const [typeWriterText, setTypeWriterText] = useState<string>("");
   const [index, setIndex] = useState<number>(0);
@@ -44,10 +41,7 @@ const Home = () => {
 
   return (
     <div className="main-page">
-      <NavBar
-        onLoginOpen={() => setIsLoginOpen(true)}
-        onSignupOpen={() => setIsSignupOpen(true)}
-      />
+      <NavBar/>
       <div className="container">
         {/* Metadata */}
         <Head>
@@ -73,9 +67,6 @@ const Home = () => {
         <footer>
           <p className="copyright">© 2024 Sustain</p>
         </footer>
-
-        <LoginModal isOpen={isLoginOpen} onRequestClose={() => setIsLoginOpen(false)} />
-        <SignupModal isOpen={isSignupOpen} onRequestClose={() => setIsSignupOpen(false)} />
 
         <style jsx>{`
           .container {
