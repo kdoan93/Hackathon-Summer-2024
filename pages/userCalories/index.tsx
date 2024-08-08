@@ -15,6 +15,14 @@ const userCalories = () => {
         const fetchData = async () => {
           if (!user) return;
 
+          console.log("USER HERE: ", user)
+
+          const userId = user.id
+
+          console.log("USERID: ", userId)
+
+          console.log(new Date())
+
           try {
             const response = await fetch(`/api/getUserCalories?userId=${user.id}`);
 
@@ -41,7 +49,7 @@ const userCalories = () => {
 
     return (
         <div>
-            <h1>User calories</h1>
+            {/* <h1>User calories</h1> */}
             {data.map((item, index) => (
                 <div key={index}>User calories: {item.calories}</div>
             ))}

@@ -4,11 +4,11 @@ import clientPromise from '../../lib/mongodb';
 
 interface MongoData extends Document {
     userId: string;
-    calories: number;
+    calories: string;
 }
 
 type Data = {
-    calories: number;
+    calories: string;
 };
 
 // Define a union type for the response
@@ -32,10 +32,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
 
         // Map the MongoDB documents to the Data type
         const result: Data[] = data.map(doc => ({
-            calories: doc.number,
+            calories: doc.calories,
         }));
 
-        console.log("In const result: ", data)
+        console.log("In const result: ", result)
 
         res.status(200).json(result);
     } catch (error) {
