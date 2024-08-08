@@ -66,6 +66,7 @@ const InputForm: React.FC = () => {
 
   return (
     <div>
+      <p className="description">Enter your meal and get nutrition facts!</p>
       {/* Tooltip */}
       <div className="tooltip flex justify-end mb-1.5" data-tip={dataToolTip}>
         <svg xmlns="http://www.w3.org/2000/svg" width="1.3em" height="1.3em" viewBox="0 0 24 24" className="end mr-3">

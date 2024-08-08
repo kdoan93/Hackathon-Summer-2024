@@ -3,11 +3,24 @@ import Head from "next/head";
 import client from "../lib/mongodb";
 import InputForm from "../app/components/InputForm/InputForm";
 import NavBar from "../app/components/NavBar/NavBar";
+import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import "./global.css";
 
 // Constants for MongoDB
 const DB_NAME = "sample_mflix";
 const COLLECTION_NAME = "users";
+
+// Interface for User data
+interface User {
+  _id: string;
+  name: string;
+  email: string;
+}
+
+// Props interface for Home component
+interface HomeProps {
+  data: User[];
+}
 
 // Get data from MongoDB
 export const getServerSideProps = async () => {
@@ -17,13 +30,13 @@ export const getServerSideProps = async () => {
 
   return {
     props: {
-      data: JSON.parse(JSON.stringify(data)),
-    },
+      data: JSON.parse(JSON.stringify(data))
+    }
   };
 };
 
 // Home component
-const Home = () => {
+const Home: React.FC<HomeProps> = ({ data }) => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
   const logoWord = "Sustain";
   const [typeWriterText, setTypeWriterText] = useState<string>("");
@@ -36,12 +49,13 @@ const Home = () => {
         setTypeWriterText((prev) => prev + logoWord[index]);
         setIndex((prev) => (prev += 1));
       }, 100);
+      return () => clearTimeout(timer);
     }
   }, [index]);
 
   return (
     <div className="main-page">
-      <NavBar/>
+      <NavBar isLoggedIn={true} />
       <div className="container">
         {/* Metadata */}
         <Head>
@@ -53,14 +67,8 @@ const Home = () => {
         <main>
           <div className=" flex flex-row gap-2">
             <h1 className="title">Welcome to </h1>
-            <h1 className="title-effect title text-logo-orange">
-              {typeWriterText}
-            </h1>
+            <h1 className="title-effect title text-logo-orange">{typeWriterText}</h1>
           </div>
-          <p className="description">
-            Enter your meal and get nutrition facts!
-          </p>
-          <InputForm />
         </main>
 
         {/* Footer */}
@@ -96,32 +104,6 @@ const Home = () => {
             align-items: center;
           }
 
-          footer img {
-            margin-left: 0.5rem;
-          }
-
-          footer a {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-          }
-
-          a {
-            color: inherit;
-            text-decoration: none;
-          }
-
-          .title a {
-            color: #0070f3;
-            text-decoration: none;
-          }
-
-          .title a:hover,
-          .title a:focus,
-          .title a:active {
-            text-decoration: underline;
-          }
-
           .title {
             margin: 0;
             line-height: 1.15;
@@ -137,18 +119,10 @@ const Home = () => {
             line-height: 1.5;
             font-size: 1.5rem;
           }
-
-          code {
-            background: #fafafa;
-            border-radius: 5px;
-            padding: 0.75rem;
-            font-size: 1.1rem;
-            font-family: Menlo, Monaco, Lucida Console, Liberation Mono, DejaVu Sans Mono, Bitstream Vera Sans Mono, Courier New, monospace;
-          }
         `}</style>
       </div>
     </div>
   );
 };
 
-export default Home;
+export default withPageAuthRequired(Home);
