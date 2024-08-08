@@ -25,8 +25,6 @@ const SignupForm: React.FC = () => {
       alert("Passwords do not match!");
       return;
     }
-    
-    // console.log(newUser);
 
     try {
       const response = await fetch('/api/createUser', {

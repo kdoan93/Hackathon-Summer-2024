@@ -48,7 +48,6 @@ const Home: React.FC<HomeProps> = ({ data }) => {
 
   // Clerk Auth0
   const { isLoaded, isSignedIn, user } = useUser()
-  console.log("LOOK HERE USER: ", user)
 
 
   useEffect(() => {
@@ -76,11 +75,11 @@ const Home: React.FC<HomeProps> = ({ data }) => {
 
         {/* Main content */}
         <main>
-          {user ?
-            <h1>Hello {user.username}</h1>
+          {/* {user ?
+            <h1 className="title">Hello, {user.username}</h1>
             :
-            <h1>No user logged in yet!</h1>
-          }
+            <></>
+          } */}
           <div className=" flex flex-row gap-2">
             <h1 className="title">Welcome to </h1>
             <h1 className="title-effect title text-logo-orange">{typeWriterText}</h1>
