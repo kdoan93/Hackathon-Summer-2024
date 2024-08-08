@@ -18,9 +18,6 @@ const LoginForm: React.FC = () => {
   } = useForm<LoginFormValues>();
 
   const onSubmit: SubmitHandler<LoginFormValues> = async (credentials) => {
-
-    // console.log(credentials);
-
     try {
       const response = await fetch('/api/signin', {
         method: 'POST',
@@ -31,7 +28,6 @@ const LoginForm: React.FC = () => {
       })
 
       const data = await response.json()
-      // console.log("LoginForm data: ", data)
 
       if (response.ok) {
         setMessage('Signed in successfully!')

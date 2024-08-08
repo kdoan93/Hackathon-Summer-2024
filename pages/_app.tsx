@@ -6,15 +6,7 @@ import { ClerkProvider, SignedOut, SignedIn, SignInButton, UserButton } from '@c
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <ClerkProvider>
-      {/* <SignedOut>
-        <SignInButton />
-      </SignedOut>
-      <SignedIn>
-        <UserButton />
-      </SignedIn> */}
-      {/* <UserProvider> */}
       <Component {...pageProps} />
-      {/* </UserProvider> */}
     </ClerkProvider>
   );
 };

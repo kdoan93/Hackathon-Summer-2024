@@ -15,16 +15,10 @@ const userCalories = () => {
         const fetchData = async () => {
           if (!user) return;
 
-          console.log("USER HERE: ", user)
-
           const userId = user.id
 
-          console.log("USERID: ", userId)
-
-          console.log(new Date())
-
           try {
-            const response = await fetch(`/api/getUserCalories?userId=${user.id}`);
+            const response = await fetch(`/api/getUserCalories?userId=${userId}`);
 
             if (!response.ok) throw new Error(`Error: ${response.statusText}`)
 
@@ -38,8 +32,6 @@ const userCalories = () => {
 
         fetchData();
       }, [user]);
-
-    console.log("pages/userCalories/index.tsx data: ", data)
 
     if (!user) return
 

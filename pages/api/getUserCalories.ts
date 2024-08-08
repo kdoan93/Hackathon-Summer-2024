@@ -28,14 +28,10 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         // Specify the expected type using generics
         const data = await db.collection<MongoData>('userNutrition').find({ userId }).toArray();
 
-        console.log('Query Result:', data);
-
         // Map the MongoDB documents to the Data type
         const result: Data[] = data.map(doc => ({
             calories: doc.calories,
         }));
-
-        console.log("In const result: ", result)
 
         res.status(200).json(result);
     } catch (error) {
