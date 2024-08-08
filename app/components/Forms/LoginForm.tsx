@@ -1,22 +1,43 @@
-import React from "react";
+import React, { useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import styles from "../../../styles/login.module.css";
 
 interface LoginFormValues {
   username: string;
   password: string;
-  remember: boolean;
+  // remember: boolean;
 }
 
 const LoginForm: React.FC = () => {
+  const [message, setMessage] = useState<string | null>(null)
+
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm<LoginFormValues>();
 
-  const onSubmit: SubmitHandler<LoginFormValues> = (data) => {
-    console.log(data);
+  const onSubmit: SubmitHandler<LoginFormValues> = async (credentials) => {
+    try {
+      const response = await fetch('/api/signin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(credentials)
+      })
+
+      const data = await response.json()
+
+      if (response.ok) {
+        setMessage('Signed in successfully!')
+        localStorage.setItem('token', data.token)
+      } else {
+        setMessage(data.message)
+      }
+    } catch (error) {
+      setMessage( 'An error occurred. Please try again.' )
+    }
   };
 
   return (
@@ -54,13 +75,14 @@ const LoginForm: React.FC = () => {
           <span className={styles.errorMessage}>{errors.password.message}</span>
         )}
       </div>
-      <div className={styles.rememberMe}>
+      {/* <div className={styles.rememberMe}>
         <input id="remember" type="checkbox" {...register("remember")} />
         <label htmlFor="remember">Remember me</label>
-      </div>
+      </div> */}
       <button type="submit" className={styles.submitButton}>
         Login
       </button>
+      { message && <p>{message}</p>}
     </form>
   );
 };

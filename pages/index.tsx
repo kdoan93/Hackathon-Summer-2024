@@ -2,9 +2,12 @@ import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import client from "../lib/mongodb";
 import InputForm from "../app/components/InputForm/InputForm";
+import LoginModal from "../app/components/Modals/LoginModal";
+import SignupModal from "../app/components/Modals/SignupModal";
 import NavBar from "../app/components/NavBar/NavBar";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import "./global.css";
+import { useUser } from "@clerk/nextjs";
 
 // Constants for MongoDB
 const DB_NAME = "sample_mflix";
@@ -38,9 +41,14 @@ export const getServerSideProps = async () => {
 // Home component
 const Home: React.FC<HomeProps> = ({ data }) => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
+  const [isSignupOpen, setIsSignupOpen] = useState(false);
   const logoWord = "Sustain";
   const [typeWriterText, setTypeWriterText] = useState<string>("");
   const [index, setIndex] = useState<number>(0);
+
+  // Clerk Auth0
+  const { isLoaded, isSignedIn, user } = useUser()
+
 
   useEffect(() => {
     // This initiates the type writer effect for the Sustain <h1> tag
@@ -52,6 +60,8 @@ const Home: React.FC<HomeProps> = ({ data }) => {
       return () => clearTimeout(timer);
     }
   }, [index]);
+
+  // if (!isLoaded || !userId) return
 
   return (
     <div className="main-page">
@@ -65,6 +75,11 @@ const Home: React.FC<HomeProps> = ({ data }) => {
 
         {/* Main content */}
         <main>
+          {/* {user ?
+            <h1 className="title">Hello, {user.username}</h1>
+            :
+            <></>
+          } */}
           <div className=" flex flex-row gap-2">
             <h1 className="title">Welcome to </h1>
             <h1 className="title-effect title text-logo-orange">{typeWriterText}</h1>
@@ -75,6 +90,9 @@ const Home: React.FC<HomeProps> = ({ data }) => {
         <footer>
           <p className="copyright">© 2024 Sustain</p>
         </footer>
+
+        <LoginModal isOpen={isLoginOpen} onRequestClose={() => setIsLoginOpen(false)} />
+        <SignupModal isOpen={isSignupOpen} onRequestClose={() => setIsSignupOpen(false)} />
 
         <style jsx>{`
           .container {
