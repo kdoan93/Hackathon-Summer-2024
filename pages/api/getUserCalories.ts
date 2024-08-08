@@ -3,7 +3,6 @@ import { Document, ObjectId } from 'mongodb';
 import clientPromise from '../../lib/mongodb';
 
 interface MongoData extends Document {
-    _id: string;
     userId: string;
     calories: number;
 }
@@ -27,12 +26,16 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         const db = client.db('mydatabase');
 
         // Specify the expected type using generics
-        const data = await db.collection<MongoData>('userNutrition').find({ _id: userId }).toArray();
+        const data = await db.collection<MongoData>('userNutrition').find({ userId }).toArray();
+
+        console.log('Query Result:', data);
 
         // Map the MongoDB documents to the Data type
         const result: Data[] = data.map(doc => ({
             calories: doc.number,
         }));
+
+        console.log("In const result: ", data)
 
         res.status(200).json(result);
     } catch (error) {

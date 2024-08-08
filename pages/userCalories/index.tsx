@@ -22,6 +22,7 @@ const userCalories = () => {
 
             const result: Data[] = await response.json();
             setData(result);
+
           } catch (error) {
             setError((error as Error).message || 'An error occurred');
           }
@@ -30,7 +31,7 @@ const userCalories = () => {
         fetchData();
       }, [user]);
 
-    console.log("LOOK data: ", data)
+    console.log("pages/userCalories/index.tsx data: ", data)
 
     if (!user) return
 
