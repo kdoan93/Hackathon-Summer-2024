@@ -3,22 +3,35 @@ import React, { useState } from "react";
 import Badge from "../Badge/Badge";
 import "./InputForm.css";
 import VoiceToText from "../VoiceToText/VoiceToText"; // Import the VoiceToText component
+import NutritionTable from "../NutritionTable/NutritionTable"; // Import the NutritionTable component
 
 const InputForm: React.FC = () => {
   const [prompt, setPrompt] = useState("");
-  const [response, setResponse] = useState("");
+  const [response, setResponse] = useState<any>(null);
+  const [isValid, setIsValid] = useState<boolean>(false);
+  const [submitted, setSubmitted] = useState<boolean>(false);
+  const [responseTitle, setResponseTitle] = useState<any>("");
 
-  const trainer = `Your only purpose is to respond with a value representing the amount of calories from given prompt. If the prompt is too vague to calculate a good response then respond with 'Not enough information given to give a good calculation.' Do not answer any other questions or prompts. Here is the prompt: ${prompt}`;
+  const trainer = `Your only job is to return nutritional values for the given food/food items. If the prompt is too vague to calculate a good response then respond with 'Not enough information given to give a good calculation.' Do not answer any other irrelevant questions or prompts. Dont forget to calculate for the amount of items given. if no amount is given assume it is one serving.
+
+  Please provide an example object structure for response that includes the following nutritional values in this structure:
+
+  result: {
+    "Calories": *value*,
+    "Total fat": *value*,
+    "Cholesterol": *value*,
+    "Sodium": *value*,
+    "Total Carbohydrate": *value*,
+    "Protein": *value*
+    }
+
+    Here is the food: ${prompt}`;
 
   const dataToolTip =
     "Enter your meal or use voice-to-text for a calorie count! For accuracy, include serving size, ingredients, and preparation method (e.g., fried or boiled).";
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    // Log the trainer and prompt
-    console.log("trainer: ", trainer);
-    console.log("response", response, "I am prompt", prompt);
 
     try {
       const response = await fetch("/api/gemini", {
@@ -29,7 +42,23 @@ const InputForm: React.FC = () => {
         body: JSON.stringify({ trainer })
       });
       const data = await response.json();
-      setResponse(data.result);
+      console.log("data: ", data);
+
+      if (data.result.trim() === "Not enough information given to give a good calculation.") {
+        setResponse(data.result);
+        setIsValid(false);
+        setSubmitted(true);
+        setPrompt("");
+        return;
+      }
+
+      const normalizedResponse = JSON.parse(data.result.replace(/```json|```/g, ""));
+      console.log("normalizedResponse: ", normalizedResponse);
+      setResponse(normalizedResponse);
+      setSubmitted(true);
+      setIsValid(true);
+      setResponseTitle(prompt);
+      setPrompt("");
     } catch (error) {
       console.error("Error calling Gemini API", error);
     }
@@ -81,8 +110,20 @@ const InputForm: React.FC = () => {
         </label>
       </form>
 
-      {/* Gemini API Response */}
-      <Badge response={response} prompt={prompt} />
+      {/* Display the nutritional table if response is available */}
+      {submitted && isValid ? (
+        <div className="response-container">
+          <h1 className="response-title mt-5 text-center text-2xl">{responseTitle}</h1>
+          <NutritionTable response={response} />
+          <div className="add-container flex flex-col items-center">
+            <button className="add-to-meals text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+              Add
+            </button>
+          </div>
+        </div>
+      ) : (
+        submitted && !isValid && <p>{response}</p>
+      )}
     </div>
   );
 };
