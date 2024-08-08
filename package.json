@@ -6,16 +6,20 @@
     "start": "next start"
   },
   "dependencies": {
-    "autoprefixer": "^10.4.19",
+    "@auth0/nextjs-auth0": "^3.5.0",
     "@google/generative-ai": "^0.15.0",
+    "autoprefixer": "^10.4.19",
     "mongodb": "^6.5.0",
     "next": "latest",
     "react": "^18.2.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "react-hook-form": "^7.52.1",
+    "react-modal": "^3.16.1"
   },
   "devDependencies": {
     "@types/node": "18.7.5",
     "@types/react": "16.9.17",
+    "@types/react-modal": "^3.16.3",
     "daisyui": "^4.12.10",
     "tailwindcss": "^3.4.6",
     "typescript": "4.6.3"

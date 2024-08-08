@@ -1,6 +1,9 @@
 import React from "react";
+import { useUser } from '@auth0/nextjs-auth0/client';
 
-function NavBar() {
+const NavBar = () => {
+  const { user } = useUser();
+
   return (
     <div>
       <div className="navbar bg-base-100">
@@ -12,7 +15,7 @@ function NavBar() {
           />
           <a className="btn btn-ghost text-xl text-dark-brown">Sustain</a>
         </div>
-        <div className="dropdown dropdown-end">
+        <div className="dropdown dropdown-end text-logo-orange">
           <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -29,26 +32,28 @@ function NavBar() {
               />
             </svg>
           </div>
-          {/* THIS SECTION IS THE DROPDOWN NOT SURE IF WE ARE USING DEPENDS IF BACKEND IS DONE */}
           <ul
             tabIndex={0}
             className="menu menu-lg dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow"
           >
-            <li>
-              <a>Profile</a>
-            </li>
-            <li>
-              <button className="text-logo-orange">Login</button>
-            </li>
-            <li>
-              <button className="text-logo-orange">SignUp</button>
-            </li>
+            {user ? (
+              <>
+                <li>
+                  <a href="/api/auth/logout" className="text-logo-orange">Logout</a>
+                </li>
+              </>
+            ) : (
+              <>
+                <li>
+                  <a href="/api/auth/login" className="text-logo-orange">Login</a>
+                </li>
+              </>
+            )}
           </ul>
-          {/* ***** */}
         </div>
       </div>
     </div>
   );
-}
+};
 
 export default NavBar;
