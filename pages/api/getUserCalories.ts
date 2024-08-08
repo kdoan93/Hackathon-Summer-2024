@@ -1,8 +1,9 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
-import { Document, WithId } from 'mongodb';
+import { Document, ObjectId } from 'mongodb';
 import clientPromise from '../../lib/mongodb';
 
 interface MongoData extends Document {
+    _id: string;
     userId: string;
     calories: number;
 }
@@ -26,7 +27,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         const db = client.db('mydatabase');
 
         // Specify the expected type using generics
-        const data: WithId<MongoData>[] = await db.collection<MongoData>('userNutrition').find({ userId }).toArray();
+        const data = await db.collection<MongoData>('userNutrition').find({ _id: userId }).toArray();
 
         // Map the MongoDB documents to the Data type
         const result: Data[] = data.map(doc => ({

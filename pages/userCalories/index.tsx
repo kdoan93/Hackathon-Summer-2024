@@ -7,6 +7,7 @@ type Data = {
 
 const userCalories = () => {
     const [data, setData] = useState<Data[]>([])
+    const [error, setError] = useState<string | null>(null);
 
     const { user } = useUser()
 
@@ -17,27 +18,32 @@ const userCalories = () => {
           try {
             const response = await fetch(`/api/getUserCalories?userId=${user.id}`);
 
+            if (!response.ok) throw new Error(`Error: ${response.statusText}`)
+
             const result: Data[] = await response.json();
             setData(result);
           } catch (error) {
-            console.error('Error fetching data:', error);
+            setError((error as Error).message || 'An error occurred');
           }
         };
 
         fetchData();
       }, [user]);
 
+    console.log("LOOK data: ", data)
+
+    if (!user) return
+
+    if (error) return <div>Error: {error}</div>
+
+    if (!data.length) return <div>User hasn't logged any calories yet!</div>
+
     return (
         <div>
             <h1>User calories</h1>
-
-            {data.length === 0 ?
-                <h2>User hasn't logged any calories yet!</h2>
-                :
-                data.map((calories, index) => (
-                    <div key={index}>User calorie: {calories}</div>
-                ))
-            }
+            {data.map((item, index) => (
+                <div key={index}>User calories: {item.calories}</div>
+            ))}
         </div>
     )
 }
