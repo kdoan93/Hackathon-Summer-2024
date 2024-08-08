@@ -47,6 +47,7 @@ const InputForm: React.FC = () => {
       if (data.result.trim() === "Not enough information given to give a good calculation.") {
         setResponse(data.result);
         setIsValid(false);
+        setSubmitted(true);
         setPrompt("");
         return;
       }
