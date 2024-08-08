@@ -35,9 +35,6 @@ const Users = () => {
             <button onClick={() => setIsSignupOpen(true)}>Sign Up</button>
         </div>
 
-        <LoginModal isOpen={isLoginOpen} onRequestClose={() => setIsLoginOpen(false)} />
-        <SignupModal isOpen={isSignupOpen} onRequestClose={() => setIsSignupOpen(false)} />
-
         <h1>Users collection from db</h1>
         <ul>
         { data.length === 0 ?
@@ -52,6 +49,9 @@ const Users = () => {
             ))
         }
         </ul>
+        
+        <LoginModal isOpen={isLoginOpen} onRequestClose={() => setIsLoginOpen(false)} />
+        <SignupModal isOpen={isSignupOpen} onRequestClose={() => setIsSignupOpen(false)} />
     </div>
     );
 };

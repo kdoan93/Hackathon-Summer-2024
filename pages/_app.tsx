@@ -6,12 +6,12 @@ import { ClerkProvider, SignedOut, SignedIn, SignInButton, UserButton } from '@c
 const MyApp = ({ Component, pageProps }: AppProps) => {
   return (
     <ClerkProvider>
-      <SignedOut>
+      {/* <SignedOut>
         <SignInButton />
       </SignedOut>
       <SignedIn>
         <UserButton />
-      </SignedIn>
+      </SignedIn> */}
       {/* <UserProvider> */}
       <Component {...pageProps} />
       {/* </UserProvider> */}

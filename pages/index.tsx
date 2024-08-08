@@ -6,6 +6,7 @@ import LoginModal from "../app/components/Modals/LoginModal";
 import SignupModal from "../app/components/Modals/SignupModal";
 import NavBar from "../app/components/NavBar/NavBar";
 import "./global.css";
+import { useUser } from "@clerk/nextjs";
 
 // Constants for MongoDB
 const DB_NAME = "sample_mflix";
@@ -32,6 +33,11 @@ const Home = () => {
   const [typeWriterText, setTypeWriterText] = useState<string>("");
   const [index, setIndex] = useState<number>(0);
 
+  // Clerk Auth0
+  const { isLoaded, isSignedIn, user } = useUser()
+  console.log("LOOK HERE USER: ", user)
+
+
   useEffect(() => {
     // This initiates the type writer effect for the Sustain <h1> tag
     if (index < logoWord.length) {
@@ -41,6 +47,8 @@ const Home = () => {
       }, 100);
     }
   }, [index]);
+
+  // if (!isLoaded || !userId) return
 
   return (
     <div className="main-page">
@@ -57,6 +65,11 @@ const Home = () => {
 
         {/* Main content */}
         <main>
+          {user ?
+            <h1>Hello {user.username}</h1>
+            :
+            <h1>No user logged in yet!</h1>
+          }
           <div className=" flex flex-row gap-2">
             <h1 className="title">Welcome to </h1>
             <h1 className="title-effect title text-logo-orange">
