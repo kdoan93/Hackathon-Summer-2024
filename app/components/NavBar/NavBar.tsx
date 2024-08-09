@@ -1,5 +1,12 @@
 import React from "react";
-import Link from "next/link";
+import Link from "next/link"; // Auth0
+import { SignedIn, SignedOut, SignInButton, UserButton, SignOutButton } from "@clerk/nextjs";
+import { User } from "@clerk/nextjs/dist/types/server";
+
+interface NavBarProps {
+  onLoginOpen: () => void;
+  onSignupOpen: () => void;
+}
 
 const NavBar = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
   return (
@@ -23,41 +30,39 @@ const NavBar = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
           </svg>
         </div>
         <ul tabIndex={0} className="menu menu-lg dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow">
-          {isLoggedIn ? (
-            <>
-              <li>
-                <Link href="/Dashboard">Dashboard</Link>
-              </li>
-              <li>
-                <Link href="/Profile">Profile</Link>
-              </li>
-              <li>
-                <Link href="/MealInput">Meal Input</Link>
-              </li>
-              <li>
-                <Link href="/PromptTips">Prompt Tips</Link>
-              </li>
-              <li>
-                <Link href="/Goals">Goals</Link>
-              </li>
-              <li>
-                <Link href="/About">About</Link>
-              </li>
-              <li>
-                <a href="/api/auth/logout" className="text-logo-orange">
-                  Logout
-                </a>
-              </li>
-            </>
-          ) : (
-            <>
-              <li>
-                <a href="/api/auth/login" className="text-logo-orange">
-                  Login
-                </a>
-              </li>
-            </>
-          )}
+              <SignedIn>
+                <UserButton />
+                <li>
+                  <Link href="/Dashboard">Dashboard</Link>
+                </li>
+                <li>
+                  <Link href="/Profile">Profile</Link>
+                </li>
+                <li>
+                  <Link href="/MealInput">Meal Input</Link>
+                </li>
+                <li>
+                  <Link href="/PromptTips">Prompt Tips</Link>
+                </li>
+                <li>
+                  <Link href="/Goals">Goals</Link>
+                </li>
+                <li>
+                  <Link href="/About">About</Link>
+                </li>
+                <li>
+                  <a className="text-logo-orange">
+                    <SignOutButton/>
+                  </a>
+                </li>
+              </SignedIn>
+              <SignedOut>
+                <li>
+                  <a className="text-logo-orange">
+                    <SignInButton />
+                  </a>
+                </li>
+              </SignedOut>
         </ul>
       </div>
     </div>
