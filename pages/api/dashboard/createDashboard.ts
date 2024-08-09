@@ -13,13 +13,14 @@ async function createDashboardData(
 ) {
   if (req.method === "POST") {
     try {
-      const { prompt, normalizedResponse } = req.body;
+      const { userId, prompt, normalizedResponse } = req.body;
 
       const client = await clientPromise;
-      const db = client.db("yourDatabaseName");
-      const collection = db.collection("yourCollectionName");
+      const db = client.db("mydatabase");
+      const collection = db.collection("dashboard");
 
       const document = {
+        userId,
         prompt,
         response: normalizedResponse,
         createdAt: new Date(),
