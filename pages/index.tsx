@@ -33,8 +33,8 @@ export const getServerSideProps = async () => {
 
   return {
     props: {
-      data: JSON.parse(JSON.stringify(data))
-    }
+      data: JSON.parse(JSON.stringify(data)),
+    },
   };
 };
 
@@ -47,8 +47,7 @@ const Home: React.FC<HomeProps> = ({ data }) => {
   const [index, setIndex] = useState<number>(0);
 
   // Clerk Auth0
-  const { isLoaded, isSignedIn, user } = useUser()
-
+  const { isLoaded, isSignedIn, user } = useUser();
 
   useEffect(() => {
     // This initiates the type writer effect for the Sustain <h1> tag
@@ -80,9 +79,11 @@ const Home: React.FC<HomeProps> = ({ data }) => {
             :
             <></>
           } */}
-          <div className=" flex flex-row gap-2">
+          <div className=" flex flex-row gap-2 items-center">
             <h1 className="title">Welcome to </h1>
-            <h1 className="title-effect title text-logo-orange">{typeWriterText}</h1>
+            <h1 className="title-effect title text-logo-orange">
+              {typeWriterText}
+            </h1>
           </div>
         </main>
 
@@ -91,8 +92,14 @@ const Home: React.FC<HomeProps> = ({ data }) => {
           <p className="copyright">© 2024 Sustain</p>
         </footer>
 
-        <LoginModal isOpen={isLoginOpen} onRequestClose={() => setIsLoginOpen(false)} />
-        <SignupModal isOpen={isSignupOpen} onRequestClose={() => setIsSignupOpen(false)} />
+        <LoginModal
+          isOpen={isLoginOpen}
+          onRequestClose={() => setIsLoginOpen(false)}
+        />
+        <SignupModal
+          isOpen={isSignupOpen}
+          onRequestClose={() => setIsSignupOpen(false)}
+        />
 
         <style jsx>{`
           .container {
