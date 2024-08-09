@@ -22,6 +22,11 @@ const Dashboard = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
 
   useEffect(() => {
     const loadData = async () => {
+      if (!userId) {
+        setError("User ID is not available");
+        setLoading(false);
+        return;
+      }
       try {
         const res = await fetch(
           `/api/dashboard/getDashboard?userId=${encodeURIComponent(userId)}`
