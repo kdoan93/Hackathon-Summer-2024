@@ -31,7 +31,9 @@ const NavBar = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
         </div>
         <ul tabIndex={0} className="menu menu-lg dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow">
               <SignedIn>
-                <UserButton />
+                <li>
+                  <UserButton />
+                </li>
                 <li>
                   <Link href="/Dashboard">Dashboard</Link>
                 </li>
