@@ -1,17 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
-import client from "../lib/mongodb";
-import InputForm from "../app/components/InputForm/InputForm";
-import LoginModal from "../app/components/Modals/LoginModal";
-import SignupModal from "../app/components/Modals/SignupModal";
 import NavBar from "../app/components/NavBar/NavBar";
 import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import "./global.css";
 import { useUser } from "@clerk/nextjs";
-
-// Constants for MongoDB
-const DB_NAME = "sample_mflix";
-const COLLECTION_NAME = "users";
 
 // Interface for User data
 interface User {
@@ -25,19 +17,6 @@ interface HomeProps {
   data: User[];
 }
 
-// Get data from MongoDB
-export const getServerSideProps = async () => {
-  await client.connect();
-  const db = client.db(DB_NAME);
-  const data = await db.collection(COLLECTION_NAME).find({}).toArray();
-
-  return {
-    props: {
-      data: JSON.parse(JSON.stringify(data))
-    }
-  };
-};
-
 // Home component
 const Home: React.FC<HomeProps> = ({ data }) => {
   const [isLoginOpen, setIsLoginOpen] = useState(false);
@@ -47,8 +26,7 @@ const Home: React.FC<HomeProps> = ({ data }) => {
   const [index, setIndex] = useState<number>(0);
 
   // Clerk Auth0
-  const { isLoaded, isSignedIn, user } = useUser()
-
+  const { isLoaded, isSignedIn, user } = useUser();
 
   useEffect(() => {
     // This initiates the type writer effect for the Sustain <h1> tag
@@ -60,8 +38,6 @@ const Home: React.FC<HomeProps> = ({ data }) => {
       return () => clearTimeout(timer);
     }
   }, [index]);
-
-  // if (!isLoaded || !userId) return
 
   return (
     <div className="main-page">
@@ -75,24 +51,22 @@ const Home: React.FC<HomeProps> = ({ data }) => {
 
         {/* Main content */}
         <main>
-          {/* {user ?
-            <h1 className="title">Hello, {user.username}</h1>
-            :
-            <></>
-          } */}
-          <div className=" flex flex-row gap-2">
+          <div className=" flex flex-row gap-2 items-center">
             <h1 className="title">Welcome to </h1>
-            <h1 className="title-effect title text-logo-orange">{typeWriterText}</h1>
+            <h1 className="title-effect title text-logo-orange">
+              {typeWriterText}
+            </h1>
           </div>
+
+          {!isSignedIn && (
+            <p className="description">Unlock your health journey - sign in to get started.</p>
+          )}
         </main>
 
         {/* Footer */}
         <footer>
           <p className="copyright">© 2024 Sustain</p>
         </footer>
-
-        <LoginModal isOpen={isLoginOpen} onRequestClose={() => setIsLoginOpen(false)} />
-        <SignupModal isOpen={isSignupOpen} onRequestClose={() => setIsSignupOpen(false)} />
 
         <style jsx>{`
           .container {
@@ -136,6 +110,7 @@ const Home: React.FC<HomeProps> = ({ data }) => {
           .description {
             line-height: 1.5;
             font-size: 1.5rem;
+            color: #666;
           }
         `}</style>
       </div>

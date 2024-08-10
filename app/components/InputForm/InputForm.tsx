@@ -4,6 +4,7 @@ import Badge from "../Badge/Badge";
 import "./InputForm.css";
 import VoiceToText from "../VoiceToText/VoiceToText"; // Import the VoiceToText component
 import NutritionTable from "../NutritionTable/NutritionTable"; // Import the NutritionTable component
+import { useUser } from "@clerk/nextjs";
 
 const InputForm: React.FC = () => {
   const [prompt, setPrompt] = useState("");
@@ -11,6 +12,9 @@ const InputForm: React.FC = () => {
   const [isValid, setIsValid] = useState<boolean>(false);
   const [submitted, setSubmitted] = useState<boolean>(false);
   const [responseTitle, setResponseTitle] = useState<any>("");
+  const { user } = useUser();
+  const userId = user?.id;
+  console.log("user", user?.id);
 
   const trainer = `Your only job is to return nutritional values for the given food/food items. If the prompt is too vague to calculate a good response then respond with 'Not enough information given to give a good calculation.' Do not answer any other irrelevant questions or prompts. Dont forget to calculate for the amount of items given. if no amount is given assume it is one serving.
 
@@ -37,14 +41,17 @@ const InputForm: React.FC = () => {
       const response = await fetch("/api/gemini", {
         method: "POST",
         headers: {
-          "Content-Type": "application/json"
+          "Content-Type": "application/json",
         },
-        body: JSON.stringify({ trainer })
+        body: JSON.stringify({ trainer }),
       });
       const data = await response.json();
       console.log("data: ", data);
 
-      if (data.result.trim() === "Not enough information given to give a good calculation.") {
+      if (
+        data.result.trim() ===
+        "Not enough information given to give a good calculation."
+      ) {
         setResponse(data.result);
         setIsValid(false);
         setSubmitted(true);
@@ -52,12 +59,25 @@ const InputForm: React.FC = () => {
         return;
       }
 
-      const normalizedResponse = JSON.parse(data.result.replace(/```json|```/g, ""));
+      const normalizedResponse = JSON.parse(
+        data.result.replace(/```json|```/g, "")
+      );
       console.log("normalizedResponse: ", normalizedResponse);
       setResponse(normalizedResponse);
       setSubmitted(true);
       setIsValid(true);
       setResponseTitle(prompt);
+
+      if (user) {
+        // Below adds the prompt and normalize response to the database
+        await fetch("/api/dashboard/createDashboard", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ userId, prompt, normalizedResponse }),
+        });
+      }
       setPrompt("");
     } catch (error) {
       console.error("Error calling Gemini API", error);
@@ -69,7 +89,13 @@ const InputForm: React.FC = () => {
       <p className="description">Enter your meal and get nutrition facts!</p>
       {/* Tooltip */}
       <div className="tooltip flex justify-end mb-1.5" data-tip={dataToolTip}>
-        <svg xmlns="http://www.w3.org/2000/svg" width="1.3em" height="1.3em" viewBox="0 0 24 24" className="end mr-3">
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="1.3em"
+          height="1.3em"
+          viewBox="0 0 24 24"
+          className="end mr-3"
+        >
           <path
             fill="currentColor"
             d="M11 17h2v-6h-2zm1-8q.425 0 .713-.288T13 8t-.288-.712T12 7t-.712.288T11 8t.288.713T12 9m0 13q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22m0-2q3.35 0 5.675-2.325T20 12t-2.325-5.675T12 4T6.325 6.325T4 12t2.325 5.675T12 20m0-8"
@@ -114,7 +140,9 @@ const InputForm: React.FC = () => {
       {/* Display the nutritional table if response is available */}
       {submitted && isValid ? (
         <div className="response-container">
-          <h1 className="response-title mt-5 text-center text-2xl">{responseTitle}</h1>
+          <h1 className="response-title mt-5 text-center text-2xl">
+            {responseTitle}
+          </h1>
           <NutritionTable response={response} />
           <div className="add-container flex flex-col items-center">
             <button className="add-to-meals text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
