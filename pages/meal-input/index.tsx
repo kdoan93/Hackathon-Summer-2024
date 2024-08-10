@@ -11,7 +11,7 @@ const MealInput = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
         <Head>
           <title>Meal Input | Sustain</title>
         </Head>
-        <main>
+        <main className="main-container">
           <h1 className="page-header">Meal Input</h1>
           <InputForm />
         </main>

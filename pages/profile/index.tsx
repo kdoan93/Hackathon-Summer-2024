@@ -31,8 +31,8 @@ const Profile: React.FC = () => {
         <Head>
           <title>Profile | Sustain</title>
         </Head>
-        <main>
-          <h1>Profile</h1>
+        <main className="main-container">
+          <h1 className="page-header">Profile</h1>
           <ProfileComponent />
         </main>
         <footer>

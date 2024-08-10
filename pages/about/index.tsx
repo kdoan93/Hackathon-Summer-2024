@@ -10,7 +10,7 @@ const About = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
         <Head>
           <title>About | Sustain</title>
         </Head>
-        <main>
+        <main className="main-container">
           <h1 className="page-header">About</h1>
           {/* About content here */}
         </main>
