@@ -2,6 +2,7 @@ import React from "react";
 import Head from "next/head";
 import NavBar from "../../app/components/NavBar/NavBar";
 import DashboardPage from "../../app/components/Dashboard/DashboardPage";
+import Food from "../../app/components/Food";
 
 const Dashboard = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
   return (
@@ -14,6 +15,7 @@ const Dashboard = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
         <main>
           <h1>Dashboard</h1>
           {/* Dashboard content here */}
+          <Food />
           <DashboardPage />
         </main>
         <footer>
