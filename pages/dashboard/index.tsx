@@ -13,7 +13,7 @@ const Dashboard = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
           <title>Dashboard | Sustain</title>
         </Head>
         <main>
-          <h1>Dashboard</h1>
+          <h1 className="page-header">Dashboard</h1>
           {/* Dashboard content here */}
           {/* <Food /> */}
           <DashboardPage />
