@@ -1,7 +1,7 @@
 "use client";
 import { useUser } from "@clerk/nextjs";
 import React, { useEffect, useState } from "react";
-import NutritionTable from "../NutritionTable/NutritionTable";
+import NutritionTable from "../../app/components/NutritionTable/NutritionTable";
 // import '../Food/food.css'
 
 interface ResponseData {
