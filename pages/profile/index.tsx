@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import Head from "next/head";
 import NavBar from "../../app/components/NavBar/NavBar";
 import ProfileComponent from "../../app/components/Profile/ProfileComponent";
@@ -6,22 +6,27 @@ import { useRouter } from "next/router";
 import { useAuth } from "@clerk/nextjs";
 
 const Profile: React.FC = () => {
-  const { isSignedIn } = useAuth();
+  const { isLoaded, isSignedIn } = useAuth();
   const router = useRouter();
+  const [checkingAuth, setCheckingAuth] = useState(true);
 
   useEffect(() => {
-    if (!isSignedIn) {
-      router.push("/");
+    if (isLoaded) {
+      if (!isSignedIn) {
+        router.push("/");
+      } else {
+        setCheckingAuth(false);
+      }
     }
-  }, [isSignedIn, router]);
+  }, [isLoaded, isSignedIn, router]);
 
-  if (!isSignedIn) {
-    return null; // Or render a loading state
+  if (checkingAuth) {
+    return <div>Loading...</div>; // Or render a loading spinner
   }
 
   return (
     <div className="profile-page">
-      <NavBar isLoggedIn={isSignedIn} />
+      <NavBar isLoggedIn={isSignedIn || false} />
       <div className="container">
         <Head>
           <title>Profile | Sustain</title>

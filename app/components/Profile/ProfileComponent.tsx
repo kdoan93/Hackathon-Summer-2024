@@ -76,10 +76,6 @@ const Profile: React.FC = () => {
     return <div>Loading...</div>; // Replace with a proper loading component if needed
   }
 
-  if (error) {
-    return <div>Error: {error}</div>; // Replace with a proper error component if needed
-  }
-
   return (
     <div className="profile-page">
       {profileData ? (
