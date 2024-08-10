@@ -18,11 +18,7 @@ const NavBar = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
-        <img
-          src="/images/sustainlogo-peach.png"
-          className="h-24 w-24"
-          alt="Sustain Logo"
-        />
+        <img src="/images/sustainlogo-peach.png" className="h-24 w-24" alt="Sustain Logo" />
         <Link href="/" className="btn btn-ghost text-xl text-dark-brown">
           Sustain
         </Link>
@@ -36,39 +32,31 @@ const NavBar = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
             viewBox="0 0 24 24"
             stroke="currentColor"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M4 6h16M4 12h16M4 18h7"
-            />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" />
           </svg>
         </div>
-        <ul
-          tabIndex={0}
-          className="menu menu-lg dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow"
-        >
+        <ul tabIndex={0} className="menu menu-lg dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow">
           <SignedIn>
             <li>
               <UserButton />
             </li>
             <li>
-              <Link href="/Dashboard">Dashboard</Link>
+              <Link href="/dashboard">Dashboard</Link>
             </li>
             <li>
-              <Link href="/Profile">Profile</Link>
+              <Link href="/profile">Profile</Link>
             </li>
             <li>
-              <Link href="/MealInput">Meal Input</Link>
+              <Link href="/meal-input">Meal Input</Link>
             </li>
             <li>
-              <Link href="/PromptTips">Prompt Tips</Link>
+              <Link href="/prompt-tips">Prompt Tips</Link>
             </li>
             <li>
-              <Link href="/Goals">Goals</Link>
+              <Link href="/goals">Goals</Link>
             </li>
             <li>
-              <Link href="/About">About</Link>
+              <Link href="/about">About</Link>
             </li>
             <li>
               <a className="text-logo-orange">

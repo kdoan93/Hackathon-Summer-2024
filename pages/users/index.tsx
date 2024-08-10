@@ -49,7 +49,7 @@ const Users = () => {
             ))
         }
         </ul>
-        
+
         <LoginModal isOpen={isLoginOpen} onRequestClose={() => setIsLoginOpen(false)} />
         <SignupModal isOpen={isSignupOpen} onRequestClose={() => setIsSignupOpen(false)} />
     </div>
