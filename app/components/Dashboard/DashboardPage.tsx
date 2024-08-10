@@ -47,7 +47,8 @@ const DashboardPage: React.FC = () => {
 
   return (
     <div>
-      <div className="overflow-x-auto">
+      {/* Calorie chart section */}
+      <div className="overflow-x-auto w-[50%]">
         <table className="table">
           {/* head */}
           <thead>
@@ -59,13 +60,26 @@ const DashboardPage: React.FC = () => {
           </thead>
           <tbody>
             {/* row 1 */}
-            {userData?.data.map((info) => (
-              <tr key={info.id} className="bg-base-200">
-                <td>{info.createdAt}</td>
-                <td>{info.prompt}</td>
-                <td>{info.response?.Calories}</td>
-              </tr>
-            ))}
+            {userData?.data.map((info) => {
+              // Below reformats the date
+              const formattedDate = new Date(info.createdAt).toLocaleDateString(
+                "en-US",
+                {
+                  year: "numeric",
+                  month: "long",
+                  day: "numeric",
+                  hour: "2-digit",
+                  minute: "2-digit",
+                }
+              );
+              return (
+                <tr key={info.id} className="bg-base-200">
+                  <td>{formattedDate}</td>
+                  <td>{info.prompt}</td>
+                  <td>{info.response?.Calories}</td>
+                </tr>
+              );
+            })}
           </tbody>
         </table>
       </div>
