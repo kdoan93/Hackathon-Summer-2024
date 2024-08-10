@@ -76,8 +76,9 @@ const DashboardPage: React.FC = () => {
   const filteredData = userData ? filterDataByWeek(userData.data) : [];
 
   return (
-    <div className="dashboard-main">
+    <div className="dashboard-main flex flex-col items-center justify-center gap-5">
       <Graph userData={{ data: filteredData }} />
+
       {/* Date selection inputs*/}
       <div className="flex space-x-4 my-4">
         <div>
