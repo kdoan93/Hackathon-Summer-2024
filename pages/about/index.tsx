@@ -1,19 +1,18 @@
 import React from "react";
 import Head from "next/head";
 import NavBar from "../../app/components/NavBar/NavBar";
-import InputForm from "../../app/components/InputForm/InputForm";
 
-const MealInput = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
+const About = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
   return (
-    <div className="meal-input-page">
+    <div className="about-page">
       <NavBar isLoggedIn={isLoggedIn} />
       <div className="container">
         <Head>
-          <title>Meal Input | Sustain</title>
+          <title>About | Sustain</title>
         </Head>
         <main>
-          <h1>Meal Input</h1>
-          <InputForm />
+          <h1 className="page-header">About</h1>
+          {/* About content here */}
         </main>
         <footer>
           <p className="copyright">© 2024 Sustain</p>
@@ -23,4 +22,4 @@ const MealInput = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
   );
 };
 
-export default MealInput;
+export default About;

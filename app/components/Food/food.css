@@ -1,0 +1,9 @@
+.logContainer {
+    border: 1px solid red;
+}
+
+.logPrompt {
+    font-weight: 700;
+    text-align: center;
+    
+}

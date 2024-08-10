@@ -2,17 +2,17 @@ import React from "react";
 import Head from "next/head";
 import NavBar from "../../app/components/NavBar/NavBar";
 
-const About = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
+const PromptTips = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
   return (
-    <div className="about-page">
+    <div className="prompt-tips-page">
       <NavBar isLoggedIn={isLoggedIn} />
       <div className="container">
         <Head>
-          <title>About | Sustain</title>
+          <title>Prompt Tips | Sustain</title>
         </Head>
         <main>
-          <h1>About</h1>
-          {/* About content here */}
+          <h1 className="page-header">Prompt Tips</h1>
+          {/* Prompt Tips content here */}
         </main>
         <footer>
           <p className="copyright">© 2024 Sustain</p>
@@ -22,4 +22,4 @@ const About = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
   );
 };
 
-export default About;
+export default PromptTips;
