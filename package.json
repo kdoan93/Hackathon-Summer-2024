@@ -11,10 +11,13 @@
     "@google/generative-ai": "^0.15.0",
     "autoprefixer": "^10.4.19",
     "bcryptjs": "^2.4.3",
+    "chart.js": "^4.4.3",
+    "date-fns": "^3.6.0",
     "jsonwebtoken": "^9.0.2",
     "mongodb": "^6.5.0",
     "next": "latest",
     "react": "^18.2.0",
+    "react-chartjs-2": "^5.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.52.1",
     "react-modal": "^3.16.1"
