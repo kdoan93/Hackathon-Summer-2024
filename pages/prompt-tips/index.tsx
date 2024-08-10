@@ -11,7 +11,7 @@ const PromptTips = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
           <title>Prompt Tips | Sustain</title>
         </Head>
         <main>
-          <h1>Prompt Tips</h1>
+          <h1 className="page-header">Prompt Tips</h1>
           {/* Prompt Tips content here */}
         </main>
         <footer>

@@ -11,7 +11,7 @@ const About = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
           <title>About | Sustain</title>
         </Head>
         <main>
-          <h1>About</h1>
+          <h1 className="page-header">About</h1>
           {/* About content here */}
         </main>
         <footer>

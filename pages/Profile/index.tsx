@@ -11,7 +11,7 @@ const Profile = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
           <title>Profile | Sustain</title>
         </Head>
         <main>
-          <h1>Profile</h1>
+          <h1 className="page-header">Profile</h1>
           {/* Profile content here */}
         </main>
         <footer>

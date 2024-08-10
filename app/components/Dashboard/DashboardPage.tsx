@@ -47,7 +47,7 @@ const DashboardPage: React.FC = () => {
 
   return (
     <>
-      <h1>Dashboard</h1>
+      <h2 className="">Dashboard component placeholder</h2>
     </>
   );
 };

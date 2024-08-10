@@ -53,22 +53,22 @@ const NavBar = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
               <UserButton />
             </li>
             <li>
-              <Link href="/Dashboard">Dashboard</Link>
+              <Link href="/dashboard">Dashboard</Link>
             </li>
             <li>
-              <Link href="/Profile">Profile</Link>
+              <Link href="/profile">Profile</Link>
             </li>
             <li>
-              <Link href="/MealInput">Meal Input</Link>
+              <Link href="/meal-input">Meal Input</Link>
             </li>
             <li>
-              <Link href="/PromptTips">Prompt Tips</Link>
+              <Link href="/prompt-tips">Prompt Tips</Link>
             </li>
             <li>
-              <Link href="/Goals">Goals</Link>
+              <Link href="/goals">Goals</Link>
             </li>
             <li>
-              <Link href="/About">About</Link>
+              <Link href="/about">About</Link>
             </li>
             <li>
               <a className="text-logo-orange">
