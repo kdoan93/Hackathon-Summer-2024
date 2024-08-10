@@ -15,7 +15,7 @@ const Dashboard = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
         <main>
           <h1>Dashboard</h1>
           {/* Dashboard content here */}
-          <Food />
+          {/* <Food /> */}
           <DashboardPage />
         </main>
         <footer>
