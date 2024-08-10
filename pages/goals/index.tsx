@@ -10,7 +10,7 @@ const Goals = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
         <Head>
           <title>Goals | Sustain</title>
         </Head>
-        <main>
+        <main className="main-container">
           <h1 className="page-header">Goals</h1>
           {/* Goals content here */}
         </main>
