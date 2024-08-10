@@ -1,7 +1,8 @@
 "use client";
 import { useUser } from "@clerk/nextjs";
 import React, { useEffect, useState } from "react";
-import NutritionTable from "../../app/components/NutritionTable/NutritionTable";
+import NutritionTable from "../NutritionTable/NutritionTable";
+import DeleteLog from "./DeleteLog";
 // import '../Food/food.css'
 
 interface ResponseData {
@@ -9,6 +10,7 @@ interface ResponseData {
 }
 
 interface LogData {
+    _id: string;
     prompt: string;
     response: ResponseData;
 }
@@ -44,7 +46,7 @@ const Food = () => {
     }, [user]);
 
     let userLog = data;
-    console.log("FOOD DATA: ", userLog);
+    // console.log("FOOD DATA: ", userLog);
 
     return (
         <>
@@ -53,6 +55,7 @@ const Food = () => {
                     <div className="logContainer" key={index}>
                         <div className="logPrompt" >{log.prompt}</div>
                         <NutritionTable response={log.response} />
+                        {/* <DeleteLog log={log}/> */}
                     </div>
                 ))
             ) : (

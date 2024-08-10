@@ -2,7 +2,7 @@ import React from "react";
 import Head from "next/head";
 import NavBar from "../../app/components/NavBar/NavBar";
 import DashboardPage from "../../app/components/Dashboard/DashboardPage";
-import Food from "../Food";
+import Food from "../../app/components/Food/FoodLog";
 
 const Dashboard = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
   return (
