@@ -1,4 +1,5 @@
 "use client";
+import { ObjectId } from "mongodb";
 import React, { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import Graph from "./Graph";
@@ -87,10 +88,6 @@ const DashboardPage: React.FC = () => {
       console.error("Error:", error);
     }
   };
-
-  console.log("DashboardPage userData: ", userData)
-
-  if (loading) return <div>Loading user dashboard...</div>
 
   return (
     <div className="dashboard-main flex flex-col items-center justify-center gap-20">
