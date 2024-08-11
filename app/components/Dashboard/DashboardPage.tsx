@@ -67,10 +67,12 @@ const DashboardPage: React.FC = () => {
   }, [userId, trigger]);
 
   //Below remove row from table
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (id: ObjectId) => {
     try {
       const response = await fetch(
-        `/api/dashboard/deleteDashboardData?id=${encodeURIComponent(id)}`,
+        `/api/dashboard/deleteDashboardData?id=${encodeURIComponent(
+          id.toString()
+        )}`,
         {
           method: "DELETE",
         }
@@ -90,7 +92,7 @@ const DashboardPage: React.FC = () => {
 
   return (
     <div className="dashboard-main flex flex-col items-center justify-center gap-20">
-      {/* <Graph userData={userData} /> */}
+      <Graph userData={userData} />
 
       {/* Calorie chart section */}
       <div className="overflow-x-auto">
