@@ -1,5 +1,4 @@
 "use client";
-import { ObjectId } from "mongodb";
 import React, { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import Graph from "./Graph";
@@ -67,12 +66,10 @@ const DashboardPage: React.FC = () => {
   }, [userId, trigger]);
 
   //Below remove row from table
-  const handleDelete = async (id: ObjectId) => {
+  const handleDelete = async (id: string) => {
     try {
       const response = await fetch(
-        `/api/dashboard/deleteDashboardData?id=${encodeURIComponent(
-          id.toString()
-        )}`,
+        `/api/dashboard/deleteDashboardData?id=${encodeURIComponent(id)}`,
         {
           method: "DELETE",
         }

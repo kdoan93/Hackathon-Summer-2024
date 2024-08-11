@@ -1,7 +1,15 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
 import { ObjectId } from "mongodb";
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend,
+} from "chart.js";
 
 interface ResponseObject {
   Calories: number;
@@ -68,7 +76,7 @@ const Graph: React.FC<GraphProps> = ({ userData }) => {
   };
   console.log("Graph prop", userData);
   return (
-    <div className="flex justify-center w-3/4">
+    <div className="flex justify-center w-1-2">
       <Bar data={data} options={options} />
     </div>
   );
