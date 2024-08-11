@@ -80,9 +80,11 @@ const DashboardPage: React.FC = () => {
     }
   };
 
+  console.log("DashboardPage userData: ", userData)
+
   return (
     <div className="dashboard-main flex flex-col items-center justify-center gap-20">
-      <Graph userData={userData} />
+      {/* <Graph userData={userData} /> */}
 
       {/* Calorie chart section */}
       <div className="overflow-x-auto">

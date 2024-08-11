@@ -1,16 +1,30 @@
 import React from "react";
 import { Bar } from "react-chartjs-2";
-import {
-  Chart as ChartJS,
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend,
-} from "chart.js";
+import { ObjectId } from "mongodb";
+import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
 
-// Register the required components for Chart.js
+interface ResponseObject {
+  Calories: number;
+}
+
+interface InfoData {
+  createdAt: Date;
+  response: ResponseObject;
+}
+
+interface UserData {
+  data: InfoData[];
+}
+
+interface GraphProps {
+  _id: ObjectId;
+  createdAt: Date;
+  prompt: string;
+  response: Object;
+  userId: string;
+  userData: UserData;
+}
+
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -21,9 +35,6 @@ ChartJS.register(
 );
 
 const Graph: React.FC<GraphProps> = ({ userData }) => {
-  //   Below is the graph displayed per table from dashboard.
-  //   the label map converts the createdAt into a readable date.
-  //   the data reads each calorie per collection from userData
   const data = {
     labels: userData?.data.map((info) =>
       new Date(info.createdAt).toLocaleDateString("en-US", {
