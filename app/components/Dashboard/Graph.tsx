@@ -24,13 +24,21 @@ interface UserData {
   data: InfoData[];
 }
 
+// interface GraphProps {
+//   _id: ObjectId;
+//   createdAt: Date;
+//   prompt: string;
+//   response: Object;
+//   userId: string;
+//   userData: UserData;
+// }
 interface GraphProps {
-  _id: ObjectId;
-  createdAt: Date;
-  prompt: string;
-  response: Object;
-  userId: string;
-  userData: UserData;
+  _id?: ObjectId; // Optional if not needed
+  createdAt?: Date; // Optional if not needed
+  prompt?: string; // Optional if not needed
+  response?: Object; // Optional if not needed
+  userId?: string; // Optional if not needed
+  userData?: UserData | null; // Allow null or undefined
 }
 
 ChartJS.register(
@@ -76,8 +84,10 @@ const Graph: React.FC<GraphProps> = ({ userData }) => {
   };
   console.log("Graph prop", userData);
   return (
-    <div className="flex justify-center w-1-2">
-      <Bar data={data} options={options} />
+    <div className="flex justify-center w-full">
+      <div className="w-full max-w-screen-lg h-[400px]">
+        <Bar data={data} options={options} />
+      </div>
     </div>
   );
 };

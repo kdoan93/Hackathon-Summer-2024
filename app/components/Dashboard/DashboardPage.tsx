@@ -87,8 +87,6 @@ const DashboardPage: React.FC = () => {
     }
   };
 
-  if (!userData) return null;
-
   return (
     <div className="dashboard-main flex flex-col items-center justify-center gap-20">
       <Graph userData={userData} />
