@@ -13,16 +13,24 @@ interface ResponseData {
   Protein: number;
 }
 
+interface DataArray {
+  _id: string;
+  createdAt: Date;
+  prompt: string;
+  response: ResponseData;
+}
+
 interface UserData {
-  id: string;
+  _id: string;
   userId: string;
   prompt: string;
   response: ResponseData;
   createdAt: string;
+  data: DataArray[];
 }
 
 const DashboardPage: React.FC = () => {
-  const [userData, setUserData] = useState<UserData[] | null>(null);
+  const [userData, setUserData] = useState<UserData | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
@@ -58,7 +66,7 @@ const DashboardPage: React.FC = () => {
   }, [userId, trigger]);
 
   //Below remove row from table
-  const handleDelete = async (id) => {
+  const handleDelete = async (id: string) => {
     console.log("id in delete", id);
     try {
       const response = await fetch(
@@ -82,6 +90,8 @@ const DashboardPage: React.FC = () => {
 
   console.log("DashboardPage userData: ", userData)
 
+  if (loading) return <div>Loading user dashboard...</div>
+
   return (
     <div className="dashboard-main flex flex-col items-center justify-center gap-20">
       {/* <Graph userData={userData} /> */}
@@ -100,7 +110,7 @@ const DashboardPage: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-              {userData?.data.map((info: UserData) => {
+              {userData?.data.map((info) => {
                 // Below reformats the date
                 console.log("UserData info:", info, "id", info._id);
                 const formattedDate = new Date(
