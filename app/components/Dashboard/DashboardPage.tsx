@@ -66,7 +66,7 @@ const DashboardPage: React.FC = () => {
   }, [userId, trigger]);
 
   //Below remove row from table
-  const handleDelete = async (id: string) => {
+  const handleDelete = async (id: string): Promise<void> => {
     try {
       const response = await fetch(
         `/api/dashboard/deleteDashboardData?id=${encodeURIComponent(id)}`,
