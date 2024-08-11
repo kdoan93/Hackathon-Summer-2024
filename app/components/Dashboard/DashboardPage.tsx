@@ -68,7 +68,6 @@ const DashboardPage: React.FC = () => {
 
   //Below remove row from table
   const handleDelete = async (id: string) => {
-    console.log("id in delete", id);
     try {
       const response = await fetch(
         `/api/dashboard/deleteDashboardData?id=${encodeURIComponent(id)}`,
@@ -109,7 +108,6 @@ const DashboardPage: React.FC = () => {
             <tbody>
               {userData?.data.map((info) => {
                 // Below reformats the date
-                console.log("UserData info:", info, "id", info._id);
                 const formattedDate = new Date(
                   info.createdAt
                 ).toLocaleDateString("en-US", {
