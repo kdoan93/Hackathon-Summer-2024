@@ -25,7 +25,10 @@ async function getDashboardData(
       const db = client.db("mydatabase");
       const collection = db.collection("dashboard");
 
-      const data = await collection.find({ userId }).toArray();
+      const data = await collection
+        .find({ userId })
+        .sort({ createdAt: 1 })
+        .toArray();
 
       res.status(200).json({ success: true, data });
     } catch (error) {

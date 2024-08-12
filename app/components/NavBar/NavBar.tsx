@@ -35,7 +35,10 @@ const NavBar = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" />
           </svg>
         </div>
-        <ul tabIndex={0} className="menu menu-lg dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow">
+        <ul
+          tabIndex={0}
+          className="menu menu-lg dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow z-50"
+        >
           <SignedIn>
             <li>
               <UserButton />
