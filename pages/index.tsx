@@ -53,6 +53,7 @@ const Home: React.FC<HomeProps> = ({ data }) => {
         <main>
           <div className=" flex flex-row gap-2 items-center">
             <h1 className="title">Welcome to </h1>
+            <h1 className="title">CLERK DEVELOPMENT</h1>
             <h1 className="title-effect title text-logo-orange">
               {typeWriterText}
             </h1>
