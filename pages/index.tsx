@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import NavBar from "../app/components/NavBar/NavBar";
-import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
+// import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import "./global.css";
 import { useUser } from "@clerk/nextjs";
 
@@ -111,4 +111,5 @@ const Home: React.FC<HomeProps> = ({ data }) => {
   );
 };
 
-export default withPageAuthRequired(Home);
+// export default withPageAuthRequired(Home);
+export default Home;
