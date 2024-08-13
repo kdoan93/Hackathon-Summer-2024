@@ -101,13 +101,13 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileCreated }) => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
         {/* Form fields for height, weight, age, etc. */}
-        <label className="input input-bordered flex items-start">
+        <label className="input input-bordered flex items-center justify-start">
           Height:
           <div className="flex">
             <input
-              className="w-20"
+              className="w-10 px-1"
               type="number"
               value={heightFeet}
               onChange={(e) => setHeightFeet(parseInt(e.target.value))}
@@ -116,7 +116,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileCreated }) => {
             />
             <span className="mx-2">ft</span>
             <input
-              className="w-20"
+              className="w-10 px-1"
               type="number"
               value={heightInches}
               onChange={(e) => setHeightInches(parseInt(e.target.value))}
@@ -126,10 +126,10 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileCreated }) => {
             <span className="mx-2">in</span>
           </div>
         </label>
-        <label className="input input-bordered flex items-start">
+        <label className="input input-bordered flex items-center justify-start">
           Weight (in lbs):
           <input
-            className="w-64"
+            className="w-16 px-1"
             type="number"
             value={weightLbs}
             onChange={(e) => setWeightLbs(parseFloat(e.target.value))}
@@ -137,10 +137,10 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileCreated }) => {
             required
           />
         </label>
-        <label className="input input-bordered flex items-start">
+        <label className="input input-bordered flex items-center justify-start">
           Goal Weight (in lbs):
           <input
-            className="w-64"
+            className="w-16 px-1"
             type="number"
             value={goalWeight}
             onChange={(e) => setGoalWeight(parseFloat(e.target.value))}
@@ -148,10 +148,10 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileCreated }) => {
             required
           />
         </label>
-        <label className="input input-bordered flex items-start">
+        <label className="input input-bordered flex items-center justify-start">
           Age:
           <input
-            className="w-64"
+            className="w-16 px-1"
             type="number"
             value={age}
             onChange={(e) => setAge(parseInt(e.target.value))}

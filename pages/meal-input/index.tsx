@@ -2,11 +2,12 @@ import React from "react";
 import Head from "next/head";
 import NavBar from "../../app/components/NavBar/NavBar";
 import InputForm from "../../app/components/InputForm/InputForm";
+import Footer from "../../app/components/Footer/Footer";
 
-const MealInput = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
+const MealInput = () => {
   return (
     <div className="meal-input-page">
-      <NavBar isLoggedIn={isLoggedIn} />
+      <NavBar />
       <div className="container">
         <Head>
           <title>Meal Input | Sustain</title>
@@ -15,9 +16,7 @@ const MealInput = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
           <h1 className="page-header">Meal Input</h1>
           <InputForm />
         </main>
-        <footer>
-          <p className="copyright">© 2024 Sustain</p>
-        </footer>
+        <Footer />
       </div>
     </div>
   );

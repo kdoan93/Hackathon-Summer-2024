@@ -80,8 +80,8 @@ const Profile: React.FC = () => {
   return (
     <div className="profile-page">
       {profileData ? (
-        <div className="profile-details">
-          <h1>Your Profile</h1>
+        <div className="profile-details flex flex-col gap-4">
+          <h1 className="text-2xl">Your Profile</h1>
           <p>
             <strong>Height:</strong> {Math.floor(profileData.heightInch / 12)} ft {profileData.heightInch % 12} in
           </p>
