@@ -1,5 +1,5 @@
 import { AppProps } from 'next/app';
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from 'next/router';
 import Script from 'next/script';
 import { ClerkProvider } from '@clerk/nextjs';
@@ -12,6 +12,7 @@ declare global {
 }
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
@@ -46,7 +47,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
           `,
         }}
       />
-      <Component {...pageProps} />
+      <Component {...pageProps} isLoggedIn={isLoggedIn} />
     </ClerkProvider>
   );
 };
