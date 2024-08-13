@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import Graph from "./Graph";
 import FoodEntries from "../FoodEntries/foodEntries";
+import Profile from "../Profile/ProfileComponent";
 
 // Below is to define types for typescript errors
 interface ResponseData {
@@ -66,7 +67,10 @@ const DashboardPage: React.FC = () => {
 
   return (
     <div className="dashboard-main flex flex-col items-center justify-center gap-20">
-      <Graph userData={userData} />
+      <div className="flex flex-row">
+        <Graph userData={userData} />
+        <Profile />
+      </div>
       <FoodEntries />
     </div>
   );
