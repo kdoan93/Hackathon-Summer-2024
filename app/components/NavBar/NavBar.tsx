@@ -1,5 +1,6 @@
 import React from "react";
-import Link from "next/link"; // Auth0
+import Link from "next/link";
+import { useRouter } from "next/router";
 import {
   SignedIn,
   SignedOut,
@@ -7,79 +8,87 @@ import {
   UserButton,
   SignOutButton,
 } from "@clerk/nextjs";
-import { User } from "@clerk/nextjs/dist/types/server";
 
-interface NavBarProps {
-  onLoginOpen: () => void;
-  onSignupOpen: () => void;
-}
+const NavBar = () => {
+  const router = useRouter();
 
-const NavBar = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
+  // Function to check if the current route matches the link's href
+  const isActive = (href: string) => router.pathname === href;
+
   return (
-    <div className="navbar bg-base-100">
-      <div className="flex-1">
-        <Link className="flex flex-row items-center justify-center" href="/">
-          <img
-            src="/images/sustainlogo-peach.png"
-            className="h-24 w-24"
-            alt="Sustain Logo"
-          />
-          <div className="text-2xl px-2 text-logo-orange">Sustain</div>
-        </Link>
-      </div>
-      <li>
-        <Link href="/meal-input" className="text-md">
-          Meal Input
-        </Link>
-      </li>
-      <div className="dropdown dropdown-end text-logo-orange">
-        <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            className="h-5 w-5"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth="2"
-              d="M4 6h16M4 12h16M4 18h7"
-            />
-          </svg>
-        </div>
-        <ul
-          tabIndex={0}
-          className="menu menu-lg dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow z-50"
-        >
-          <SignedIn>
-            <li>
-              <UserButton />
-            </li>
-            <li>
-              <Link href="/dashboard">Dashboard</Link>
-            </li>
-            <li>
-              <Link href="/prompt-tips">Prompt Tips</Link>
-            </li>
-            <li>
-              <Link href="/about">About</Link>
-            </li>
-            <li>
-              <a className="text-logo-orange">
-                <SignOutButton />
-              </a>
-            </li>
-          </SignedIn>
-          <SignedOut>
-            <li>
-              <a className="text-logo-orange">
-                <SignInButton />
-              </a>
-            </li>
-          </SignedOut>
-        </ul>
+    <div className="nav-container fixed top-0 left-0 right-0 bg-base-100 p h-16">
+      <Link href="/">
+        <img
+          src="/images/sustainlogo-peach.png"
+          className="h-24 w-24 fixed top-5 left-5 transition-all duration-300 ease-in-out transform hover:shadow-[0_0_20px_10px_rgba(255,255,255,0.8)] hover:rounded-full active:scale-95"
+          alt="Sustain Logo"
+        />
+      </Link>
+      <div className="navbar h-12 pl-24">
+        <div className="flex-1"></div>
+        <SignedIn>
+          <div className="text-logo-orange flex items-center space-x-3">
+            <UserButton />
+            <Link
+              className={`pl-3 btn btn-ghost text-xl ${
+                isActive("/dashboard") ? "text-logo-orange" : "text-gray-600"
+              }`}
+              href="/dashboard"
+            >
+              Dashboard
+            </Link>
+            <Link
+              className={`pl-3 btn btn-ghost text-xl ${
+                isActive("/meal-input") ? "text-logo-orange" : "text-gray-600"
+              }`}
+              href="/meal-input"
+            >
+              Meal Input
+            </Link>
+            <Link
+              className={`pl-3 btn btn-ghost text-xl ${
+                isActive("/prompt-tips") ? "text-logo-orange" : "text-gray-600"
+              }`}
+              href="/prompt-tips"
+            >
+              Prompt Tips
+            </Link>
+            <Link
+              className={`pl-3 btn btn-ghost text-xl ${
+                isActive("/about") ? "text-logo-orange" : "text-gray-600"
+              }`}
+              href="/about"
+            >
+              About
+            </Link>
+          </div>
+          <div>
+            <a className="text-dark-brown pl-3 flex float-end btn btn-ghost text-xl">
+              <SignOutButton />
+            </a>
+          </div>
+        </SignedIn>
+        <SignedOut>
+          <div>
+            <Link
+              className={`pl-3 btn btn-ghost text-xl text-black bg-logo-orange hover:text-white animate-pulse`}
+              href="/meal-input"
+            >
+              Try Now!
+            </Link>
+            <Link
+              className={`pl-3 btn btn-ghost text-xl ${
+                isActive("/about") ? "text-logo-orange" : "text-gray-600"
+              }`}
+              href="/about"
+            >
+              About Us
+            </Link>
+            <a className="pl-3 btn btn-ghost text-xl text-logo-orange">
+              <SignInButton />
+            </a>
+          </div>
+        </SignedOut>
       </div>
     </div>
   );
