@@ -3,7 +3,8 @@ import Head from "next/head";
 import NavBar from "../app/components/NavBar/NavBar";
 // import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
 import "./global.css";
-import { useUser } from "@clerk/nextjs";
+import { SignInButton, useUser } from "@clerk/nextjs";
+import InputForm from "../app/components/InputForm/InputForm";
 
 // Interface for User data
 interface User {
@@ -58,8 +59,15 @@ const Home: React.FC<HomeProps> = ({ data }) => {
             </h1>
           </div>
 
+          <InputForm />
           {!isSignedIn && (
-            <p className="description">Unlock your health journey - sign in to get started.</p>
+            <p className="description">
+              Unlock your health journey -{" "}
+              <button className="landingSignIn">
+                <SignInButton>Sign in</SignInButton>
+              </button>{" "}
+              to get started.{" "}
+            </p>
           )}
         </main>
 

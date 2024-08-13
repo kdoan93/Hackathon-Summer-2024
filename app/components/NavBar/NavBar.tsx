@@ -23,6 +23,9 @@ const NavBar = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
           Sustain
         </Link>
       </div>
+      <li>
+        <Link href="/meal-input">Meal Input</Link>
+      </li>
       <div className="dropdown dropdown-end text-logo-orange">
         <div tabIndex={0} role="button" className="btn btn-ghost btn-circle">
           <svg
@@ -35,10 +38,7 @@ const NavBar = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" />
           </svg>
         </div>
-        <ul
-          tabIndex={0}
-          className="menu menu-lg dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow z-50"
-        >
+        <ul tabIndex={0} className="menu menu-lg dropdown-content bg-base-100 rounded-box mt-3 w-52 p-2 shadow z-50">
           <SignedIn>
             <li>
               <UserButton />
@@ -47,16 +47,7 @@ const NavBar = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
               <Link href="/dashboard">Dashboard</Link>
             </li>
             <li>
-              <Link href="/profile">Profile</Link>
-            </li>
-            <li>
-              <Link href="/meal-input">Meal Input</Link>
-            </li>
-            <li>
               <Link href="/prompt-tips">Prompt Tips</Link>
-            </li>
-            <li>
-              <Link href="/goals">Goals</Link>
             </li>
             <li>
               <Link href="/about">About</Link>
