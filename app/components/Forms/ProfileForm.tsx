@@ -93,7 +93,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileCreated }) => {
 
   return (
     <>
-      <form onSubmit={handleSubmit}>
+      <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
         {/* Form fields for height, weight, age, etc. */}
         <label className="input input-bordered flex items-start">
           Height:

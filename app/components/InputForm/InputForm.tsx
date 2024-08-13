@@ -85,7 +85,7 @@ const InputForm: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="flex flex-col gap-2">
       <p className="description">Enter your meal and get nutrition facts!</p>
       {/* Tooltip */}
       <div className="tooltip flex justify-end mb-1.5" data-tip={dataToolTip}>
@@ -115,7 +115,7 @@ const InputForm: React.FC = () => {
           />
 
           {/* Magnifying glass icon */}
-          <div className="flex row">
+          <div className="flex gap-4">
             <button type="submit">
               <svg
                 xmlns="http://www.w3.org/2000/svg"

@@ -59,9 +59,6 @@ const NavBar = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
               <Link href="/goals">Goals</Link>
             </li>
             <li>
-              <Link href="/about">About</Link>
-            </li>
-            <li>
               <a className="text-logo-orange">
                 <SignOutButton />
               </a>
