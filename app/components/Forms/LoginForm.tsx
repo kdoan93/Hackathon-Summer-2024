@@ -5,7 +5,6 @@ import styles from "../../../styles/login.module.css";
 interface LoginFormValues {
   username: string;
   password: string;
-  // remember: boolean;
 }
 
 const LoginForm: React.FC = () => {
