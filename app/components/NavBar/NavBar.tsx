@@ -45,22 +45,6 @@ const NavBar = () => {
             >
               Meal Input
             </Link>
-            <Link
-              className={`pl-3 btn btn-ghost text-xl ${
-                isActive("/prompt-tips") ? "text-logo-orange" : "text-gray-600"
-              }`}
-              href="/prompt-tips"
-            >
-              Prompt Tips
-            </Link>
-            <Link
-              className={`pl-3 btn btn-ghost text-xl ${
-                isActive("/about") ? "text-logo-orange" : "text-gray-600"
-              }`}
-              href="/about"
-            >
-              About
-            </Link>
           </div>
           <div>
             <a className="text-dark-brown pl-3 flex float-end btn btn-ghost text-xl">
