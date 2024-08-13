@@ -61,12 +61,13 @@ const Home: React.FC<HomeProps> = ({ data }) => {
 
           <InputForm />
           {!isSignedIn && (
-            <p className="description">Unlock your health journey - <button className="landingSignIn">
-            <SignInButton>
-              Sign in
-            </SignInButton>
-          </button> to get started. </p>
-
+            <p className="description">
+              Unlock your health journey -{" "}
+              <button className="landingSignIn">
+                <SignInButton>Sign in</SignInButton>
+              </button>{" "}
+              to get started.{" "}
+            </p>
           )}
         </main>
 
