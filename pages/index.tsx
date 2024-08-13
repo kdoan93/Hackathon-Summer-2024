@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import NavBar from "../app/components/NavBar/NavBar";
-
 import { useUser } from "@clerk/nextjs";
-// import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
+import NavBar from "../app/components/NavBar/NavBar";
+import Footer from "../app/components/Footer/Footer";
 import "./global.css";
 
 // Interface for User data
@@ -159,10 +158,9 @@ const Home: React.FC<HomeProps> = () => {
           </div>
         </div>
       </section>
+
       {/* Footer */}
-      <footer className="w-full h-20 bg-dark-brown flex justify-center items-center text-light-brown">
-        <p className="text-center text-white">© 2024 Sustain</p>
-      </footer>
+      <Footer />
     </div>
   );
 };
