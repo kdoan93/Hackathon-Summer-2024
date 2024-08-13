@@ -12,6 +12,7 @@ const About = () => {
           <title>About | Sustain</title>
         </Head>
         <main className="main-container">
+          <h1 className="page-header">About Sustain</h1>
           <AboutUs />
         </main>
         <footer>

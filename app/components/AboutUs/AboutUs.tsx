@@ -2,9 +2,8 @@ import React from "react";
 
 function AboutUs() {
   return (
-    <div className="flex flex-col items-center gap-7">
-      <div className="flex flex-col items-center">
-        <h1 className="page-header p-1rem"> About Sustain</h1>
+    <div className="flex flex-col items-center gap-7 h-[100vh]">
+      <div className="flex flex-col items-center gap-5">
         <a
           href="https://github.com/kdoan93/Hackathon-Summer-2024"
           target="_blank"
@@ -22,8 +21,8 @@ function AboutUs() {
             ></path>
           </svg>
         </a>
-        <div className="flex flex-col items-center justify-center w-1/2 h-48 text-lg">
-          <p>
+        <div className="flex flex-col items-center justify-center w-1/2 h-auto text-lg">
+          <p className="text-center  mb-4">
             Sustain utilizes Google Gemini's API to provide users with detailed
             calorie and nutrition facts for meals, accessible through both text
             input and voice-to-text functionality. Users can store their meal
@@ -36,7 +35,7 @@ function AboutUs() {
           </p>
         </div>
       </div>
-      <div className=" flex flex-row">
+      <div className="about-dev-container flex flex-row">
         {/* Website info */}
         {/* Cory */}
         <div className="card bg-base-100 w-96 shadow-xl bg-red">
@@ -242,6 +241,14 @@ function AboutUs() {
           </div>
         </div>
       </div>
+      <style>
+        {`@media(max-width:768px){
+            .about-dev-container{
+              flex-direction:column;
+            }
+        }
+          `}
+      </style>
     </div>
   );
 }

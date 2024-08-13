@@ -1,7 +1,13 @@
 import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { SignedIn, SignedOut, SignInButton, UserButton, SignOutButton } from "@clerk/nextjs";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  UserButton,
+  SignOutButton,
+} from "@clerk/nextjs";
 
 const NavBar = () => {
   const router = useRouter();
@@ -24,13 +30,17 @@ const NavBar = () => {
           <div className="text-logo-orange flex items-center space-x-3">
             <UserButton />
             <Link
-              className={`pl-3 btn btn-ghost text-xl ${isActive("/dashboard") ? "text-logo-orange" : "text-gray-600"}`}
+              className={`pl-3 btn btn-ghost text-xl ${
+                isActive("/dashboard") ? "text-logo-orange" : "text-gray-600"
+              }`}
               href="/dashboard"
             >
               Dashboard
             </Link>
             <Link
-              className={`pl-3 btn btn-ghost text-xl ${isActive("/meal-input") ? "text-logo-orange" : "text-gray-600"}`}
+              className={`pl-3 btn btn-ghost text-xl ${
+                isActive("/meal-input") ? "text-logo-orange" : "text-gray-600"
+              }`}
               href="/meal-input"
             >
               Meal Input
@@ -44,7 +54,9 @@ const NavBar = () => {
               Prompt Tips
             </Link>
             <Link
-              className={`pl-3 btn btn-ghost text-xl ${isActive("/about") ? "text-logo-orange" : "text-gray-600"}`}
+              className={`pl-3 btn btn-ghost text-xl ${
+                isActive("/about") ? "text-logo-orange" : "text-gray-600"
+              }`}
               href="/about"
             >
               About
@@ -65,7 +77,9 @@ const NavBar = () => {
               Try Now!
             </Link>
             <Link
-              className={`pl-3 btn btn-ghost text-xl ${isActive("/about") ? "text-logo-orange" : "text-gray-600"}`}
+              className={`pl-3 btn btn-ghost text-xl ${
+                isActive("/about") ? "text-logo-orange" : "text-gray-600"
+              }`}
               href="/about"
             >
               About Us
