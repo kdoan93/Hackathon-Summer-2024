@@ -24,9 +24,6 @@ const Profile: React.FC = () => {
   const userId = user?.id;
   const [needsRefresh, setNeedsRefresh] = useState<boolean>(false);
 
-  console.log("user: ", user); // Check what is logged for user
-  console.log("userId: ", userId); // Check what is logged for userId
-
   useEffect(() => {
     const loadData = async () => {
       if (!userId) {
@@ -36,16 +33,10 @@ const Profile: React.FC = () => {
         return;
       }
 
-      console.log("Fetching profile for userId: ", userId);
-
       try {
         const url = `/api/getProfile?userId=${encodeURIComponent(userId)}`;
-        console.log("Fetching from URL: ", url);
         const res = await fetch(url);
-
-        console.log("API response status: ", res.status);
         const data = await res.json();
-        console.log("Fetched Profile Data: ", data);
 
         if (!res.ok) {
           throw new Error(`Network response was not ok: ${res.statusText}`);
@@ -54,7 +45,6 @@ const Profile: React.FC = () => {
         if (data && data.userId) {
           setProfileData(data);
         } else {
-          console.log("No profile found for user:", userId);
           setProfileData(null);
         }
       } catch (error) {

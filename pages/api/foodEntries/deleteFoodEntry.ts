@@ -23,8 +23,6 @@ async function deleteFoodEntry(req: NextApiRequest, res: NextApiResponse<ResType
       // Ensure we are deleting the document for the correct user
       const result = await collection.deleteOne({ _id: new ObjectId(logId), userId });
 
-      console.log("Delete result for logId:", logId);
-
       if (result.deletedCount === 1) {
         res.status(200).json({ success: true, message: "Document deleted successfully" });
       } else {

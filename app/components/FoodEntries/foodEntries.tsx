@@ -79,7 +79,6 @@ const FoodEntries: React.FC = () => {
       const result = await response.json();
 
       if (response.ok) {
-        console.log("Delete successful:", result.message);
         setTrigger(!trigger);
       } else {
         console.error("Delete failed:", result.message);
