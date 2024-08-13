@@ -40,7 +40,7 @@ const DashboardPage: React.FC = () => {
   const { user } = useUser();
   const userId = user?.id;
 
-  // Below gets user data buy userId
+  // Below gets user data by userId
   useEffect(() => {
     const loadData = async () => {
       if (!userId) {
