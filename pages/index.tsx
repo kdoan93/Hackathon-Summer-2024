@@ -53,7 +53,7 @@ const Home: React.FC<HomeProps> = ({ data }) => {
 
         {/* Main content */}
         <main>
-          <div className=" flex flex-row gap-2 items-center">
+          <div className=" flex flex-row gap-2 items-center welcome-container">
             <h1 className="title">Welcome to </h1>
             <h1 className="title-effect title text-logo-orange">
               {typeWriterText}
@@ -102,6 +102,11 @@ const Home: React.FC<HomeProps> = ({ data }) => {
 
           .title {
             text-align: center;
+          }
+          @media (max-width: 480px) {
+            .welcome-container {
+              flex-direction: column;
+              text-align: center;
           }
         `}</style>
       </div>
