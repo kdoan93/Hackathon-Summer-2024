@@ -4,10 +4,10 @@ import NavBar from "../../app/components/NavBar/NavBar";
 import DashboardPage from "../../app/components/Dashboard/DashboardPage";
 import Food from "../../app/components/FoodEntries/foodEntries";
 
-const Dashboard = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
+const Dashboard = () => {
   return (
     <div className="dashboard-page">
-      <NavBar isLoggedIn={isLoggedIn} />
+      <NavBar />
       <div className="container">
         <Head>
           <title>Dashboard | Sustain</title>

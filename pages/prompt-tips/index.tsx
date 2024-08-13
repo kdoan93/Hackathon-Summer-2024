@@ -2,10 +2,10 @@ import React from "react";
 import Head from "next/head";
 import NavBar from "../../app/components/NavBar/NavBar";
 
-const PromptTips = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
+const PromptTips = () => {
   return (
     <div className="prompt-tips-page">
-      <NavBar isLoggedIn={isLoggedIn} />
+      <NavBar />
       <div className="container">
         <Head>
           <title>Prompt Tips | Sustain</title>
