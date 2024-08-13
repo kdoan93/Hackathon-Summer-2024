@@ -6,7 +6,7 @@ function AboutUs() {
       <div className="flex flex-col items-center">
         <h1 className="page-header p-1rem"> About Sustain</h1>
         <a
-          href="https://github.com/CoryCampbell"
+          href="https://github.com/kdoan93/Hackathon-Summer-2024"
           target="_blank"
           rel="noopener noreferrer"
         >
