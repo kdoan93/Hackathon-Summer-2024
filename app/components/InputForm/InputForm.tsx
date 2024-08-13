@@ -72,7 +72,7 @@ const InputForm: React.FC = () => {
 
   const addToEntries = async (e: React.FormEvent) => {
     e.preventDefault();
-    
+
     try {
       if (user) {
         // Below adds the prompt and normalize response to the database
@@ -96,25 +96,10 @@ const InputForm: React.FC = () => {
   return (
     <div className="flex flex-col gap-2">
       <p className="description">Enter your meal and get nutrition facts!</p>
-      {/* Tooltip */}
-      <div className="tooltip flex justify-end mb-1.5" data-tip={dataToolTip}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="1.3em"
-          height="1.3em"
-          viewBox="0 0 24 24"
-          className="end mr-3"
-        >
-          <path
-            fill="currentColor"
-            d="M11 17h2v-6h-2zm1-8q.425 0 .713-.288T13 8t-.288-.712T12 7t-.712.288T11 8t.288.713T12 9m0 13q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22m0-2q3.35 0 5.675-2.325T20 12t-2.325-5.675T12 4T6.325 6.325T4 12t2.325 5.675T12 20m0-8"
-          />
-        </svg>
-      </div>
 
       {/* Input Form */}
       <form onSubmit={handleSubmit}>
-        <label className="input input-bordered flex items-center justify-between gap-2">
+        <label className="input-form-label input input-bordered flex items-center justify-between">
           <input
             className="w-64"
             type="text"
@@ -130,7 +115,7 @@ const InputForm: React.FC = () => {
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 16 16"
                 fill="currentColor"
-                className="h-12 w-12 opacity-80"
+                className="input-form-submit h-8 w-8 opacity-80"
               >
                 <path
                   fillRule="evenodd"
@@ -145,6 +130,22 @@ const InputForm: React.FC = () => {
           </div>
         </label>
       </form>
+
+      {/* Tooltip */}
+      <div className="tooltip flex justify-end mb-1.5" data-tip={dataToolTip}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="1.5rem"
+          height="1.5rem"
+          viewBox="0 0 24 24"
+          className="end mr-3"
+        >
+          <path
+            fill="currentColor"
+            d="M11 17h2v-6h-2zm1-8q.425 0 .713-.288T13 8t-.288-.712T12 7t-.712.288T11 8t.288.713T12 9m0 13q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22m0-2q3.35 0 5.675-2.325T20 12t-2.325-5.675T12 4T6.325 6.325T4 12t2.325 5.675T12 20m0-8"
+          />
+        </svg>
+      </div>
 
       {/* Display the nutritional table if response is available */}
       {submitted && isValid ? (
@@ -171,6 +172,19 @@ const InputForm: React.FC = () => {
       ) : (
         submitted && !isValid && <p>{AIresponse}</p>
       )}
+      <style>
+      {`
+        @media(max-width:768px){
+          .input-form-submit{
+            height: 3rem;
+            width: 3rem;
+          }
+            .input-form-label{
+              padding: 0 0 0 8px;
+            }
+        }
+        `}
+      </style>
     </div>
   );
 };
