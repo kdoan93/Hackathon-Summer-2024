@@ -1,12 +1,6 @@
 import React from "react";
 import Link from "next/link"; // Auth0
-import {
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  UserButton,
-  SignOutButton,
-} from "@clerk/nextjs";
+import { SignedIn, SignedOut, SignInButton, UserButton, SignOutButton } from "@clerk/nextjs";
 import { User } from "@clerk/nextjs/dist/types/server";
 
 interface NavBarProps {
