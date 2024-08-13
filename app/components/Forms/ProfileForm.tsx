@@ -5,6 +5,7 @@ interface ProfileFormValues {
   userId: string;
   heightInch: number;
   weightLbs: number;
+  goalWeight: number;
   age: number;
   activityLevel: number;
   bmi: number;
@@ -20,6 +21,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileCreated }) => {
   const [heightFeet, setHeightFeet] = useState<number | "">(0);
   const [heightInches, setHeightInches] = useState<number | "">(0);
   const [weightLbs, setWeightLbs] = useState<number | "">(0);
+  const [goalWeight, setGoalWeight] = useState<number | "">(0);
   const [age, setAge] = useState<number | "">(0);
   const [activityLevel, setActivityLevel] = useState<number>(3);
   const [bmi, setBmi] = useState<number | null>(null);
@@ -50,7 +52,12 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileCreated }) => {
       return;
     }
 
-    if (typeof heightFeet === "number" && typeof heightInches === "number" && typeof weightLbs === "number") {
+    if (
+      typeof heightFeet === "number" &&
+      typeof heightInches === "number" &&
+      typeof weightLbs === "number" &&
+      typeof goalWeight === "number"
+    ) {
       const totalHeightInInches = heightFeet * 12 + heightInches;
       const calculatedBMI = calculateBMI(totalHeightInInches, weightLbs);
       const category = determineBMICategory(calculatedBMI);
@@ -59,6 +66,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileCreated }) => {
         userId,
         heightInch: totalHeightInInches,
         weightLbs,
+        goalWeight,
         age: typeof age === "number" ? age : 0,
         activityLevel,
         bmi: calculatedBMI,
@@ -125,6 +133,17 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileCreated }) => {
             type="number"
             value={weightLbs}
             onChange={(e) => setWeightLbs(parseFloat(e.target.value))}
+            placeholder="Enter your weight"
+            required
+          />
+        </label>
+        <label className="input input-bordered flex items-start">
+          Goal Weight (in lbs):
+          <input
+            className="w-64"
+            type="number"
+            value={goalWeight}
+            onChange={(e) => setGoalWeight(parseFloat(e.target.value))}
             placeholder="Enter your weight"
             required
           />

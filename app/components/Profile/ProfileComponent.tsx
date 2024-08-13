@@ -8,6 +8,7 @@ interface ProfileData {
   userId: string;
   heightInch: number;
   weightLbs: number;
+  goalWeight: number;
   age: number;
   activityLevel: string;
   bmi: number;
@@ -86,6 +87,9 @@ const Profile: React.FC = () => {
           </p>
           <p>
             <strong>Weight:</strong> {profileData.weightLbs} lbs
+          </p>
+          <p>
+            <strong>Goal Weight:</strong> {profileData.goalWeight} lbs
           </p>
           <p>
             <strong>Age:</strong> {profileData.age} years

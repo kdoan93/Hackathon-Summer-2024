@@ -70,12 +70,12 @@ const InputForm: React.FC = () => {
 
       if (user) {
         // Below adds the prompt and normalize response to the database
-        await fetch("/api/dashboard/createDashboard", {
+        await fetch("/api/foodEntries/createFoodEntry", {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/json"
           },
-          body: JSON.stringify({ userId, prompt, normalizedResponse }),
+          body: JSON.stringify({ userId, prompt, normalizedResponse })
         });
       }
       setPrompt("");
