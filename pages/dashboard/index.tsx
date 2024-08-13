@@ -3,6 +3,7 @@ import Head from "next/head";
 import NavBar from "../../app/components/NavBar/NavBar";
 import DashboardPage from "../../app/components/Dashboard/DashboardPage";
 import Food from "../../app/components/FoodEntries/foodEntries";
+import Footer from "../../app/components/Footer/Footer";
 
 const Dashboard = () => {
   return (
@@ -18,9 +19,7 @@ const Dashboard = () => {
           {/* <Food /> */}
           <DashboardPage />
         </main>
-        <footer>
-          <p className="copyright">© 2024 Sustain</p>
-        </footer>
+        <Footer />
       </div>
     </div>
   );
