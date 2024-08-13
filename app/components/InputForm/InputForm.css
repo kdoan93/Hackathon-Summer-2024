@@ -1,3 +1,7 @@
 .input-form {
   width: 80%;
 }
+
+.signInAdd button {
+  padding: 10px 20px;
+}
