@@ -66,12 +66,21 @@ const DashboardPage: React.FC = () => {
   }, [userId, trigger]);
 
   return (
-    <div className="dashboard-main flex flex-col items-center justify-center gap-20">
-      <div className="flex flex-row">
-        <Graph userData={userData} />
-        <Profile />
+    <div className="dashboard-main flex flex-col items-center justify-center gap-20 w-4/5">
+      <div className="flex flex-row w-full justify-evenly">
+        <div className="flex flex-col items-center">
+          <h1 className="font-bold">Goal Tracker</h1>
+          <Graph userData={userData} />
+        </div>
+        <div className="flex flex-col items-center">
+          <h1 className="font-bold">Profile</h1>
+          <Profile />
+        </div>
       </div>
-      <FoodEntries />
+      <div className="flex flex-col items-center">
+        <h1 className="font-bold">Food Entries</h1>
+        <FoodEntries />
+      </div>
     </div>
   );
 };
