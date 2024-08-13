@@ -30,13 +30,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         const db = client.db('mydatabase')
         const data = await db.collection<MongoData>('userNutrition').insertOne({ userId, calories, date })
 
-        // const newLog: Data = {
-        //     userId,
-        //     calories,
-        //     date
-        // }
-
-        // await db.collection('userNutrition').insertOne(newLog)
         res.status(201).json({ message: 'Logged nutrition successfully' })
 
     } catch (error) {

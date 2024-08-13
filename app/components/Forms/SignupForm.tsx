@@ -7,7 +7,6 @@ interface SignupFormValues {
   email: string;
   password: string;
   confirmPassword: string;
-  // remember: boolean;
 }
 
 const SignupForm: React.FC = () => {
