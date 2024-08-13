@@ -4,7 +4,7 @@ import Badge from "../Badge/Badge";
 import "./InputForm.css";
 import VoiceToText from "../VoiceToText/VoiceToText"; // Import the VoiceToText component
 import NutritionTable from "../NutritionTable/NutritionTable"; // Import the NutritionTable component
-import { useUser } from "@clerk/nextjs";
+import { SignInButton, useUser } from "@clerk/nextjs";
 
 const InputForm: React.FC = () => {
   const [prompt, setPrompt] = useState("");
@@ -145,9 +145,17 @@ const InputForm: React.FC = () => {
           </h1>
           <NutritionTable response={response} />
           <div className="add-container flex flex-col items-center">
+          {userId ?
             <button className="add-to-meals text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
               Add
             </button>
+            :
+            <button className="signInAdd add-to-meals text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm text-center me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+              <SignInButton>
+                Sign in to get started!
+              </SignInButton>
+            </button>
+          }
           </div>
         </div>
       ) : (
