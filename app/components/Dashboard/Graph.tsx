@@ -77,7 +77,8 @@ const Graph: React.FC<GraphProps> = ({ userData }) => {
 
   return (
     <div className="flex justify-center w-full">
-      <div className="w-full max-w-screen-lg h-[400px]">
+      {/* <div className="w-full max-w-screen-lg h-[400px]"> */}
+      <div className="w-full max-w-screen-lg h-[20em]">
         <Bar data={data} options={options} />
       </div>
     </div>

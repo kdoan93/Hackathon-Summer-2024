@@ -4,6 +4,7 @@ import NavBar from "../../app/components/NavBar/NavBar";
 import ProfileComponent from "../../app/components/Profile/ProfileComponent";
 import { useRouter } from "next/router";
 import { useAuth } from "@clerk/nextjs";
+import Footer from "../../app/components/Footer/Footer";
 
 const Profile: React.FC = () => {
   const { isLoaded, isSignedIn } = useAuth();
@@ -35,9 +36,7 @@ const Profile: React.FC = () => {
           <h1 className="page-header">Profile</h1>
           <ProfileComponent />
         </main>
-        <footer>
-          <p className="copyright">© 2024 Sustain</p>
-        </footer>
+        <Footer />
       </div>
     </div>
   );

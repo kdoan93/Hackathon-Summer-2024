@@ -18,9 +18,11 @@ const NavBar = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
   return (
     <div className="navbar bg-base-100">
       <div className="flex-1">
-        <img src="/images/sustainlogo-peach.png" className="h-24 w-24" alt="Sustain Logo" />
-        <Link href="/" className="btn btn-ghost text-xl text-dark-brown">
-          Sustain
+        <Link className="flex flex-row items-center justify-center" href="/">
+          <img src="/images/sustainlogo-peach.png" className="h-24 w-24" alt="Sustain Logo" />
+          <div className="text-2xl px-2 text-logo-orange">
+            Sustain
+          </div>
         </Link>
       </div>
       <div className="dropdown dropdown-end text-logo-orange">

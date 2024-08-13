@@ -65,7 +65,7 @@ const DashboardPage: React.FC = () => {
   }, [userId, trigger]);
 
   return (
-    <div className="dashboard-main flex flex-col items-center justify-center gap-20">
+    <div className="dashboard-main flex flex-col items-center justify-center">
       <Graph userData={userData} />
       <FoodEntries />
     </div>

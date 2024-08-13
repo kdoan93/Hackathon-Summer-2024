@@ -1,6 +1,7 @@
 import React from "react";
 import Head from "next/head";
 import NavBar from "../../app/components/NavBar/NavBar";
+import Footer from "../../app/components/Footer/Footer";
 
 const PromptTips = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
   return (
@@ -14,9 +15,7 @@ const PromptTips = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
           <h1 className="page-header">Prompt Tips</h1>
           {/* Prompt Tips content here */}
         </main>
-        <footer>
-          <p className="copyright">© 2024 Sustain</p>
-        </footer>
+        <Footer />
       </div>
     </div>
   );

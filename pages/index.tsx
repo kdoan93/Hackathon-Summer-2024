@@ -5,6 +5,7 @@ import NavBar from "../app/components/NavBar/NavBar";
 import "./global.css";
 import { SignInButton, useUser } from "@clerk/nextjs";
 import InputForm from "../app/components/InputForm/InputForm";
+import Footer from "../app/components/Footer/Footer";
 
 // Interface for User data
 interface User {
@@ -72,9 +73,7 @@ const Home: React.FC<HomeProps> = ({ data }) => {
         </main>
 
         {/* Footer */}
-        <footer>
-          <p className="copyright">© 2024 Sustain</p>
-        </footer>
+        <Footer />
 
         <style jsx>{`
           .container {
@@ -91,15 +90,6 @@ const Home: React.FC<HomeProps> = ({ data }) => {
             flex: 1;
             display: flex;
             flex-direction: column;
-            justify-content: center;
-            align-items: center;
-          }
-
-          footer {
-            width: 100%;
-            height: 100px;
-            border-top: 1px solid #eaeaea;
-            display: flex;
             justify-content: center;
             align-items: center;
           }
