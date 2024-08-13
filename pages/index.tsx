@@ -59,7 +59,9 @@ const Home: React.FC<HomeProps> = ({ data }) => {
           </div>
 
           {!isSignedIn && (
-            <p className="description">Unlock your health journey - sign in to get started.</p>
+            <p className="description">
+              Unlock your health journey - sign in to get started.
+            </p>
           )}
         </main>
 
