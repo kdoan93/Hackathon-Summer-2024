@@ -10,7 +10,7 @@ interface ResType {
 async function createFoodEntry(req: NextApiRequest, res: NextApiResponse<ResType>) {
   if (req.method === "POST") {
     try {
-      const { userId, prompt, normalizedResponse } = req.body;
+      const { userId, prompt, AIresponse } = req.body;
 
       const client = await clientPromise;
       const db = client.db("mydatabase");
@@ -19,7 +19,7 @@ async function createFoodEntry(req: NextApiRequest, res: NextApiResponse<ResType
       const document = {
         userId,
         prompt,
-        response: normalizedResponse,
+        response: AIresponse,
         createdAt: new Date()
       };
 
