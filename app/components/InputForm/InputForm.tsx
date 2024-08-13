@@ -36,39 +36,40 @@ const InputForm: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (prompt.length) {
+      try {
+        const response = await fetch("/api/gemini", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ trainer }),
+        });
+        const data = await response.json();
+        console.log("data: ", data);
 
-    try {
-      const response = await fetch("/api/gemini", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ trainer }),
-      });
-      const data = await response.json();
-      console.log("data: ", data);
+        if (
+          data.result.trim() ===
+          "Not enough information given to give a good calculation."
+        ) {
+          setAIResponse(data.result);
+          setIsValid(false);
+          setSubmitted(true);
+          setPrompt("");
+          return;
+        }
 
-      if (
-        data.result.trim() ===
-        "Not enough information given to give a good calculation."
-      ) {
-        setAIResponse(data.result);
-        setIsValid(false);
+        const normalizedResponse = JSON.parse(
+          data.result.replace(/```json|```/g, "")
+        );
+        console.log("normalizedResponse: ", normalizedResponse);
+        setAIResponse(normalizedResponse);
         setSubmitted(true);
-        setPrompt("");
-        return;
+        setIsValid(true);
+        setResponseTitle(prompt);
+      } catch (error) {
+        console.error("Error calling Gemini API", error);
       }
-
-      const normalizedResponse = JSON.parse(
-        data.result.replace(/```json|```/g, "")
-      );
-      console.log("normalizedResponse: ", normalizedResponse);
-      setAIResponse(normalizedResponse);
-      setSubmitted(true);
-      setIsValid(true);
-      setResponseTitle(prompt);
-    } catch (error) {
-      console.error("Error calling Gemini API", error);
     }
   };
 
