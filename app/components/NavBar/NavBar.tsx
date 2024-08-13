@@ -60,14 +60,6 @@ const NavBar = () => {
             >
               Try Now!
             </Link>
-            <Link
-              className={`pl-3 btn btn-ghost text-xl ${
-                isActive("/about") ? "text-logo-orange" : "text-gray-600"
-              }`}
-              href="/about"
-            >
-              About Us
-            </Link>
             <a className="pl-3 btn btn-ghost text-xl text-logo-orange">
               <SignInButton />
             </a>
