@@ -5,10 +5,10 @@ import DashboardPage from "../../app/components/Dashboard/DashboardPage";
 import Food from "../../app/components/FoodEntries/foodEntries";
 import Footer from "../../app/components/Footer/Footer";
 
-const Dashboard = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
+const Dashboard = () => {
   return (
     <div className="dashboard-page">
-      <NavBar isLoggedIn={isLoggedIn} />
+      <NavBar />
       <div className="container">
         <Head>
           <title>Dashboard | Sustain</title>

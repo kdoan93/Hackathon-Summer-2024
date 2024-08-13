@@ -4,10 +4,10 @@ import NavBar from "../../app/components/NavBar/NavBar";
 import InputForm from "../../app/components/InputForm/InputForm";
 import Footer from "../../app/components/Footer/Footer";
 
-const MealInput = ({ isLoggedIn }: { isLoggedIn: boolean }) => {
+const MealInput = () => {
   return (
     <div className="meal-input-page">
-      <NavBar isLoggedIn={isLoggedIn} />
+      <NavBar />
       <div className="container">
         <Head>
           <title>Meal Input | Sustain</title>
