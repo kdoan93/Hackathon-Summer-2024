@@ -73,10 +73,10 @@ const Home: React.FC<HomeProps> = () => {
 
       {/* Features Section */}
       <section id="features" className="py-20 bg-comp-mauve text-center">
-        <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
+        <div className="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-10 px-10">
           <div className="feature-item p-6 bg-dark-brown rounded-lg shadow-lg">
             <img
-              src="/images/feature1-icon.png"
+              src="/images/meals.png"
               alt="Track Your Meals"
               className="mx-auto mb-4 h-20 w-20"
             />
@@ -90,7 +90,7 @@ const Home: React.FC<HomeProps> = () => {
           </div>
           <div className="feature-item p-6 bg-dark-brown rounded-lg shadow-lg">
             <img
-              src="/images/feature2-icon.png"
+              src="/images/goals.png"
               alt="Personalized Goals"
               className="mx-auto mb-4 h-20 w-20"
             />
@@ -103,7 +103,7 @@ const Home: React.FC<HomeProps> = () => {
           </div>
           <div className="feature-item p-6 bg-dark-brown rounded-lg shadow-lg">
             <img
-              src="/images/feature3-icon.png"
+              src="/images/mobile.png"
               alt="Easy to Use"
               className="mx-auto mb-4 h-20 w-20"
             />
