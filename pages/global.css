@@ -51,3 +51,22 @@ footer {
   justify-content: center;
   align-items: center;
 }
+
+.landingSignIn {
+  border-radius: 25px;
+  margin-top: 10px;
+  color: #666;
+  background-color: #EB836B;
+}
+
+.landingSignIn button {
+  padding: 0px 15px 5px;
+}
+
+.landingSignIn:hover {
+  background-color: var(--fallback-bc, oklch(var(--bc) / 1));
+}
+
+.landingSignIn:focus {
+  border: 1px solid #EB836B;
+}
