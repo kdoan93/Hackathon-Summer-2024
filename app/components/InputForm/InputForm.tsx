@@ -14,7 +14,6 @@ const InputForm: React.FC = () => {
   const [responseTitle, setResponseTitle] = useState<any>("");
   const { user } = useUser();
   const userId = user?.id;
-  console.log("user", user?.id);
 
   const trainer = `Your only job is to return nutritional values for the given food/food items. If the prompt is too vague to calculate a good response then respond with 'Not enough information given to give a good calculation.' Do not answer any other irrelevant questions or prompts. Dont forget to calculate for the amount of items given. if no amount is given assume it is one serving.
 
@@ -46,7 +45,6 @@ const InputForm: React.FC = () => {
           body: JSON.stringify({ trainer }),
         });
         const data = await response.json();
-        console.log("data: ", data);
 
         if (
           data.result.trim() ===
@@ -62,7 +60,6 @@ const InputForm: React.FC = () => {
         const normalizedResponse = JSON.parse(
           data.result.replace(/```json|```/g, "")
         );
-        console.log("normalizedResponse: ", normalizedResponse);
         setAIResponse(normalizedResponse);
         setSubmitted(true);
         setIsValid(true);
@@ -75,10 +72,7 @@ const InputForm: React.FC = () => {
 
   const addToEntries = async (e: React.FormEvent) => {
     e.preventDefault();
-
-    console.log("addToEntries clicked!");
-    console.log("AIresponse: ", AIresponse);
-    console.log("prompt: ", prompt);
+    
     try {
       if (user) {
         // Below adds the prompt and normalize response to the database
