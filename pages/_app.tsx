@@ -1,33 +1,52 @@
-// import { AppProps } from 'next/app';
-// import { useState } from "react";
-// import { UserProvider } from "@auth0/nextjs-auth0/client";
-// import "./global.css";
-// import { ClerkProvider, SignedOut, SignedIn, SignInButton, UserButton } from '@clerk/nextjs';
-
-// const MyApp = ({ Component, pageProps }: AppProps) => {
-//   const [isLoggedIn, setIsLoggedIn] = useState(true);
-
-//   return (
-//     <ClerkProvider>
-//       <UserProvider>
-//         <Component {...pageProps} isLoggedIn={isLoggedIn} />
-//       </UserProvider>
-//     </ClerkProvider>
-//   );
-// };
-
-// export default MyApp;
 import { AppProps } from 'next/app';
-import { useState } from "react";
+import { useEffect } from "react";
+import { useRouter } from 'next/router';
+import Script from 'next/script';
 import { ClerkProvider } from '@clerk/nextjs';
 import "./global.css";
 
+declare global {
+  interface Window {
+    gtag: (...args: any[]) => void;
+  }
+}
+
 const MyApp = ({ Component, pageProps }: AppProps) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
+  const router = useRouter();
+
+  useEffect(() => {
+    const handleRouteChange = (url: string) => {
+      window.gtag('config', 'G-HYG8BVZ0CJ', {
+        page_path: url,
+      });
+    };
+    router.events.on('routeChangeComplete', handleRouteChange);
+    return () => {
+      router.events.off('routeChangeComplete', handleRouteChange);
+    };
+  }, [router.events]);
 
   return (
     <ClerkProvider>
-      <Component {...pageProps} isLoggedIn={isLoggedIn} />
+      {/* Google Analytics Script */}
+      <Script
+        strategy="afterInteractive"
+        src={`https://www.googletagmanager.com/gtag/js?id=G-HYG8BVZ0CJ`}
+      />
+      <Script
+        id="google-analytics"
+        strategy="afterInteractive"
+        dangerouslySetInnerHTML={{
+          __html: `
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+
+            gtag('config', 'GA_MEASUREMENT_ID');
+          `,
+        }}
+      />
+      <Component {...pageProps} />
     </ClerkProvider>
   );
 };
