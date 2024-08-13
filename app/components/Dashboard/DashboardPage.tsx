@@ -2,6 +2,7 @@
 import React, { useState, useEffect } from "react";
 import { useUser } from "@clerk/nextjs";
 import Graph from "./Graph";
+import FoodEntries from "../FoodEntries/foodEntries";
 
 // Below is to define types for typescript errors
 interface ResponseData {
@@ -47,9 +48,7 @@ const DashboardPage: React.FC = () => {
         return;
       }
       try {
-        const res = await fetch(
-          `/api/dashboard/getDashboard?userId=${encodeURIComponent(userId)}`
-        );
+        const res = await fetch(`/api/foodEntries/getAllFoodEntries?userId=${encodeURIComponent(userId)}`);
         if (!res.ok) {
           throw new Error("Data not fetched: Network Failure");
         }
@@ -65,77 +64,10 @@ const DashboardPage: React.FC = () => {
     loadData();
   }, [userId, trigger]);
 
-  //Below remove row from table
-  const handleDelete = async (id: string): Promise<void> => {
-    try {
-      const response = await fetch(
-        `/api/dashboard/deleteDashboardData?id=${encodeURIComponent(id)}`,
-        {
-          method: "DELETE",
-        }
-      );
-      const result = await response.json();
-
-      if (response.ok) {
-        console.log("Delete successful:", result.message);
-        setTrigger(!trigger);
-      } else {
-        console.error("Delete failed:", result.message);
-      }
-    } catch (error) {
-      console.error("Error:", error);
-    }
-  };
-
   return (
     <div className="dashboard-main flex flex-col items-center justify-center gap-20">
       <Graph userData={userData} />
-
-      {/* Calorie chart section */}
-      <div className="overflow-x-auto">
-        <div className="overflow-y-auto h-80">
-          <table className="table">
-            {/* head */}
-            <thead>
-              <tr>
-                <th>Date</th>
-                <th>Meal</th>
-                <th>Calories</th>
-                <th>Remove</th>
-              </tr>
-            </thead>
-            <tbody>
-              {userData?.data.map((info) => {
-                // Below reformats the date
-                const formattedDate = new Date(
-                  info.createdAt
-                ).toLocaleDateString("en-US", {
-                  year: "numeric",
-                  month: "long",
-                  day: "numeric",
-                  hour: "2-digit",
-                  minute: "2-digit",
-                });
-                return (
-                  <tr key={info._id} className="hover bg-base-200">
-                    <td>{formattedDate}</td>
-                    <td>{info.prompt}</td>
-                    <td>{info.response?.Calories}</td>
-                    <td>
-                      <button
-                        className="btn btn-xs sm:btn-sm md:btn-md lg:btn-sm border-gray-300 rounded-md"
-                        onClick={() => handleDelete(info._id)}
-                      >
-                        Delete
-                      </button>
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </div>
-      </div>
+      <FoodEntries />
     </div>
   );
 };

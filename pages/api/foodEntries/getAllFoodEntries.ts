@@ -7,39 +7,29 @@ interface ResType {
   message?: string;
 }
 
-async function getDashboardData(
-  req: NextApiRequest,
-  res: NextApiResponse<ResType>
-) {
+async function getAllFoodEntries(req: NextApiRequest, res: NextApiResponse<ResType>) {
   if (req.method === "GET") {
     try {
       const { userId } = req.query;
 
       if (!userId || typeof userId !== "string") {
-        return res
-          .status(400)
-          .json({ success: false, message: "Invalid or missing userId" });
+        return res.status(400).json({ success: false, message: "Invalid or missing userId" });
       }
 
       const client = await clientPromise;
       const db = client.db("mydatabase");
-      const collection = db.collection("dashboard");
+      const collection = db.collection("foodEntries");
 
-      const data = await collection
-        .find({ userId })
-        .sort({ createdAt: 1 })
-        .toArray();
+      const data = await collection.find({ userId }).sort({ createdAt: 1 }).toArray();
 
       res.status(200).json({ success: true, data });
     } catch (error) {
       console.error("Error retrieving data:", error);
-      res
-        .status(500)
-        .json({ success: false, message: "Internal Server Error" });
+      res.status(500).json({ success: false, message: "Internal Server Error" });
     }
   } else {
     res.status(405).json({ success: false, message: "Method Not Allowed" });
   }
 }
 
-export default getDashboardData;
+export default getAllFoodEntries;

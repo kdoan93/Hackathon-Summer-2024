@@ -8,23 +8,18 @@ interface ResType {
   message?: string;
 }
 
-async function getWeeklyCalories(
-  req: NextApiRequest,
-  res: NextApiResponse<ResType>
-) {
+async function getWeeklyCalories(req: NextApiRequest, res: NextApiResponse<ResType>) {
   if (req.method === "GET") {
     try {
       const { userId } = req.query;
 
       if (!userId || typeof userId !== "string") {
-        return res
-          .status(400)
-          .json({ success: false, message: "Invalid or missing userId" });
+        return res.status(400).json({ success: false, message: "Invalid or missing userId" });
       }
 
       const client = await clientPromise;
       const db = client.db("mydatabase");
-      const collection = db.collection("dashboard");
+      const collection = db.collection("foodEntries");
 
       // Below sets a start date and end date of the current week to query the DB fo a sum
       const now = new Date();
@@ -36,15 +31,15 @@ async function getWeeklyCalories(
           {
             $match: {
               userId,
-              createdAt: { $gte: startDate, $lt: endDate },
-            },
+              createdAt: { $gte: startDate, $lt: endDate }
+            }
           },
           {
             $group: {
               _id: null,
-              totalCalories: { $sum: "$response.Calories" },
-            },
-          },
+              totalCalories: { $sum: "$response.Calories" }
+            }
+          }
         ])
         .toArray();
 
@@ -53,9 +48,7 @@ async function getWeeklyCalories(
       res.status(200).json({ success: true, data: { totalCalories } });
     } catch (error) {
       console.error("Error retrieving weekly calories:", error);
-      res
-        .status(500)
-        .json({ success: false, message: "Internal Server Error" });
+      res.status(500).json({ success: false, message: "Internal Server Error" });
     }
   } else {
     res.status(405).json({ success: false, message: "Method Not Allowed" });
