@@ -66,7 +66,3 @@ footer {
 .landingSignIn:hover {
   background-color: var(--fallback-bc, oklch(var(--bc) / 1));
 }
-
-.landingSignIn:focus {
-  border: 1px solid #EB836B;
-}
