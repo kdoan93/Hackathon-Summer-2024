@@ -2,10 +2,10 @@ import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import NavBar from "../app/components/NavBar/NavBar";
 // import { withPageAuthRequired } from "@auth0/nextjs-auth0/client";
-import "./global.css";
 import { SignInButton, useUser } from "@clerk/nextjs";
 import InputForm from "../app/components/InputForm/InputForm";
 import Footer from "../app/components/Footer/Footer";
+import "./global.css";
 
 // Interface for User data
 interface User {
@@ -62,7 +62,7 @@ const Home: React.FC<HomeProps> = ({ data }) => {
 
           <InputForm />
           {!isSignedIn && (
-            <p className="description">
+            <p className="description mt-4">
               Unlock your health journey -{" "}
               <button className="landingSignIn">
                 <SignInButton>Sign in</SignInButton>
@@ -103,10 +103,15 @@ const Home: React.FC<HomeProps> = ({ data }) => {
           .title {
             text-align: center;
           }
-          @media (max-width: 480px) {
+          @media (max-width: 768px) {
             .welcome-container {
               flex-direction: column;
               text-align: center;
+          }
+          @media (min-width: 1200px) {
+            .title {
+              font-size: 6rem; /* Larger screens */
+            }
           }
         `}</style>
       </div>

@@ -49,7 +49,11 @@ const DashboardPage: React.FC = () => {
         return;
       }
       try {
-        const res = await fetch(`/api/foodEntries/getAllFoodEntries?userId=${encodeURIComponent(userId)}`);
+        const res = await fetch(
+          `/api/foodEntries/getAllFoodEntries?userId=${encodeURIComponent(
+            userId
+          )}`
+        );
         if (!res.ok) {
           throw new Error("Data not fetched: Network Failure");
         }
@@ -66,12 +70,22 @@ const DashboardPage: React.FC = () => {
   }, [userId, trigger]);
 
   return (
-    <div className="dashboard-main flex flex-col items-center justify-center">
-      <div className="flex flex-row">
+    <div className="dashboard-main w-[80vw] mx-auto h-[80vh] flex flex-col items-center justify-center gap-5">
+      <div className="dashboard-graph-profile flex flex-row gap-5">
         <Graph userData={userData} />
         <Profile />
       </div>
       <FoodEntries />
+      <style>
+        {`
+        @media(max-width:768px){
+          .dashboard-graph-profile{
+            flex-direction:column;
+            align-items:center
+          }
+        }
+        `}
+      </style>
     </div>
   );
 };

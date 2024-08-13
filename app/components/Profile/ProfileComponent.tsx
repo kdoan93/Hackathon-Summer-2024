@@ -83,28 +83,36 @@ const Profile: React.FC = () => {
         <div className="profile-details flex flex-col gap-4">
           <h1 className="text-2xl">Your Profile</h1>
           <p>
-            <strong>Height:</strong> {Math.floor(profileData.heightInch / 12)} ft {profileData.heightInch % 12} in
+            <strong className="text-logo-orange">Height:</strong>{" "}
+            {Math.floor(profileData.heightInch / 12)} ft{" "}
+            {profileData.heightInch % 12} in
           </p>
           <p>
-            <strong>Weight:</strong> {profileData.weightLbs} lbs
+            <strong className="text-logo-orange">Weight:</strong>{" "}
+            {profileData.weightLbs} lbs
           </p>
           <p>
-            <strong>Goal Weight:</strong> {profileData.goalWeight} lbs
+            <strong className="text-logo-orange">Goal Weight:</strong>{" "}
+            {profileData.goalWeight} lbs
           </p>
           <p>
-            <strong>Age:</strong> {profileData.age} years
+            <strong className="text-logo-orange">Age:</strong> {profileData.age}{" "}
+            years
           </p>
           <p>
-            <strong>Activity Level:</strong> {profileData.activityLevel}
+            <strong className="text-logo-orange">Activity Level:</strong>{" "}
+            {profileData.activityLevel}
           </p>
           <p>
-            <strong>BMI:</strong> {profileData.bmi}
+            <strong className="text-logo-orange">BMI:</strong> {profileData.bmi}
           </p>
           <p>
-            <strong>BMI Category:</strong> {profileData.bmiCategory}
+            <strong className="text-logo-orange">BMI Category:</strong>{" "}
+            {profileData.bmiCategory}
           </p>
           <p>
-            <strong>Profile Created At:</strong> {new Date(profileData.createdAt).toLocaleDateString()}
+            <strong className="text-logo-orange">Profile Created At:</strong>{" "}
+            {new Date(profileData.createdAt).toLocaleDateString()}
           </p>
           {/* Optionally add an Edit or Delete button here */}
         </div>
