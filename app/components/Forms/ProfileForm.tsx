@@ -1,16 +1,13 @@
 import React, { useState } from "react";
 import { useUser } from "@clerk/nextjs";
 
-interface ProfileFormValues {
-  userId: string;
-  heightInch: number;
-  weightLbs: number;
-  goalWeight: number;
-  age: number;
-  activityLevel: number;
-  bmi: number;
-  bmiCategory: string;
-}
+const activityMultipliers: { [key in 1 | 2 | 3 | 4 | 5]: number } = {
+  1: 1.2,
+  2: 1.375,
+  3: 1.55,
+  4: 1.725,
+  5: 1.9
+};
 
 interface ProfileFormProps {
   onProfileCreated: () => void;
@@ -23,14 +20,14 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileCreated }) => {
   const [weightLbs, setWeightLbs] = useState<number | "">(0);
   const [goalWeight, setGoalWeight] = useState<number | "">(0);
   const [age, setAge] = useState<number | "">(0);
-  const [activityLevel, setActivityLevel] = useState<number>(3);
-  const [bmi, setBmi] = useState<number | null>(null);
-  const [bmiCategory, setBmiCategory] = useState<string | null>(null);
+  const [gender, setGender] = useState<string | null>(null);
+  const [activityLevel, setActivityLevel] = useState<1 | 2 | 3 | 4 | 5>(3);
   const { user } = useUser();
   const userId = user?.id;
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setActivityLevel(parseInt(e.target.value));
+    const sliderValue = parseInt(e.target.value) as 1 | 2 | 3 | 4 | 5;
+    setActivityLevel(sliderValue);
   };
 
   const calculateBMI = (height: number, weight: number): number => {
@@ -62,15 +59,55 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileCreated }) => {
       const calculatedBMI = calculateBMI(totalHeightInInches, weightLbs);
       const category = determineBMICategory(calculatedBMI);
 
-      const BMIData: ProfileFormValues = {
+      // Convert height to cm and weight to kg
+      const heightCm = totalHeightInInches * 2.54;
+      const weightKg = weightLbs / 2.205;
+      const goalWeightKg = goalWeight / 2.205;
+
+      // Calculate BMR
+      let BMR: number;
+      if (gender === "Male") {
+        BMR = 10 * weightKg + 6.25 * heightCm - 5 * Number(age) + 5;
+      } else {
+        BMR = 10 * weightKg + 6.25 * heightCm - 5 * Number(age) - 161;
+      }
+
+      // Apply the correct activity multiplier
+      const TDEE = BMR * activityMultipliers[activityLevel];
+
+      let dailyCaloricIntake: number;
+      if (goalWeightKg < weightKg) {
+        dailyCaloricIntake = TDEE - 500;
+      } else if (goalWeightKg > weightKg) {
+        dailyCaloricIntake = TDEE + 500;
+      } else {
+        dailyCaloricIntake = TDEE;
+      }
+
+      const dailyProtein = (weightKg * 1.2).toFixed(2);
+      const dailyFat = ((dailyCaloricIntake * 0.25) / 9).toFixed(2);
+      const dailyCarbs = ((dailyCaloricIntake - parseFloat(dailyProtein) * 4 - parseFloat(dailyFat) * 9) / 4).toFixed(
+        2
+      );
+      const dailyCholesterol = 300;
+      const dailySodium = 2300;
+
+      const BMIData = {
         userId,
         heightInch: totalHeightInInches,
         weightLbs,
         goalWeight,
         age: typeof age === "number" ? age : 0,
+        gender,
         activityLevel,
         bmi: calculatedBMI,
-        bmiCategory: category
+        bmiCategory: category,
+        dailyCaloricIntake: parseFloat(dailyCaloricIntake.toFixed(2)),
+        dailyFat: parseFloat(dailyFat),
+        dailyCholesterol,
+        dailySodium,
+        dailyCarbs: parseFloat(dailyCarbs),
+        dailyProtein: parseFloat(dailyProtein)
       };
 
       try {
@@ -86,7 +123,6 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileCreated }) => {
 
         if (response.ok) {
           setMessage("Profile Created Successfully!");
-          console.log("Profile created, triggering callback");
           onProfileCreated();
         } else {
           setMessage(data.message);
@@ -100,82 +136,123 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileCreated }) => {
   };
 
   return (
-    <>
+    <div className="bg-mustard-yellow p-2 rounded-2xl w-80">
+      <h1 className="flex flex-col items-center text-3xl text-dark-brown p-5">Create Your Profile</h1>
       <form className="flex flex-col gap-5" onSubmit={handleSubmit}>
-        {/* Form fields for height, weight, age, etc. */}
-        <label className="input input-bordered flex items-center justify-start">
+        <label className="input input-bordered flex items-center justify-between">
           Height:
-          <div className="flex">
-            <input
-              className="w-10 px-1"
-              type="number"
-              value={heightFeet}
-              onChange={(e) => setHeightFeet(parseInt(e.target.value))}
-              placeholder="Feet"
-              required
-            />
-            <span className="mx-2">ft</span>
-            <input
-              className="w-10 px-1"
-              type="number"
-              value={heightInches}
-              onChange={(e) => setHeightInches(parseInt(e.target.value))}
-              placeholder="Inches"
-              required
-            />
-            <span className="mx-2">in</span>
+          <div className="flex items-center justify-between w-36">
+            <div className="bg-mustard-yellow flex items-center justify-between">
+              <input
+                className="w-12 pl-2 text-xl text-black"
+                type="number"
+                value={heightFeet}
+                onChange={(e) => setHeightFeet(parseInt(e.target.value))}
+                placeholder="Feet"
+                required
+              />
+              <span className="text-xl bg-comp-black w-8 px-2">ft</span>
+            </div>
+            <div className="bg-mustard-yellow flex items-center justify-between">
+              <input
+                className="w-12 pl-2 text-xl text-black"
+                type="number"
+                value={heightInches}
+                onChange={(e) => setHeightInches(parseInt(e.target.value))}
+                placeholder="Inches"
+                required
+              />
+              <span className="text-xl bg-comp-black w-8 px-2">in</span>
+            </div>
           </div>
         </label>
-        <label className="input input-bordered flex items-center justify-start">
+        <label className="input input-bordered flex items-center justify-between">
           Weight (in lbs):
-          <input
-            className="w-16 px-1"
-            type="number"
-            value={weightLbs}
-            onChange={(e) => setWeightLbs(parseFloat(e.target.value))}
-            placeholder="Enter your weight"
-            required
-          />
+          <div className="bg-mustard-yellow flex items-center justify-between w-16">
+            <input
+              className="w-16 pl-2 text-xl text-black"
+              type="number"
+              value={weightLbs}
+              onChange={(e) => setWeightLbs(parseFloat(e.target.value))}
+              placeholder="Enter your weight"
+              required
+            />
+          </div>
         </label>
-        <label className="input input-bordered flex items-center justify-start">
+        <label className="input input-bordered flex items-center justify-between">
           Goal Weight (in lbs):
-          <input
-            className="w-16 px-1"
-            type="number"
-            value={goalWeight}
-            onChange={(e) => setGoalWeight(parseFloat(e.target.value))}
-            placeholder="Enter your weight"
-            required
-          />
+          <div className="bg-mustard-yellow flex items-center justify-between w-16">
+            <input
+              className="w-16 pl-2 text-xl text-black"
+              type="number"
+              value={goalWeight}
+              onChange={(e) => setGoalWeight(parseFloat(e.target.value))}
+              placeholder="Enter your goal weight"
+              required
+            />
+          </div>
         </label>
-        <label className="input input-bordered flex items-center justify-start">
+        <label className="input input-bordered flex items-center justify-between">
           Age:
-          <input
-            className="w-16 px-1"
-            type="number"
-            value={age}
-            onChange={(e) => setAge(parseInt(e.target.value))}
-            placeholder="Enter your age"
-            required
-          />
+          <div className="bg-mustard-yellow flex items-center justify-between w-16">
+            <input
+              className="w-16 pl-2 text-xl text-black"
+              type="number"
+              value={age}
+              onChange={(e) => setAge(parseInt(e.target.value))}
+              placeholder="Enter your age"
+              required
+            />
+          </div>
         </label>
-        <label>
+        <label className="input input-bordered flex items-center justify-between" htmlFor="male">
+          Gender:
+          <div className="flex flow-row">
+            <div className="flex flex-row content-evenly w-20">
+              <input
+                type="radio"
+                id="male"
+                name="gender"
+                value="Male"
+                checked={gender === "Male"}
+                onChange={(e) => setGender(e.target.value)}
+                background-color="white"
+              />
+              <label htmlFor="male">Male</label>
+            </div>
+            <div>
+              <input
+                className="bg-white"
+                type="radio"
+                id="female"
+                name="gender"
+                value="Female"
+                checked={gender === "Female"}
+                onChange={(e) => setGender(e.target.value)}
+              />
+              <label htmlFor="female">Female</label>
+            </div>
+          </div>
+        </label>
+        <label className="input input-bordered flex items-center justify-between h-16">
           Activity Level:
-          <input
-            type="range"
-            min={1}
-            max="5"
-            value={activityLevel}
-            className="range"
-            step="1"
-            onChange={handleChange}
-          />
-          <div className="flex w-full justify-between px-2 text-xs">
-            <span>1</span>
-            <span>2</span>
-            <span>3</span>
-            <span>4</span>
-            <span>5</span>
+          <div className="p-5">
+            <input
+              type="range"
+              min={1}
+              max="5"
+              value={activityLevel}
+              className="range"
+              step="1"
+              onChange={handleChange}
+            />
+            <div className="flex w-full justify-between px-2 text-xs">
+              <span>1</span>
+              <span>2</span>
+              <span>3</span>
+              <span>4</span>
+              <span>5</span>
+            </div>
           </div>
         </label>
         <label className="submit-bmi-container flex flex-col items-center">
@@ -188,7 +265,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileCreated }) => {
         </label>
       </form>
       {message && <p>{message}</p>}
-    </>
+    </div>
   );
 };
 

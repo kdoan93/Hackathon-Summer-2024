@@ -25,7 +25,8 @@ const InputForm: React.FC = () => {
     "Cholesterol": *value*,
     "Sodium": *value*,
     "Total Carbohydrate": *value*,
-    "Protein": *value*
+    "Protein": *value*,
+    "Fiber": *value*
     }
 
     Here is the food: ${prompt}`;

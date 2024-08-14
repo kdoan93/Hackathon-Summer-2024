@@ -10,7 +10,23 @@ interface ResType {
 async function createProfileData(req: NextApiRequest, res: NextApiResponse<ResType>) {
   if (req.method === "POST") {
     try {
-      const { userId, heightInch, weightLbs, goalWeight, age, activityLevel, bmi, bmiCategory } = req.body;
+      const {
+        userId,
+        heightInch,
+        weightLbs,
+        goalWeight,
+        age,
+        gender,
+        activityLevel,
+        bmi,
+        bmiCategory,
+        dailyCaloricIntake,
+        dailyFat,
+        dailyCholesterol,
+        dailySodium,
+        dailyCarbs,
+        dailyProtein
+      } = req.body;
 
       const client = await clientPromise;
       const db = client.db("mydatabase");
@@ -22,9 +38,16 @@ async function createProfileData(req: NextApiRequest, res: NextApiResponse<ResTy
         weightLbs,
         goalWeight,
         age,
+        gender,
         activityLevel,
         bmi,
         bmiCategory,
+        dailyCaloricIntake,
+        dailyFat,
+        dailyCholesterol,
+        dailySodium,
+        dailyCarbs,
+        dailyProtein,
         createdAt: new Date()
       };
 

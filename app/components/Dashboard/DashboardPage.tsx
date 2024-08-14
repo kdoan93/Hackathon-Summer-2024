@@ -70,10 +70,10 @@ const DashboardPage: React.FC = () => {
   }, [userId, trigger]);
 
   return (
-    <div className="dashboard-main w-[80vw] mx-auto flex flex-col items-center justify-center gap-5 h-auto">
+    <div className="dashboard-main w-[70vw] flex flex-col items-center justify-evenly gap-5 h-auto">
       <div className="dashboard-graph-profile flex flex-row h-auto gap-5">
-        <Graph userData={userData} />
         <Profile />
+        <Graph userData={userData} />
       </div>
       <FoodEntries />
       <style>

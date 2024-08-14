@@ -9,6 +9,7 @@ interface ProfileData extends Document {
   weightLbs: number;
   goalWeight: number;
   age: number;
+  gender: string;
   activityLevel: string;
   bmi: number;
   bmiCategory: string;
@@ -22,6 +23,7 @@ type Data = {
   weightLbs: number;
   goalWeight: number;
   age: number;
+  gender: string;
   activityLevel: string;
   bmi: number;
   bmiCategory: string;
@@ -57,6 +59,7 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         weightLbs: profile.weightLbs,
         goalWeight: profile.goalWeight,
         age: profile.age,
+        gender: profile.gender,
         activityLevel: profile.activityLevel,
         bmi: profile.bmi,
         bmiCategory: profile.bmiCategory,

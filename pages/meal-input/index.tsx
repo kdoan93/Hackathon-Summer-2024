@@ -11,6 +11,7 @@ const MealInput = () => {
       <div className="container">
         <Head>
           <title>Meal Input | Sustain</title>
+          <link rel="icon" href="/images/sustainlogo-peach.png" />
         </Head>
         <main className="main-container">
           <h1 className="page-header">Meal Input</h1>

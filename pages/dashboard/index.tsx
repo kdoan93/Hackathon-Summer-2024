@@ -11,6 +11,7 @@ const Dashboard = () => {
       <div className="container">
         <Head>
           <title>Dashboard | Sustain</title>
+          <link rel="icon" href="/images/sustainlogo-peach.png" />
         </Head>
         <main className="main-container">
           <h1 className="page-header">Dashboard</h1>
