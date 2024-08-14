@@ -50,7 +50,12 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 const WeightComparisonChart: React.FC<WeightComparisonChartProps> = ({ profileData }) => {
   if (!profileData) {
-    return <div>No data available</div>;
+    return (
+      <div className="flex  flex-col items-center justify-center border-4 border-mustard-yellow rounded-2xl w-full h-full">
+        <h1 className="text-4xl underline p-5">No data available</h1>
+        <p className="text-3xl text-center p-5">Please Create A Profile to view stats</p>
+      </div>
+    );
   }
 
   const data = {
