@@ -27,7 +27,7 @@ const NavBar = () => {
       <div className="navbar h-12 pl-24">
         <div className="flex-1"></div>
         <SignedIn>
-          <div className="text-logo-orange flex items-center space-x-3">
+          <div className="text-logo-orange flex items-center">
             <UserButton />
             <Link
               className={`pl-3 btn btn-ghost text-xl ${
@@ -47,7 +47,7 @@ const NavBar = () => {
             </Link>
           </div>
           <div>
-            <a className="text-dark-brown pl-3 flex float-end btn btn-ghost text-xl">
+            <a className="navbar-user text-dark-brown pl-3 flex float-end btn btn-ghost text-xl">
               <SignOutButton />
             </a>
           </div>
@@ -60,12 +60,27 @@ const NavBar = () => {
             >
               Try Now!
             </Link>
-            <a className="pl-3 btn btn-ghost text-xl text-logo-orange">
+            <a className="navbar-user pl-3 btn btn-ghost text-xl text-logo-orange">
               <SignInButton />
             </a>
           </div>
         </SignedOut>
       </div>
+      <style>
+      {`
+        @media(max-width:768px){
+          .navbar-user {
+            margin-right: 20px;
+          }
+
+          .navbar a {
+            padding: 0 5px;
+            font-size: .75rem;
+            font-weight: 700;
+          }
+        }
+        `}
+      </style>
     </div>
   );
 };
