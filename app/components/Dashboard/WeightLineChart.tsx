@@ -43,12 +43,12 @@ interface ProfileData {
 }
 
 interface WeightComparisonChartProps {
-  profileData: ProfileData;
+  profileData: ProfileData | null;
 }
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-const WeightComparisonChart: React.FC<WeightComparisonChartProps> = ({ userId }) => {
+const WeightComparisonChart: React.FC<WeightComparisonChartProps> = ({ profileData }) => {
   if (!profileData) {
     return <div>No data available</div>;
   }

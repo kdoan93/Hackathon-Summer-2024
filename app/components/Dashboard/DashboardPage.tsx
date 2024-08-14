@@ -89,16 +89,16 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ userId }) => {
           <Profile profileData={profileData} onProfileCreated={handleProfileCreated} />
         </div>
         <div className="w-full flex items-center justify-center">
-          {/* <WeightLineChart profileData={profileData} /> */}
+          <WeightLineChart profileData={profileData} />
         </div>
       </div>
       <div className="seperated-dailies-container flex flex-row flex-wrap justify-center h-100 w-full gap-5">
         <div className="w-auto">
-          {/* <DailyNutrientComparisonChart
-            userFoodEntries={userFoodEntries}
+          <DailyNutrientComparisonChart
+            profileData={profileData}
             nutrientName="CaloricIntake"
             goalValue={profileData?.dailyCaloricIntake}
-          /> */}
+          />
         </div>
         <div className="w-auto">
           {/* <DailyNutrientComparisonChart userFoodEntries={userFoodEntries} profileData={profileData} nutrientName="Protein" /> */}

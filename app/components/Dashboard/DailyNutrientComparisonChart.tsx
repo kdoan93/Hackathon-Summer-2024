@@ -43,38 +43,15 @@ interface UserFoodEntries {
 }
 
 interface DailyNutrientComparisonChartProps {
-  userFoodEntries: UserFoodEntries | null;
-  profileData: ProfileData;
+  profileData: ProfileData | null;
   nutrientName: keyof ResponseData;
-  goalValue: number;
+  goalValue: number | undefined;
 }
 
 ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
 
-const DailyNutrientComparisonChart: React.FC<DailyNutrientComparisonChartProps> = ({
-  userFoodEntries,
-  nutrientName,
-  goalValue
-}) => {
+const DailyNutrientComparisonChart: React.FC<DailyNutrientComparisonChartProps> = ({ nutrientName, goalValue }) => {
   const [currentIntake, setCurrentIntake] = useState<number>(0);
-
-  useEffect(() => {
-    if (userFoodEntries) {
-      // Aggregate the current day's nutrient intake
-      const today = new Date().toISOString().split("T")[0];
-      const todayData = userFoodEntries.data.filter(
-        (info) => new Date(info.createdAt).toISOString().split("T")[0] === today
-      );
-
-      const aggregatedValue = todayData.reduce((sum, entry) => sum + entry.response[nutrientName], 0);
-
-      setCurrentIntake(aggregatedValue);
-    }
-  }, [userFoodEntries, nutrientName]);
-
-  if (!userFoodEntries) {
-    return <div>No user data available</div>;
-  }
 
   const data = {
     labels: [`Current ${nutrientName}`, `Goal ${nutrientName}`], // Labels for the two data points
