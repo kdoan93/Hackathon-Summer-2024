@@ -4,7 +4,8 @@ import Badge from "../Badge/Badge";
 import "./InputForm.css";
 import VoiceToText from "../VoiceToText/VoiceToText"; // Import the VoiceToText component
 import NutritionTable from "../NutritionTable/NutritionTable"; // Import the NutritionTable component
-import { SignInButton, useUser } from "@clerk/nextjs";
+import { SignInButton, SignUpButton, useUser } from "@clerk/nextjs";
+import Link from "next/link";
 
 interface InputFormProps {
   onEntryAdded: () => void; // Prop to notify parent component when an entry is added
@@ -156,9 +157,9 @@ const InputForm: React.FC<InputFormProps> = ({ onEntryAdded }) => {
                 Add
               </button>
             ) : (
-              <button className="signInAdd add-to-meals text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm text-center me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
-                <SignInButton>Sign in to get started!</SignInButton>
-              </button>
+              <div className="navbar-user pl-3 btn btn-ghosT signInAdd add-to-meals text-white bg-green-700 hover:bg-green-800 focus:outline-none focus:ring-4 focus:ring-green-300 font-medium rounded-full text-sm text-center me-2 mb-2 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800">
+                <SignUpButton forceRedirectUrl={"/dashboard"}>Sign up to get started!</SignUpButton>
+              </div>
             )}
           </div>
         </div>

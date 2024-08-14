@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import Head from "next/head";
 import Link from "next/link";
-import { useUser } from "@clerk/nextjs";
+import { SignUpButton, useUser } from "@clerk/nextjs";
 import NavBar from "../app/components/NavBar/NavBar";
 import Footer from "../app/components/Footer/Footer";
 import "./global.css";
@@ -65,9 +65,9 @@ const Home: React.FC<HomeProps> = () => {
         <br />
         <h2 className="text-2xl md:text-5xl font-bold text-black">Nourish. Embrace. Overcome.</h2>
         <p className="mt-4 text-lg">Unlock your health journey Today!</p>
-        <Link className="btn btn-lg btn-outline btn-light mt-8" href="https://trusting-redbird-78.accounts.dev/sign-up">
-          Get Started
-        </Link>
+        <div className="btn btn-lg btn-outline btn-light mt-8">
+          <SignUpButton forceRedirectUrl={"/dashboard"}>Get Started</SignUpButton>
+        </div>
       </section>
 
       {/* Features Section */}
