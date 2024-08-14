@@ -44,11 +44,6 @@ const ProfileForm: React.FC<ProfileFormProps> = ({ onProfileCreated }) => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    if (!userId) {
-      setMessage("User is not authenticated. Please log in.");
-      return;
-    }
-
     if (
       typeof heightFeet === "number" &&
       typeof heightInches === "number" &&
