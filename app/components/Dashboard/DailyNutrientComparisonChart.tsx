@@ -57,7 +57,7 @@ const DailyNutrientComparisonProgressBar: React.FC<DailyNutrientComparisonProgre
       <div className="flex flex-col items-center w-full max-w-sm p-4">
         <div className="flex flex-col items-center w-full max-w-sm p-4">
           <h3 className="text-lg font-bold mb-2">{`${nutrientName} Progress`}</h3>
-          <div className="w-full bg-gray-200 rounded-full h-6">
+          <div className="w-full bg-gray-200 rounded-r-full h-6">
             <div />
           </div>
           <div className="mt-2 text-sm flex justify-between w-full">
@@ -75,8 +75,8 @@ const DailyNutrientComparisonProgressBar: React.FC<DailyNutrientComparisonProgre
   return (
     <div className="flex flex-col items-center w-full max-w-sm p-4">
       <h3 className="text-lg font-bold mb-2">{`${nutrientName} Progress`}</h3>
-      <div className="w-full bg-gray-200 rounded-full h-6">
-        <div className={`${progressColor} h-6 rounded-full`} style={{ width: `${progressPercentage}%` }} />
+      <div className="w-full bg-gray-200 rounded-r-full h-6">
+        <div className={`${progressColor} h-6 rounded-r-full`} style={{ width: `${progressPercentage}%` }} />
       </div>
       <div className="mt-2 text-sm flex justify-between w-full">
         <span>Current: {currentIntake} g</span>
