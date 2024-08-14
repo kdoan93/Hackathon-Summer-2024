@@ -28,11 +28,9 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 
   return (
     <ClerkProvider>
+      afterSignInUrl="/dashboard" afterSignUpUrl="/dashboard"
       {/* Google Analytics Script */}
-      <Script
-        strategy="afterInteractive"
-        src={`https://www.googletagmanager.com/gtag/js?id=G-HYG8BVZ0CJ`}
-      />
+      <Script strategy="afterInteractive" src={`https://www.googletagmanager.com/gtag/js?id=G-HYG8BVZ0CJ`} />
       <Script
         id="google-analytics"
         strategy="afterInteractive"
@@ -42,7 +40,7 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
             gtag('config', 'G-HYG8BVZ0CJ');
-          `,
+          `
         }}
       />
       <Component {...pageProps} />

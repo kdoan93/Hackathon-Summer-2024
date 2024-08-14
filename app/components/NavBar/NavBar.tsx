@@ -58,7 +58,7 @@ const NavBar = () => {
             </Link>
             <Link
               className="navbar-user pl-3 btn btn-ghost text-xl text-logo-orange"
-              href={`https://trusting-redbird-78.accounts.dev/sign-in`}
+              href={`${process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL}`}
             >
               <SignInButton>Sign In</SignInButton>
             </Link>
@@ -85,3 +85,16 @@ const NavBar = () => {
 };
 
 export default NavBar;
+
+// https://accounts.google.com/o/oauth2/auth/oauthchooseaccount
+// ?access_type=offline
+// &client_id=787459168867-0v2orf3qo56uocsi84iroseoahhuovdm.apps.googleusercontent.com
+// &prompt=consent
+// &redirect_uri=https%3A%2F%2Fclerk.shared.lcl.dev%2Fv1%2Foauth_callback
+// &response_type=code
+// &scope=openid%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email%20https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile
+// &state=g4gaugm4b0s4exocvvd2nvijffq6b31sd1jde8b3
+// &service=lso
+// &o2v=1
+// &ddm=0
+// &flowName=GeneralOAuthFlow
