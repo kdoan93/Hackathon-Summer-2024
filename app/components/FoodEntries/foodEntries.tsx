@@ -28,12 +28,16 @@ interface UserFoodEntries {
   data: DataArray[];
 }
 
-const FoodEntries: React.FC = () => {
+interface FoodEntriesProps {
+  trigger: boolean;
+  setTrigger: React.Dispatch<React.SetStateAction<boolean>>; // Define the type for setTrigger
+}
+
+const FoodEntries: React.FC<FoodEntriesProps> = ({ trigger, setTrigger }) => {
   const [userFoodEntries, setUserFoodEntries] = useState<UserFoodEntries | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [trigger, setTrigger] = useState(true);
   const { user } = useUser();
   const userId = user?.id;
 

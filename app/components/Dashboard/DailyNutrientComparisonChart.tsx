@@ -1,9 +1,7 @@
 import React, { useEffect, useState } from "react";
-import { Bar } from "react-chartjs-2";
-import { Chart as ChartJS, CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend } from "chart.js";
 
 interface ResponseData {
-  CaloricIntake: number;
+  Calories: number;
   TotalFat: number;
   Cholesterol: number;
   Sodium: number;
@@ -42,63 +40,50 @@ interface UserFoodEntries {
   data: InfoData[];
 }
 
-interface DailyNutrientComparisonChartProps {
+interface DailyNutrientComparisonProgressBarProps {
   profileData: ProfileData | null;
   nutrientName: keyof ResponseData;
   goalValue: number | undefined;
+  currentIntake: number | undefined | null;
 }
 
-ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend);
-
-const DailyNutrientComparisonChart: React.FC<DailyNutrientComparisonChartProps> = ({ nutrientName, goalValue }) => {
-  const [currentIntake, setCurrentIntake] = useState<number>(0);
-
-  const data = {
-    labels: [`Current ${nutrientName}`, `Goal ${nutrientName}`], // Labels for the two data points
-    datasets: [
-      {
-        label: `${nutrientName} (Current vs Goal)`,
-        data: [currentIntake, goalValue],
-        backgroundColor: ["rgba(54, 162, 235, 0.2)", "rgba(255, 99, 132, 0.2)"],
-        borderColor: ["rgba(54, 162, 235, 1)", "rgba(255, 99, 132, 1)"],
-        borderWidth: 2
-      }
-    ]
-  };
-
-  const options = {
-    responsive: true,
-    plugins: {
-      legend: {
-        display: false // Hide the legend as we have only one dataset
-      },
-      title: {
-        display: true,
-        text: `Current vs Goal ${nutrientName}`
-      }
-    },
-    scales: {
-      x: {
-        title: {
-          display: true,
-          text: "Metric"
-        }
-      },
-      y: {
-        title: {
-          display: true,
-          text: `${nutrientName} (g)`
-        },
-        beginAtZero: true
-      }
-    }
-  };
+const DailyNutrientComparisonProgressBar: React.FC<DailyNutrientComparisonProgressBarProps> = ({
+  nutrientName,
+  goalValue,
+  currentIntake
+}) => {
+  if (goalValue === undefined) {
+    return (
+      <div className="flex flex-col items-center w-full max-w-sm p-4">
+        <div className="flex flex-col items-center w-full max-w-sm p-4">
+          <h3 className="text-lg font-bold mb-2">{`${nutrientName} Progress`}</h3>
+          <div className="w-full bg-gray-200 rounded-full h-6">
+            <div />
+          </div>
+          <div className="mt-2 text-sm flex justify-between w-full">
+            <span>Current: {currentIntake} g</span>
+            <span>Goal: {goalValue} g</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+  const progressPercentage = (currentIntake ? currentIntake / goalValue : 0) * 100;
+  let progressColor = progressPercentage > 115 ? "bg-orange-500" : "bg-green-500";
+  progressColor = progressPercentage > 130 ? "bg-red-500" : progressColor;
 
   return (
-    <div className="flex justify-center border-4 border-mustard-yellow rounded-2xl w-full h-full">
-      <Bar data={data} options={options} />
+    <div className="flex flex-col items-center w-full max-w-sm p-4">
+      <h3 className="text-lg font-bold mb-2">{`${nutrientName} Progress`}</h3>
+      <div className="w-full bg-gray-200 rounded-full h-6">
+        <div className={`${progressColor} h-6 rounded-full`} style={{ width: `${progressPercentage}%` }} />
+      </div>
+      <div className="mt-2 text-sm flex justify-between w-full">
+        <span>Current: {currentIntake} g</span>
+        <span>Goal: {goalValue} g</span>
+      </div>
     </div>
   );
 };
 
-export default DailyNutrientComparisonChart;
+export default DailyNutrientComparisonProgressBar;

@@ -50,7 +50,12 @@ ChartJS.register(CategoryScale, LinearScale, BarElement, Title, Tooltip, Legend)
 
 const WeightComparisonChart: React.FC<WeightComparisonChartProps> = ({ profileData }) => {
   if (!profileData) {
-    return <div>No data available</div>;
+    return (
+      <div className="flex  flex-col items-center justify-center border-4 border-mustard-yellow rounded-2xl w-full h-full">
+        <h1 className="text-4xl underline p-5">No data available</h1>
+        <p className="text-3xl text-center p-5">Please Create A Profile to view stats</p>
+      </div>
+    );
   }
 
   const data = {
@@ -61,7 +66,7 @@ const WeightComparisonChart: React.FC<WeightComparisonChartProps> = ({ profileDa
         data: [profileData.weightLbs, profileData.goalWeight],
         backgroundColor: ["rgba(54, 162, 235, 0.2)", "rgba(255, 99, 132, 0.2)"],
         borderColor: ["rgba(54, 162, 235, 1)", "rgba(255, 99, 132, 1)"],
-        borderWidth: 2
+        borderWidth: 4
       }
     ]
   };
@@ -74,14 +79,13 @@ const WeightComparisonChart: React.FC<WeightComparisonChartProps> = ({ profileDa
       },
       title: {
         display: true,
-        text: "Current Weight vs. Goal Weight"
+        text: "Weight Goals"
       }
     },
     scales: {
       x: {
         title: {
-          display: true,
-          text: "Metric"
+          display: false
         }
       },
       y: {

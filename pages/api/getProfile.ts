@@ -10,9 +10,15 @@ interface ProfileData extends Document {
   goalWeight: number;
   age: number;
   gender: string;
-  activityLevel: string;
+  activityLevel: number;
   bmi: number;
   bmiCategory: string;
+  dailyCaloricIntake: number;
+  dailyFat: number;
+  dailyCholesterol: number;
+  dailySodium: number;
+  dailyCarbs: number;
+  dailyProtein: number;
   createdAt: string;
 }
 
@@ -24,9 +30,15 @@ type Data = {
   goalWeight: number;
   age: number;
   gender: string;
-  activityLevel: string;
+  activityLevel: number;
   bmi: number;
   bmiCategory: string;
+  dailyCaloricIntake: number;
+  dailyFat: number;
+  dailyCholesterol: number;
+  dailySodium: number;
+  dailyCarbs: number;
+  dailyProtein: number;
   createdAt: string;
 };
 
@@ -63,6 +75,12 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
         activityLevel: profile.activityLevel,
         bmi: profile.bmi,
         bmiCategory: profile.bmiCategory,
+        dailyCaloricIntake: profile.dailyCaloricIntake,
+        dailyFat: profile.dailyFat,
+        dailyCholesterol: profile.dailyCholesterol,
+        dailySodium: profile.dailySodium,
+        dailyCarbs: profile.dailyCarbs,
+        dailyProtein: profile.dailyProtein,
         createdAt: profile.createdAt
       };
 
