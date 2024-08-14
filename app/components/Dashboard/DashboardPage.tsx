@@ -6,7 +6,7 @@ import DailyNutrientComparisonChart from "./DailyNutrientComparisonChart";
 
 // Below is to define types for typescript errors
 interface ResponseData {
-  CaloricIntake: number;
+  Calories: number;
   TotalFat: number;
   Cholesterol: number;
   Sodium: number;
@@ -34,17 +34,31 @@ interface ProfileData {
   createdAt: string;
 }
 
+interface UserFoodEntries {
+  data: InfoData[];
+}
+
+interface InfoData {
+  createdAt: Date;
+  response: ResponseData;
+  _id: string;
+  userId: string;
+  prompt: string;
+}
+
 interface DashboardPageProps {
   userId: string;
 }
 
 const DashboardPage: React.FC<DashboardPageProps> = ({ userId }) => {
   const [profileData, setProfileData] = useState<ProfileData | null>(null);
+  const [userFoodEntries, setUserFoodEntries] = useState<UserFoodEntries | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [trigger, setTrigger] = useState(true);
   const [needsRefresh, setNeedsRefresh] = useState<boolean>(false);
+
+  console.log("profile: ", profileData);
 
   useEffect(() => {
     const loadData = async () => {
@@ -55,9 +69,8 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ userId }) => {
           throw new Error(`Network response was not ok: ${res.statusText}`);
         }
         const data = await res.json();
-        console.log("data:", data);
 
-        if (data && data.userId === userId) {
+        if (data && data.userId) {
           setProfileData(data);
         } else {
           setProfileData(null);
@@ -72,7 +85,64 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ userId }) => {
     };
 
     loadData();
-  }, [userId, needsRefresh]);
+  }, [needsRefresh]);
+
+  useEffect(() => {
+    const loadEntries = async () => {
+      try {
+        const res = await fetch(`/api/foodEntries/getAllFoodEntries?userId=${encodeURIComponent(userId)}`);
+
+        if (!res.ok) {
+          throw new Error(`Network response was not ok: ${res.statusText}`);
+        }
+        const data = await res.json();
+
+        if (data) {
+          setUserFoodEntries(data);
+        } else {
+          setUserFoodEntries(null);
+        }
+      } catch (error) {
+        setError("Failed to fetch User's Food Entries.");
+        console.error("Error fetching data:", error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    loadEntries();
+  }, [needsRefresh]);
+
+  const aggregateNutrientData = (userFoodEntries: InfoData[]): ResponseData => {
+    const today = new Date().toISOString().split("T")[0]; // Get today's date in YYYY-MM-DD format
+
+    // Initialize totals
+    const totals: ResponseData = {
+      Calories: 0,
+      TotalFat: 0,
+      Cholesterol: 0,
+      Sodium: 0,
+      TotalCarbohydrate: 0,
+      Protein: 0,
+      Fiber: 0
+    };
+
+    userFoodEntries.forEach((entry) => {
+      const entryDate = new Date(entry.createdAt).toISOString().split("T")[0];
+      if (entryDate === today) {
+        totals.Calories += entry.response.Calories || 0;
+        totals.TotalFat += entry.response.TotalFat || 0;
+        totals.Cholesterol += entry.response.Cholesterol || 0;
+        totals.Sodium += entry.response.Sodium || 0;
+        totals.TotalCarbohydrate += entry.response.TotalCarbohydrate || 0;
+        totals.Protein += entry.response.Protein || 0;
+        totals.Fiber += entry.response.Fiber || 0;
+      }
+    });
+    return totals;
+  };
+
+  const aggregatedNutrientData = userFoodEntries ? aggregateNutrientData(userFoodEntries.data) : null;
 
   const handleProfileCreated = () => {
     setNeedsRefresh(true); // Trigger a re-fetch
@@ -96,25 +166,42 @@ const DashboardPage: React.FC<DashboardPageProps> = ({ userId }) => {
         <div className="w-auto">
           <DailyNutrientComparisonChart
             profileData={profileData}
-            nutrientName="CaloricIntake"
+            nutrientName="Calories"
             goalValue={profileData?.dailyCaloricIntake}
+            currentIntake={aggregatedNutrientData?.Calories}
           />
         </div>
         <div className="w-auto">
-          {/* <DailyNutrientComparisonChart userFoodEntries={userFoodEntries} profileData={profileData} nutrientName="Protein" /> */}
+          <DailyNutrientComparisonChart
+            profileData={profileData}
+            nutrientName="Protein"
+            goalValue={profileData?.dailyProtein}
+            currentIntake={aggregatedNutrientData?.Protein}
+          />
         </div>
         <div className="w-auto">
-          {/* <DailyNutrientComparisonChart userFoodEntries={userFoodEntries} profileData={profileData} nutrientName="TotalFat" /> */}
-        </div>
-        <div className="w-auto">
-          {/* <DailyNutrientComparisonChart
-            userFoodEntries={userFoodEntries}
+          <DailyNutrientComparisonChart
             profileData={profileData}
             nutrientName="TotalCarbohydrate"
-          /> */}
+            goalValue={profileData?.dailyCarbs}
+            currentIntake={aggregatedNutrientData?.TotalCarbohydrate}
+          />
         </div>
         <div className="w-auto">
-          {/* <DailyNutrientComparisonChart userFoodEntries={userFoodEntries} profileData={profileData} nutrientName="Fiber" /> */}
+          <DailyNutrientComparisonChart
+            profileData={profileData}
+            nutrientName="TotalFat"
+            goalValue={profileData?.dailyFat}
+            currentIntake={aggregatedNutrientData?.TotalFat}
+          />
+        </div>
+        <div className="w-auto">
+          <DailyNutrientComparisonChart
+            profileData={profileData}
+            nutrientName="Sodium"
+            goalValue={profileData?.dailySodium}
+            currentIntake={aggregatedNutrientData?.Sodium}
+          />
         </div>
       </div>
       <style>

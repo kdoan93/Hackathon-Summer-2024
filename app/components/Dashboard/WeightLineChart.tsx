@@ -61,7 +61,7 @@ const WeightComparisonChart: React.FC<WeightComparisonChartProps> = ({ profileDa
         data: [profileData.weightLbs, profileData.goalWeight],
         backgroundColor: ["rgba(54, 162, 235, 0.2)", "rgba(255, 99, 132, 0.2)"],
         borderColor: ["rgba(54, 162, 235, 1)", "rgba(255, 99, 132, 1)"],
-        borderWidth: 2
+        borderWidth: 4
       }
     ]
   };
@@ -74,14 +74,13 @@ const WeightComparisonChart: React.FC<WeightComparisonChartProps> = ({ profileDa
       },
       title: {
         display: true,
-        text: "Current Weight vs. Goal Weight"
+        text: "Weight Goals"
       }
     },
     scales: {
       x: {
         title: {
-          display: true,
-          text: "Metric"
+          display: false
         }
       },
       y: {
