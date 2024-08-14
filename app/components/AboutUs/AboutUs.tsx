@@ -21,7 +21,8 @@ function AboutUs() {
             ></path>
           </svg>
         </a>
-        <div className="flex flex-col items-center justify-center w-auto h-auto text-lg">
+        {/* <div className="flex flex-col items-center justify-center w-auto h-auto text-lg px-10"> */}
+        <div className="flex flex-col items-center justify-center h-auto text-lg px-10">
           <p className="text-center mb-4">
             Sustain utilizes Google Gemini's API to provide users with detailed
             calorie and nutrition facts for meals, accessible through both text
