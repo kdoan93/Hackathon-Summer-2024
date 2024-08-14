@@ -4,7 +4,13 @@
 
 body {
   padding: 2rem;
+  caret-color: transparent;
 }
+
+input {
+  caret-color: white;
+}
+
 
 .main-page {
   height: 100vh;

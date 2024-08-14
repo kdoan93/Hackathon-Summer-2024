@@ -6,7 +6,11 @@ import VoiceToText from "../VoiceToText/VoiceToText"; // Import the VoiceToText 
 import NutritionTable from "../NutritionTable/NutritionTable"; // Import the NutritionTable component
 import { SignInButton, useUser } from "@clerk/nextjs";
 
-const InputForm: React.FC = () => {
+interface InputFormProps {
+  onEntryAdded: () => void; // Prop to notify parent component when an entry is added
+}
+
+const InputForm: React.FC<InputFormProps> = ({ onEntryAdded }) => {
   const [prompt, setPrompt] = useState("");
   const [AIresponse, setAIResponse] = useState<any>(null);
   const [isValid, setIsValid] = useState<boolean>(false);
@@ -21,11 +25,12 @@ const InputForm: React.FC = () => {
 
   result: {
     "Calories": *value*,
-    "Total fat": *value*,
+    "TotalFat": *value*,
     "Cholesterol": *value*,
     "Sodium": *value*,
-    "Total Carbohydrate": *value*,
-    "Protein": *value*
+    "TotalCarbohydrate": *value*,
+    "Protein": *value*,
+    "Fiber": *value*
     }
 
     Here is the food: ${prompt}`;
@@ -40,16 +45,13 @@ const InputForm: React.FC = () => {
         const response = await fetch("/api/gemini", {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/json"
           },
-          body: JSON.stringify({ trainer }),
+          body: JSON.stringify({ trainer })
         });
         const data = await response.json();
 
-        if (
-          data.result.trim() ===
-          "Not enough information given to give a good calculation."
-        ) {
+        if (data.result.trim() === "Not enough information given to give a good calculation.") {
           setAIResponse(data.result);
           setIsValid(false);
           setSubmitted(true);
@@ -57,9 +59,7 @@ const InputForm: React.FC = () => {
           return;
         }
 
-        const normalizedResponse = JSON.parse(
-          data.result.replace(/```json|```/g, "")
-        );
+        const normalizedResponse = JSON.parse(data.result.replace(/```json|```/g, ""));
         setAIResponse(normalizedResponse);
         setSubmitted(true);
         setIsValid(true);
@@ -79,14 +79,15 @@ const InputForm: React.FC = () => {
         await fetch("/api/foodEntries/createFoodEntry", {
           method: "POST",
           headers: {
-            "Content-Type": "application/json",
+            "Content-Type": "application/json"
           },
-          body: JSON.stringify({ userId, prompt, AIresponse }),
+          body: JSON.stringify({ userId, prompt, AIresponse })
         });
 
         setAIResponse("");
         setPrompt("");
         setResponseTitle("");
+        onEntryAdded();
       }
     } catch (error) {
       console.error("Error adding food entry: ", error);
@@ -133,13 +134,7 @@ const InputForm: React.FC = () => {
 
       {/* Tooltip */}
       <div className="tooltip flex justify-end mb-1.5" data-tip={dataToolTip}>
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="1.5rem"
-          height="1.5rem"
-          viewBox="0 0 24 24"
-          className="end mr-3"
-        >
+        <svg xmlns="http://www.w3.org/2000/svg" width="1.5rem" height="1.5rem" viewBox="0 0 24 24" className="end mr-3">
           <path
             fill="currentColor"
             d="M11 17h2v-6h-2zm1-8q.425 0 .713-.288T13 8t-.288-.712T12 7t-.712.288T11 8t.288.713T12 9m0 13q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22m0-2q3.35 0 5.675-2.325T20 12t-2.325-5.675T12 4T6.325 6.325T4 12t2.325 5.675T12 20m0-8"
@@ -150,9 +145,7 @@ const InputForm: React.FC = () => {
       {/* Display the nutritional table if response is available */}
       {submitted && isValid ? (
         <div className="response-container">
-          <h1 className="response-title mt-5 text-center text-2xl">
-            {responseTitle}
-          </h1>
+          <h1 className="response-title mt-5 text-center text-2xl">{responseTitle}</h1>
           <NutritionTable response={AIresponse} />
           <div className="add-container flex flex-col items-center">
             {userId ? (
@@ -173,7 +166,7 @@ const InputForm: React.FC = () => {
         submitted && !isValid && <p>{AIresponse}</p>
       )}
       <style>
-      {`
+        {`
         @media(max-width:768px){
           .input-form-submit{
             height: 3rem;

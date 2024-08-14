@@ -19,7 +19,7 @@ interface DataArray {
   response: ResponseData;
 }
 
-interface UserData {
+interface UserFoodEntries {
   _id: string;
   userId: string;
   prompt: string;
@@ -28,12 +28,16 @@ interface UserData {
   data: DataArray[];
 }
 
-const FoodEntries: React.FC = () => {
-  const [userData, setUserData] = useState<UserData | null>(null);
+interface FoodEntriesProps {
+  trigger: boolean;
+  setTrigger: React.Dispatch<React.SetStateAction<boolean>>; // Define the type for setTrigger
+}
+
+const FoodEntries: React.FC<FoodEntriesProps> = ({ trigger, setTrigger }) => {
+  const [userFoodEntries, setUserFoodEntries] = useState<UserFoodEntries | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
   const [currentPage, setCurrentPage] = useState<number>(1);
-  const [trigger, setTrigger] = useState(true);
   const { user } = useUser();
   const userId = user?.id;
 
@@ -51,7 +55,7 @@ const FoodEntries: React.FC = () => {
           throw new Error("Data not fetched: Network Failure");
         }
         const data = await res.json();
-        setUserData(data);
+        setUserFoodEntries(data);
       } catch (error) {
         setError("Failed to fetch data");
         console.error("Error fetching data:", error);
@@ -92,7 +96,7 @@ const FoodEntries: React.FC = () => {
     <div className="dashboard-main flex flex-col items-center justify-center gap-20">
       {/* Calorie chart section */}
       <div className="overflow-x-auto">
-        <div className="overflow-y-auto h-80">
+        <div className="overflow-y-auto h-120">
           <table className="table">
             {/* head */}
             <thead>
@@ -104,7 +108,7 @@ const FoodEntries: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-              {userData?.data.map((info) => {
+              {userFoodEntries?.data.map((info) => {
                 // Below reformats the date
                 const formattedDate = new Date(info.createdAt).toLocaleDateString("en-US", {
                   year: "numeric",

@@ -30,17 +30,13 @@ const NavBar = () => {
           <div className="text-logo-orange flex items-center">
             <UserButton />
             <Link
-              className={`pl-3 btn btn-ghost text-xl ${
-                isActive("/dashboard") ? "text-logo-orange" : "text-gray-600"
-              }`}
+              className={`pl-3 btn btn-ghost text-xl ${isActive("/dashboard") ? "text-logo-orange" : "text-gray-600"}`}
               href="/dashboard"
             >
               Dashboard
             </Link>
             <Link
-              className={`pl-3 btn btn-ghost text-xl ${
-                isActive("/meal-input") ? "text-logo-orange" : "text-gray-600"
-              }`}
+              className={`pl-3 btn btn-ghost text-xl ${isActive("/meal-input") ? "text-logo-orange" : "text-gray-600"}`}
               href="/meal-input"
             >
               Meal Input
@@ -48,7 +44,7 @@ const NavBar = () => {
           </div>
           <div>
             <a className="navbar-user text-dark-brown pl-3 flex float-end btn btn-ghost text-xl">
-              <SignOutButton />
+              <SignOutButton redirectUrl="/" />
             </a>
           </div>
         </SignedIn>
@@ -60,14 +56,17 @@ const NavBar = () => {
             >
               Try Now!
             </Link>
-            <a className="navbar-user pl-3 btn btn-ghost text-xl text-logo-orange">
-              <SignInButton />
-            </a>
+            <Link
+              className="navbar-user pl-3 btn btn-ghost text-xl text-logo-orange"
+              href={`https://trusting-redbird-78.accounts.dev/sign-in`}
+            >
+              <SignInButton>Sign In</SignInButton>
+            </Link>
           </div>
         </SignedOut>
       </div>
       <style>
-      {`
+        {`
         @media(max-width:768px){
           .navbar-user {
             margin-right: 20px;

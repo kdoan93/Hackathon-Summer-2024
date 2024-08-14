@@ -1,5 +1,5 @@
 import { AppProps } from 'next/app';
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useRouter } from 'next/router';
 import Script from 'next/script';
 import { ClerkProvider } from '@clerk/nextjs';
@@ -12,7 +12,6 @@ declare global {
 }
 
 const MyApp = ({ Component, pageProps }: AppProps) => {
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
@@ -42,12 +41,11 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-
-            gtag('config', 'GA_MEASUREMENT_ID');
+            gtag('config', 'G-HYG8BVZ0CJ');
           `,
         }}
       />
-      <Component {...pageProps} isLoggedIn={isLoggedIn} />
+      <Component {...pageProps} />
     </ClerkProvider>
   );
 };
