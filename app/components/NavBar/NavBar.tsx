@@ -56,12 +56,9 @@ const NavBar = () => {
             >
               Try Now!
             </Link>
-            <Link
-              className="navbar-user pl-3 btn btn-ghost text-xl text-logo-orange"
-              href={`${process.env.NEXT_PUBLIC_CLERK_SIGN_IN_URL}`}
-            >
+            <div className="navbar-user pl-3 btn btn-ghost text-xl text-logo-orange">
               <SignInButton>Sign In</SignInButton>
-            </Link>
+            </div>
           </div>
         </SignedOut>
       </div>

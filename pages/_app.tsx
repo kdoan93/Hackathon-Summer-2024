@@ -28,7 +28,6 @@ const MyApp = ({ Component, pageProps }: AppProps) => {
 
   return (
     <ClerkProvider>
-      afterSignInUrl="/dashboard" afterSignUpUrl="/dashboard"
       {/* Google Analytics Script */}
       <Script strategy="afterInteractive" src={`https://www.googletagmanager.com/gtag/js?id=G-HYG8BVZ0CJ`} />
       <Script
