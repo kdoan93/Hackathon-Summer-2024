@@ -49,7 +49,11 @@ const DashboardPage: React.FC = () => {
         return;
       }
       try {
-        const res = await fetch(`/api/foodEntries/getAllFoodEntries?userId=${encodeURIComponent(userId)}`);
+        const res = await fetch(
+          `/api/foodEntries/getAllFoodEntries?userId=${encodeURIComponent(
+            userId
+          )}`
+        );
         if (!res.ok) {
           throw new Error("Data not fetched: Network Failure");
         }
@@ -66,21 +70,22 @@ const DashboardPage: React.FC = () => {
   }, [userId, trigger]);
 
   return (
-    <div className="dashboard-main flex flex-col items-center justify-center gap-20 w-4/5">
-      <div className="flex flex-row w-full justify-evenly">
-        <div className="flex flex-col items-center">
-          <h1 className="font-bold">Goal Tracker</h1>
-          <Graph userData={userData} />
-        </div>
-        <div className="flex flex-col items-center">
-          <h1 className="font-bold">Profile</h1>
-          <Profile />
-        </div>
+    <div className="dashboard-main w-[80vw] mx-auto flex flex-col items-center justify-center gap-5 h-auto">
+      <div className="dashboard-graph-profile flex flex-row h-auto gap-5">
+        <Graph userData={userData} />
+        <Profile />
       </div>
-      <div className="flex flex-col items-center">
-        <h1 className="font-bold">Food Entries</h1>
-        <FoodEntries />
-      </div>
+      <FoodEntries />
+      <style>
+        {`
+        @media(max-width:768px){
+          .dashboard-graph-profile{
+            flex-direction:column;
+            align-items:center
+          }
+        }
+        `}
+      </style>
     </div>
   );
 };

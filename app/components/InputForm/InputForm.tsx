@@ -14,7 +14,6 @@ const InputForm: React.FC = () => {
   const [responseTitle, setResponseTitle] = useState<any>("");
   const { user } = useUser();
   const userId = user?.id;
-  console.log("user", user?.id);
 
   const trainer = `Your only job is to return nutritional values for the given food/food items. If the prompt is too vague to calculate a good response then respond with 'Not enough information given to give a good calculation.' Do not answer any other irrelevant questions or prompts. Dont forget to calculate for the amount of items given. if no amount is given assume it is one serving.
 
@@ -36,52 +35,53 @@ const InputForm: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (prompt.length) {
+      try {
+        const response = await fetch("/api/gemini", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ trainer }),
+        });
+        const data = await response.json();
 
-    try {
-      const response = await fetch("/api/gemini", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ trainer })
-      });
-      const data = await response.json();
-      console.log("data: ", data);
+        if (
+          data.result.trim() ===
+          "Not enough information given to give a good calculation."
+        ) {
+          setAIResponse(data.result);
+          setIsValid(false);
+          setSubmitted(true);
+          setPrompt("");
+          return;
+        }
 
-      if (data.result.trim() === "Not enough information given to give a good calculation.") {
-        setAIResponse(data.result);
-        setIsValid(false);
+        const normalizedResponse = JSON.parse(
+          data.result.replace(/```json|```/g, "")
+        );
+        setAIResponse(normalizedResponse);
         setSubmitted(true);
-        setPrompt("");
-        return;
+        setIsValid(true);
+        setResponseTitle(prompt);
+      } catch (error) {
+        console.error("Error calling Gemini API", error);
       }
-
-      const normalizedResponse = JSON.parse(data.result.replace(/```json|```/g, ""));
-      console.log("normalizedResponse: ", normalizedResponse);
-      setAIResponse(normalizedResponse);
-      setSubmitted(true);
-      setIsValid(true);
-      setResponseTitle(prompt);
-    } catch (error) {
-      console.error("Error calling Gemini API", error);
     }
   };
 
   const addToEntries = async (e: React.FormEvent) => {
     e.preventDefault();
 
-    console.log("addToEntries clicked!");
-    console.log("AIresponse: ", AIresponse);
-    console.log("prompt: ", prompt);
     try {
       if (user) {
         // Below adds the prompt and normalize response to the database
         await fetch("/api/foodEntries/createFoodEntry", {
           method: "POST",
           headers: {
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
           },
-          body: JSON.stringify({ userId, prompt, AIresponse })
+          body: JSON.stringify({ userId, prompt, AIresponse }),
         });
 
         setAIResponse("");
@@ -96,19 +96,10 @@ const InputForm: React.FC = () => {
   return (
     <div className="flex flex-col gap-2">
       <p className="description">Enter your meal and get nutrition facts!</p>
-      {/* Tooltip */}
-      <div className="tooltip flex justify-end mb-1.5" data-tip={dataToolTip}>
-        <svg xmlns="http://www.w3.org/2000/svg" width="1.3em" height="1.3em" viewBox="0 0 24 24" className="end mr-3">
-          <path
-            fill="currentColor"
-            d="M11 17h2v-6h-2zm1-8q.425 0 .713-.288T13 8t-.288-.712T12 7t-.712.288T11 8t.288.713T12 9m0 13q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22m0-2q3.35 0 5.675-2.325T20 12t-2.325-5.675T12 4T6.325 6.325T4 12t2.325 5.675T12 20m0-8"
-          />
-        </svg>
-      </div>
 
       {/* Input Form */}
       <form onSubmit={handleSubmit}>
-        <label className="input input-bordered flex items-center justify-between gap-2">
+        <label className="input-form-label input input-bordered flex items-center justify-between">
           <input
             className="w-64"
             type="text"
@@ -124,7 +115,7 @@ const InputForm: React.FC = () => {
                 xmlns="http://www.w3.org/2000/svg"
                 viewBox="0 0 16 16"
                 fill="currentColor"
-                className="h-12 w-12 opacity-80"
+                className="input-form-submit h-8 w-8 opacity-80"
               >
                 <path
                   fillRule="evenodd"
@@ -140,10 +131,28 @@ const InputForm: React.FC = () => {
         </label>
       </form>
 
+      {/* Tooltip */}
+      <div className="tooltip flex justify-end mb-1.5" data-tip={dataToolTip}>
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          width="1.5rem"
+          height="1.5rem"
+          viewBox="0 0 24 24"
+          className="end mr-3"
+        >
+          <path
+            fill="currentColor"
+            d="M11 17h2v-6h-2zm1-8q.425 0 .713-.288T13 8t-.288-.712T12 7t-.712.288T11 8t.288.713T12 9m0 13q-2.075 0-3.9-.788t-3.175-2.137T2.788 15.9T2 12t.788-3.9t2.137-3.175T8.1 2.788T12 2t3.9.788t3.175 2.137T21.213 8.1T22 12t-.788 3.9t-2.137 3.175t-3.175 2.138T12 22m0-2q3.35 0 5.675-2.325T20 12t-2.325-5.675T12 4T6.325 6.325T4 12t2.325 5.675T12 20m0-8"
+          />
+        </svg>
+      </div>
+
       {/* Display the nutritional table if response is available */}
       {submitted && isValid ? (
         <div className="response-container">
-          <h1 className="response-title mt-5 text-center text-2xl">{responseTitle}</h1>
+          <h1 className="response-title mt-5 text-center text-2xl">
+            {responseTitle}
+          </h1>
           <NutritionTable response={AIresponse} />
           <div className="add-container flex flex-col items-center">
             {userId ? (
@@ -163,6 +172,19 @@ const InputForm: React.FC = () => {
       ) : (
         submitted && !isValid && <p>{AIresponse}</p>
       )}
+      <style>
+      {`
+        @media(max-width:768px){
+          .input-form-submit{
+            height: 3rem;
+            width: 3rem;
+          }
+            .input-form-label{
+              padding: 0 0 0 8px;
+            }
+        }
+        `}
+      </style>
     </div>
   );
 };

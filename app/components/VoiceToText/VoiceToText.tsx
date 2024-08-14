@@ -97,7 +97,7 @@ const VoiceToText: React.FC<VoiceToTextProps> = ({ onTranscript }) => {
     >
       {isListening ? (
         <svg
-          className="h-12 w-12 opacity-80"
+          className="voice-mic h-8 w-8 opacity-80"
           xmlns="http://www.w3.org/2000/svg"
           width="1em"
           height="1em"
@@ -110,7 +110,7 @@ const VoiceToText: React.FC<VoiceToTextProps> = ({ onTranscript }) => {
         </svg>
       ) : (
         <svg
-          className="h-12 w-12 opacity-80"
+          className="voice-mic h-8 w-8 opacity-80"
           xmlns="http://www.w3.org/2000/svg"
           width="1em"
           height="1em"
@@ -122,6 +122,16 @@ const VoiceToText: React.FC<VoiceToTextProps> = ({ onTranscript }) => {
           />
         </svg>
       )}
+      <style>
+        {`
+          @media(max-width:768px){
+            .voice-mic{
+              width: 3rem;
+              height: 3rem;
+            }
+          }
+          `}
+      </style>
     </button>
   );
 };

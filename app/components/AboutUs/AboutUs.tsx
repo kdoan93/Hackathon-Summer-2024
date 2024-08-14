@@ -2,9 +2,9 @@ import React from "react";
 
 function AboutUs() {
   return (
-    <div className="flex flex-col items-center gap-7">
-      <div className="flex flex-col items-center">
-        <h1 className="page-header p-1rem"> About Sustain</h1>
+    // <div className="flex flex-col items-center gap-5 px-4 h-[100vh]">
+    <div className="flex flex-col items-center gap-5 px-4">
+      <div className="flex flex-col items-center gap-5">
         <a
           href="https://github.com/kdoan93/Hackathon-Summer-2024"
           target="_blank"
@@ -12,8 +12,7 @@ function AboutUs() {
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            width="1.75em"
-            height="1.75em"
+            className="w-10 h-10"
             viewBox="0 0 24 24"
           >
             <path
@@ -22,8 +21,9 @@ function AboutUs() {
             ></path>
           </svg>
         </a>
-        <div className="flex flex-col items-center justify-center w-1/2 h-48 text-lg">
-          <p>
+        {/* <div className="flex flex-col items-center justify-center w-auto h-auto text-lg px-10"> */}
+        <div className="flex flex-col items-center justify-center h-auto text-lg px-10">
+          <p className="text-center mb-4">
             Sustain utilizes Google Gemini's API to provide users with detailed
             calorie and nutrition facts for meals, accessible through both text
             input and voice-to-text functionality. Users can store their meal
@@ -36,18 +36,16 @@ function AboutUs() {
           </p>
         </div>
       </div>
-      <div className=" flex flex-row">
+      <div className="flex flex-wrap justify-center">
         {/* Website info */}
         {/* Cory */}
-        <div className="card bg-base-100 w-96 shadow-xl bg-red">
-          <figure className="px-10 pt-10">
+        <div className="bg-base-100 w-80 sm:w-72 md:w-64 shadow-xl">
+          <figure className="px-5 pt-5">
             <img src="/images/cory.jpeg" alt="Shoes" className="rounded-xl" />
           </figure>
           <div className="card-body items-center text-center">
             <h2 className="card-title">Cory Campbell</h2>
-            <p>Where to checkout Cory:</p>
             <div className="card-actions">
-              {/* <button className="btn btn-primary">Buy Now</button> */}
               <a
                 href="https://www.linkedin.com/in/cory-campbell-67694b2a5/"
                 target="_blank"
@@ -92,13 +90,12 @@ function AboutUs() {
           </div>
         </div>
         {/* Kenny */}
-        <div className="card bg-base-100 w-96 shadow-xl">
-          <figure className="px-10 pt-10">
+        <div className="bg-base-100 w-80 sm:w-72 md:w-64 shadow-xl">
+          <figure className="px-5 pt-5">
             <img src="/images/kenny.jpeg" alt="Shoes" className="rounded-xl" />
           </figure>
           <div className="card-body items-center text-center">
             <h2 className="card-title">Kenny Doan</h2>
-            <p>Where to checkout Kenny:</p>
             <div className="card-actions">
               <a href="https://www.linkedin.com/in/kdoan93/" target="_blank">
                 {/* Linkedin */}
@@ -141,13 +138,12 @@ function AboutUs() {
           </div>
         </div>
         {/* Kyrene */}
-        <div className="card bg-base-100 w-96 shadow-xl">
-          <figure className="px-10 pt-10">
+        <div className="bg-base-100 w-80 sm:w-72 md:w-64 shadow-xl">
+          <figure className="px-5 pt-5">
             <img src="/images/kyrene.jpg" alt="Shoes" className="rounded-xl" />
           </figure>
           <div className="card-body items-center text-center">
             <h2 className="card-title">Kyrene Flores</h2>
-            <p>Where to checkout Kyrene:</p>
             <div className="card-actions">
               <a
                 href="https://www.linkedin.com/in/kyreneflores/"
@@ -193,13 +189,12 @@ function AboutUs() {
           </div>
         </div>
         {/* Kevin */}
-        <div className="card bg-base-100 w-96 shadow-xl">
-          <figure className="px-10 pt-10">
-            <img src="/images/kevin.png" alt="Shoes" className="rounded-xl" />
+        <div className="bg-base-100 w-80 sm:w-72 md:w-64 shadow-xl">
+          <figure className="px-5 pt-5">
+            <img src="/images/kevin.jpeg" alt="Shoes" className="rounded-xl" />
           </figure>
           <div className="card-body items-center text-center">
             <h2 className="card-title">Kevin Won</h2>
-            <p>Where to checkout Kevin:</p>
             <div className="card-actions">
               <a href="https://www.linkedin.com/in/kevinwon30/" target="_blank">
                 {/* Linkedin */}

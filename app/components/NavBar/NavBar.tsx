@@ -1,7 +1,13 @@
 import React from "react";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { SignedIn, SignedOut, SignInButton, UserButton, SignOutButton } from "@clerk/nextjs";
+import {
+  SignedIn,
+  SignedOut,
+  SignInButton,
+  UserButton,
+  SignOutButton,
+} from "@clerk/nextjs";
 
 const NavBar = () => {
   const router = useRouter();
@@ -21,37 +27,27 @@ const NavBar = () => {
       <div className="navbar h-12 pl-24">
         <div className="flex-1"></div>
         <SignedIn>
-          <div className="text-logo-orange flex items-center space-x-3">
+          <div className="text-logo-orange flex items-center">
             <UserButton />
             <Link
-              className={`pl-3 btn btn-ghost text-xl ${isActive("/dashboard") ? "text-logo-orange" : "text-gray-600"}`}
+              className={`pl-3 btn btn-ghost text-xl ${
+                isActive("/dashboard") ? "text-logo-orange" : "text-gray-600"
+              }`}
               href="/dashboard"
             >
               Dashboard
             </Link>
             <Link
-              className={`pl-3 btn btn-ghost text-xl ${isActive("/meal-input") ? "text-logo-orange" : "text-gray-600"}`}
+              className={`pl-3 btn btn-ghost text-xl ${
+                isActive("/meal-input") ? "text-logo-orange" : "text-gray-600"
+              }`}
               href="/meal-input"
             >
               Meal Input
             </Link>
-            <Link
-              className={`pl-3 btn btn-ghost text-xl ${
-                isActive("/prompt-tips") ? "text-logo-orange" : "text-gray-600"
-              }`}
-              href="/prompt-tips"
-            >
-              Prompt Tips
-            </Link>
-            <Link
-              className={`pl-3 btn btn-ghost text-xl ${isActive("/about") ? "text-logo-orange" : "text-gray-600"}`}
-              href="/about"
-            >
-              About
-            </Link>
           </div>
           <div>
-            <a className="text-dark-brown pl-3 flex float-end btn btn-ghost text-xl">
+            <a className="navbar-user text-dark-brown pl-3 flex float-end btn btn-ghost text-xl">
               <SignOutButton />
             </a>
           </div>
@@ -64,18 +60,27 @@ const NavBar = () => {
             >
               Try Now!
             </Link>
-            <Link
-              className={`pl-3 btn btn-ghost text-xl ${isActive("/about") ? "text-logo-orange" : "text-gray-600"}`}
-              href="/about"
-            >
-              About Us
-            </Link>
-            <a className="pl-3 btn btn-ghost text-xl text-logo-orange">
+            <a className="navbar-user pl-3 btn btn-ghost text-xl text-logo-orange">
               <SignInButton />
             </a>
           </div>
         </SignedOut>
       </div>
+      <style>
+      {`
+        @media(max-width:768px){
+          .navbar-user {
+            margin-right: 20px;
+          }
+
+          .navbar a {
+            padding: 0 5px;
+            font-size: .75rem;
+            font-weight: 700;
+          }
+        }
+        `}
+      </style>
     </div>
   );
 };

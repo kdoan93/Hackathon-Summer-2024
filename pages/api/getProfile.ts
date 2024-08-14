@@ -35,7 +35,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse<
   if (req.method === "GET") {
     try {
       const { userId } = req.query;
-      console.log("User ID: ", userId);
 
       if (!userId || typeof userId !== "string") {
         return res.status(400).json({ message: "Invalid or missing userId" });

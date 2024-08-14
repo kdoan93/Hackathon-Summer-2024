@@ -3,15 +3,11 @@
 @tailwind utilities;
 
 body {
-  /* color: rgb(var(--foreground-rgb)); */
   padding: 2rem;
 }
 
 .main-page {
   height: 100vh;
-
-  /* background: url("/images/background.png") no-repeat center center; Not sure about this one
-  background-size: cover; */
 }
 
 .container {
@@ -33,7 +29,7 @@ body {
   line-height: 1.15;
   text-align: center;
   padding: 2rem;
-  color: #EB836B;
+  color: #eb836b;
 }
 
 .description {
@@ -56,7 +52,7 @@ footer {
   border-radius: 25px;
   margin-top: 10px;
   color: #666;
-  background-color: #EB836B;
+  background-color: #eb836b;
 }
 
 .landingSignIn button {
