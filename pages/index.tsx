@@ -100,9 +100,9 @@ const Home: React.FC<HomeProps> = () => {
           <p className="text-xl mt-4 text-light-brown">
             Join the other users who are already tracking their nutrition and achieving their goals!
           </p>
-          <Link className="btn btn-lg btn-logo-orange mt-8" href="https://trusting-redbird-78.accounts.dev/sign-up">
-            Sign Up Now
-          </Link>
+          <div className="btn btn-lg btn-logo-orange mt-8">
+            <SignUpButton forceRedirectUrl={"/dashboard"}>Sign Up Now</SignUpButton>
+          </div>
         </div>
       </section>
 
